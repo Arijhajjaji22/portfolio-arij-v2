@@ -1,0 +1,178 @@
+---
+export interface Props {
+  variant?: 'line' | 'minimal';
+  color?: string;
+  label?: string;
+}
+const { variant = 'line', color = '#7b2ff7', label = "SYSTEM_FRAGMENT" } = Astro.props;
+---
+
+<div class={`simple-divider-wrap scroll-reveal`} style={`--accent: ${color};`}>
+  
+  <div class="divider-line-container">
+    <div class="line-base"></div>
+    <div class="line-glow"></div>
+    <div class="line-node"></div>
+    <div class="line-scanner"></div>
+  </div>
+
+  <div class="divider-meta">
+    <div class="meta-tag">
+      <span class="tag-dot"></span>
+      <span class="tag-label">{label}</span>
+    </div>
+    <div class="meta-hex">0x{Math.floor(Math.random() * 0xFFFFFF).toString(16).toUpperCase()}</div>
+  </div>
+</div>
+
+<script>
+  function initSimpleDividers() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+  }
+
+  initSimpleDividers();
+  document.addEventListener('astro:after-swap', initSimpleDividers);
+</script>
+
+<style>
+  .simple-divider-wrap {
+    width: 100%;
+    max-width: 1200px;
+    margin: 80px auto;
+    padding: 0 2rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 1s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .simple-divider-wrap.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     THE LINE
+  ───────────────────────────────────────────────────────────── */
+  .divider-line-container {
+    position: relative;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+  }
+
+  .line-base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    transform: scaleX(0);
+    transition: transform 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+    transform-origin: center;
+  }
+  .is-visible .line-base { transform: scaleX(1); }
+
+  .line-glow {
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    filter: blur(8px);
+    opacity: 0;
+    transition: opacity 1.5s ease;
+  }
+  .is-visible .line-glow { opacity: 0.3; }
+
+  .line-node {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border: 2px solid var(--accent);
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
+    box-shadow: 0 0 15px var(--accent);
+    z-index: 2;
+  }
+  .is-visible .line-node { transform: translate(-50%, -50%) rotate(45deg) scale(1); }
+
+  .line-scanner {
+    position: absolute;
+    top: 0;
+    left: -10%;
+    width: 20%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+    opacity: 0;
+  }
+  .is-visible .line-scanner {
+    opacity: 0.8;
+    animation: scan 6s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+    animation-delay: 1.5s;
+  }
+
+  @keyframes scan {
+    0% { left: -20%; }
+    50%, 100% { left: 120%; }
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     META INFO
+  ───────────────────────────────────────────────────────────── */
+  .divider-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    opacity: 0;
+    transition: opacity 1s ease 0.5s;
+  }
+  .is-visible .divider-meta { opacity: 1; }
+
+  .meta-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tag-dot {
+    width: 4px;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--accent);
+    animation: pulse 2s infinite;
+  }
+  .tag-label {
+    font-size: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.4);
+    font-weight: 700;
+  }
+
+  .meta-hex {
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.15);
+    letter-spacing: 0.1em;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  @media (max-width: 768px) {
+    .simple-divider-wrap { margin: 60px auto; }
+    .meta-hex { display: none; }
+  }
+</style>

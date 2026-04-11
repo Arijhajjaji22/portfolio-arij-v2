@@ -1,0 +1,145 @@
+---
+const codeLines = [
+  { text: "const Arij = {", type: "code" },
+  { text: "  believes: [", type: "code" },
+  { text: '    "clean code > clever code",', type: "string" },
+  { text: '    "ship fast, refactor faster",', type: "string" },
+  { text: '    "monitoring is not optional",', type: "string" },
+  { text: '    "documentation is love"', type: "string" },
+  { text: "  ],", type: "code" },
+  { text: "  hates: [", type: "code" },
+  { text: '    "meetings without agenda",', type: "string" },
+  { text: '    "magic numbers in production",', type: "string" },
+  { text: '    "var in 2026",', type: "string" },
+  { text: '    "merge conflicts on Friday"', type: "string" },
+  { text: "  ],", type: "code" },
+  { text: "  loves: [", type: "code" },
+  { text: '    "a green CI pipeline at 2am",', type: "string" },
+  { text: '    "microservices done right",', type: "string" },
+  { text: '    "when Docker just works",', type: "string" },
+  { text: '    "that one colleague who writes tests"', type: "string" },
+  { text: "  ],", type: "code" },
+  { text: '  currentlyLearning: "Spring AI + RAG patterns",', type: "mix-string" },
+  { text: '  availableForHire: true,  // ← this is what matters', type: "hire-line" },
+  { text: '  location: "Tunis, Tunisia 🌍",', type: "mix-string" },
+  { text: '  contact: "arijhajjaji2@gmail.com"', type: "mix-string" },
+  { text: "}", type: "code" }
+];
+---
+<section id="manifesto" class="py-32 bg-[#08080a] relative">
+  <div class="container mx-auto px-6 relative z-10 max-w-4xl">
+    <div class="mb-16 text-center reveal-section">
+      <div class="reveal-label text-[10px] font-mono text-purple-500 uppercase tracking-[0.5em] mb-4 font-bold">core.beliefs</div>
+      <h2 class="text-3xl md:text-4xl font-black font-outfit uppercase tracking-tighter mb-4 leading-none split-title">
+         THE <span class="gradient-text-animated italic">MANIFESTO</span>
+      </h2>
+    </div>
+
+    <!-- IDE Window -->
+    <div class="glass-card bg-[#0d0d14] rounded-2xl border border-white/10 overflow-hidden shadow-2xl font-mono text-[10px] md:text-xs reveal-card relative" id="ide-window">
+       <div class="glass-inner">
+           <!-- Top Bar -->
+           <div class="bg-white/[0.02] border-b border-white/5 px-4 py-3 flex items-center justify-between">
+              <div class="flex gap-2">
+                 <div class="w-3 h-3 rounded-full bg-red-500/50"></div>
+                 <div class="w-3 h-3 rounded-full bg-amber-500/50"></div>
+                 <div class="w-3 h-3 rounded-full bg-green-500/50"></div>
+              </div>
+              <div class="text-gray-400 text-xs px-4 py-1 bg-[#08080a] rounded-md border border-white/5 shadow-inner">Arij.config.js</div>
+              <div class="w-16"></div> <!-- spacer -->
+           </div>
+
+           <!-- Editor Body -->
+           <div class="p-6 md:p-8 flex gap-4 md:gap-6 overflow-x-auto scrollbar-hide relative z-20">
+              <!-- Line Nums -->
+              <div class="flex flex-col text-gray-600 select-none text-right border-r border-white/5 pr-4 shrink-0" id="ide-lines">
+                 {codeLines.map((_, i) => ( <div>{i+1}</div> ))}
+              </div>
+              
+              <!-- Code -->
+              <div class="flex flex-col text-white pb-4" id="ide-code">
+                 {codeLines.map((line, i) => {
+                    let html = line.text;
+                    if(line.type === 'string') {
+                       html = html.replace(/"([^"]*)"/, '<span class="text-green-400">"$1"</span>');
+                    }
+                    if(line.type === 'mix-string' || line.type === 'code') {
+                       html = html.replace(/([a-zA-Z]+):/g, '<span class="text-violet-400">$1</span>:');
+                       html = html.replace(/"([^"]*)"/g, '<span class="text-green-400">"$1"</span>');
+                       html = html.replace(/const ([a-zA-Z]+) =/, '<span class="text-blue-400">const</span> <span class="text-yellow-200">$1</span> <span class="text-blue-400">=</span>');
+                    }
+                    if(line.type === 'hire-line') {
+                       html = html.replace(/([a-zA-Z]+):/, '<span class="text-violet-400">$1</span>:');
+                       html = html.replace(/true/, '<span class="text-cyan-400 font-bold">true</span>');
+                       html = html.replace(/\/\/(.*)/, '<span class="text-gray-500 italic">//$1</span>');
+                    }
+
+                    return (
+                       <div 
+                         class={`type-line hidden min-h-[1.5em] whitespace-pre transition-all ${line.type === 'hire-line' ? 'hire-pulse cursor-pointer hover:bg-white/10 rounded px-2 -mx-2' : ''}`}
+                         data-html={html}
+                         data-raw={line.text}
+                         onclick={line.type === 'hire-line' ? "document.getElementById('contact').scrollIntoView({behavior:'smooth'})" : ""}
+                         title={line.type === 'hire-line' ? "Click to initiate contact sequence" : ""}
+                       ></div>
+                    );
+                 })}
+              </div>
+           </div>
+       </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hire-pulse { animation: neon-pulse 2s infinite; }
+  @keyframes neon-pulse {
+     0%, 100% { text-shadow: 0 0 0 rgba(123,47,247,0); }
+     50% { text-shadow: 0 0 10px rgba(123,47,247,0.6); }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+     const win = document.getElementById('ide-window');
+     if(!win) return;
+     const lines = win.querySelectorAll('.type-line');
+     let started = false;
+
+     const typeWriter = (el, raw, html, onComplete) => {
+        el.classList.remove('hidden');
+        let chr = 0;
+        const iv = setInterval(() => {
+           el.textContent = raw.substring(0, chr) + (chr < raw.length ? '█' : '');
+           chr++;
+           if (chr > raw.length) {
+              clearInterval(iv);
+              el.innerHTML = html;
+              if(onComplete) onComplete();
+           }
+        }, 15);
+     };
+
+     const startTyping = () => {
+        if(started) return;
+        started = true;
+        
+        const typeLine = (index) => {
+           if(index >= lines.length) return;
+           const el = lines[index];
+           typeWriter(el, el.dataset.raw, el.dataset.html, () => {
+              setTimeout(() => typeLine(index + 1), 50);
+           });
+        };
+        typeLine(0);
+     };
+
+     const obs = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting) {
+           startTyping();
+           obs.disconnect();
+        }
+     }, { threshold: 0.3 });
+     obs.observe(win);
+  })();
+</script>

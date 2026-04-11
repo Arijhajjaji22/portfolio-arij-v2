@@ -1,0 +1,467 @@
+---
+// Philosophy / Quote section - ultra compact & animated
+---
+
+<section id="achievements" class="ach-section">
+
+  <!-- ══ ANIMATED BG ══ -->
+  <div class="ach-bg">
+    <canvas id="ach-canvas"></canvas>
+    <div class="ach-orb ach-o1"></div>
+    <div class="ach-orb ach-o2"></div>
+    <div class="ach-grid"></div>
+    <div class="ach-noise"></div>
+    <!-- Animated border top -->
+    <div class="ach-border-top">
+      <div class="ach-border-line"></div>
+    </div>
+    <div class="ach-border-bot">
+      <div class="ach-border-line ach-border-rev"></div>
+    </div>
+  </div>
+
+  <div class="ach-wrap">
+
+    <!-- QUOTE CARD -->
+    <div class="ach-card" id="ach-card">
+      <!-- Corner accents -->
+      <span class="ach-corner tl"></span>
+      <span class="ach-corner tr"></span>
+      <span class="ach-corner bl"></span>
+      <span class="ach-corner br"></span>
+
+      <!-- Dot grid bg -->
+      <div class="ach-dots"></div>
+
+      <!-- Floating accent dots -->
+      <span class="ach-dot d1"></span>
+      <span class="ach-dot d2"></span>
+      <span class="ach-dot d3"></span>
+
+      <!-- Inner glow -->
+      <div class="ach-glow-tl"></div>
+      <div class="ach-glow-br"></div>
+
+      <!-- Conic border spinner -->
+      <div class="ach-conic"></div>
+
+      <div class="ach-content">
+        <!-- Eyebrow -->
+        <div class="ach-eyebrow">
+          <span class="ach-eline ach-eline-l"></span>
+          <span class="ach-eyebrow-txt">Engineering.Philosophy</span>
+          <span class="ach-eline ach-eline-r"></span>
+        </div>
+
+        <!-- Quote -->
+        <blockquote class="ach-quote">
+          <span class="ach-q1 reveal-blur">
+            "Code is a <em class="ach-em cyan italic">liability</em>.
+          </span>
+          <span class="ach-q2 reveal-blur" style="transition-delay: 0.3s">
+            What matters is the <em class="ach-em violet italic">problem it solves</em>."
+          </span>
+        </blockquote>
+
+        <!-- Author -->
+        <div class="ach-author">
+          <span class="ach-author-line"></span>
+          <div class="ach-author-inner">
+            <div class="ach-avatar">
+              <div class="ach-avatar-inner">AH</div>
+            </div>
+            <span class="ach-author-txt">Arij Hajjaji — Full Stack Engineer</span>
+          </div>
+          <span class="ach-author-line"></span>
+        </div>
+      </div>
+
+      <!-- Animated bottom bar -->
+      <div class="ach-bottom-bar"></div>
+    </div>
+
+    <!-- STATS ROW -->
+
+
+  </div>
+</section>
+
+<style>
+/* ── BASE ──────────────────────────────────── */
+.ach-section {
+  position: relative;
+  padding: 8rem 0;
+  background: #08080a;
+  overflow: hidden;
+  isolation: isolate;
+}
+.ach-wrap {
+  position: relative; z-index: 10;
+  max-width: 700px; margin: 0 auto; padding: 0 1.5rem;
+  display: flex; flex-direction: column; gap: 1.2rem;
+}
+
+/* ── BG ────────────────────────────────────── */
+.ach-bg { position: absolute; inset: 0; pointer-events: none; }
+#ach-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.18; }
+
+.ach-orb { position: absolute; border-radius: 50%; filter: blur(90px); }
+.ach-o1 { width: 450px; height: 450px; top: -150px; left: -100px; background: radial-gradient(circle, rgba(123,47,247,0.07) 0%, transparent 70%); animation: ach-drift 18s ease-in-out infinite alternate; }
+.ach-o2 { width: 380px; height: 380px; bottom: -120px; right: -80px; background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%); animation: ach-drift2 22s ease-in-out infinite alternate; }
+@keyframes ach-drift  { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(40px,-25px) scale(1.08); } }
+@keyframes ach-drift2 { 0% { transform: translate(0,0); } 100% { transform: translate(-35px,20px) scale(0.92); } }
+
+.ach-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(59,130,246,0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.012) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 5%, transparent 70%);
+}
+
+.ach-noise {
+  position: absolute; inset: 0; z-index: 2;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.02'/%3E%3C/svg%3E");
+  opacity: 0.45; mix-blend-mode: overlay;
+}
+
+/* Animated borders top/bot */
+.ach-border-top, .ach-border-bot {
+  position: absolute; left: 0; right: 0; height: 2px; overflow: hidden;
+}
+.ach-border-top { top: 0; }
+.ach-border-bot { bottom: 0; }
+.ach-border-line {
+  width: 200%; height: 100%;
+  background: linear-gradient(90deg, transparent, #7b2ff7 30%, #3b82f6 70%, transparent);
+  opacity: 0.45; animation: ach-bflow 4s linear infinite;
+}
+.ach-border-rev { animation-direction: reverse; }
+@keyframes ach-bflow { 0% { transform: translateX(-50%); } 100% { transform: translateX(0%); } }
+
+/* ── CARD ──────────────────────────────────── */
+.ach-card {
+  position: relative; border-radius: 22px; overflow: hidden;
+  background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(28px);
+  box-shadow: 0 18px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06);
+  padding: 2rem 2.2rem;
+  transition: border-color 0.5s, box-shadow 0.5s, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+  animation: ach-cardin 0.7s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes ach-cardin { from { opacity: 0; transform: translateY(30px) scale(0.96); } to { opacity: 1; transform: none; } }
+.ach-card:hover {
+  border-color: rgba(123,47,247,0.2);
+  box-shadow: 0 24px 70px rgba(0,0,0,0.6), 0 0 60px rgba(123,47,247,0.05), inset 0 1px 0 rgba(255,255,255,0.08);
+  transform: translateY(-3px);
+}
+
+/* Conic spinning border on hover */
+.ach-conic {
+  position: absolute; inset: -1px; border-radius: 23px; padding: 1px;
+  background: conic-gradient(from var(--cb,0deg), transparent 55%, rgba(123,47,247,0.5) 72%, rgba(59,130,246,0.8) 80%, rgba(123,47,247,0.5) 88%, transparent 95%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity 0.4s;
+  animation: ach-cspin 5s linear infinite;
+  pointer-events: none; z-index: 5;
+}
+.ach-card:hover .ach-conic { opacity: 1; }
+@property --cb { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@keyframes ach-cspin { from { --cb: 0deg; } to { --cb: 360deg; } }
+
+/* Corners */
+.ach-corner {
+  position: absolute; width: 14px; height: 14px;
+  opacity: 0; z-index: 6; transition: opacity 0.4s, width 0.4s, height 0.4s;
+}
+.ach-card:hover .ach-corner { opacity: 1; width: 16px; height: 16px; }
+.ach-corner.tl { top: -1px; left: -1px;  border-top: 2px solid #7b2ff7; border-left: 2px solid #7b2ff7;  border-radius: 22px 0 0 0; }
+.ach-corner.tr { top: -1px; right: -1px; border-top: 2px solid #7b2ff7; border-right: 2px solid #7b2ff7; border-radius: 0 22px 0 0; }
+.ach-corner.bl { bottom: -1px; left: -1px;  border-bottom: 2px solid #3b82f6; border-left: 2px solid #3b82f6;  border-radius: 0 0 0 22px; }
+.ach-corner.br { bottom: -1px; right: -1px; border-bottom: 2px solid #3b82f6; border-right: 2px solid #3b82f6; border-radius: 0 0 22px 0; }
+
+/* Dot grid bg */
+.ach-dots {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(rgba(59,130,246,0.07) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.35;
+  mask-image: radial-gradient(ellipse at 95% 5%, black 15%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Floating dots */
+.ach-dot { position: absolute; border-radius: 50%; pointer-events: none; }
+.d1 { top: 14%; right: 10%; width: 5px; height: 5px; background: rgba(59,130,246,0.55); box-shadow: 0 0 8px #3b82f6; animation: ach-float 3s ease-in-out infinite; }
+.d2 { bottom: 18%; left: 8%; width: 4px; height: 4px; background: rgba(123,47,247,0.6); box-shadow: 0 0 8px #7b2ff7; animation: ach-float 3s ease-in-out infinite 1.5s; }
+.d3 { top: 50%; right: 6%; width: 3px; height: 3px; background: rgba(255,255,255,0.25); animation: ach-float 5s ease-in-out infinite 0.8s; }
+@keyframes ach-float { 0%,100% { transform: translateY(0) scale(1); opacity: .6; } 50% { transform: translateY(-8px) scale(1.2); opacity: 1; } }
+
+/* Glows */
+.ach-glow-tl {
+  position: absolute; top: -30px; left: -30px; width: 160px; height: 160px;
+  background: radial-gradient(circle, rgba(59,130,246,0.1), transparent 70%);
+  border-radius: 50%; pointer-events: none;
+  transition: all 0.6s; opacity: 0.5;
+}
+.ach-glow-br {
+  position: absolute; bottom: -30px; right: -30px; width: 140px; height: 140px;
+  background: radial-gradient(circle, rgba(123,47,247,0.1), transparent 70%);
+  border-radius: 50%; pointer-events: none;
+  transition: all 0.6s; opacity: 0.5;
+}
+.ach-card:hover .ach-glow-tl { width: 200px; height: 200px; opacity: 0.8; }
+.ach-card:hover .ach-glow-br { width: 180px; height: 180px; opacity: 0.8; }
+
+/* Bottom hover bar */
+.ach-bottom-bar {
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #7b2ff7, #3b82f6, transparent);
+  transition: width 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.ach-card:hover .ach-bottom-bar { width: 60%; }
+
+/* ── CONTENT ───────────────────────────────── */
+.ach-content { position: relative; z-index: 2; text-align: center; }
+
+.ach-eyebrow {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; margin-bottom: 1.4rem;
+}
+.ach-eyebrow-txt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px; letter-spacing: 0.45em; text-transform: uppercase;
+  color: rgba(255,255,255,0.3); transition: color 0.3s;
+}
+.ach-card:hover .ach-eyebrow-txt { color: rgba(255,255,255,0.5); }
+.ach-eline {
+  height: 1px; transition: width 0.5s, opacity 0.5s;
+}
+.ach-eline-l { width: 24px; background: linear-gradient(90deg, transparent, rgba(59,130,246,0.45)); }
+.ach-eline-r { width: 24px; background: linear-gradient(90deg, rgba(123,47,247,0.45), transparent); }
+.ach-card:hover .ach-eline-l { width: 36px; }
+.ach-card:hover .ach-eline-r { width: 36px; }
+
+.ach-quote {
+  font-family: 'Outfit', sans-serif; font-weight: 900;
+  font-size: clamp(1.4rem, 4vw, 2.8rem);
+  line-height: 1.1; letter-spacing: -0.04em;
+  color: #fff; margin: 0 0 1.4rem; font-style: normal;
+  display: flex; flex-direction: column; gap: 0.15em;
+  text-transform: uppercase;
+}
+.ach-q1, .ach-q2 {
+  display: block;
+  opacity: 0; 
+  transform: translateY(20px);
+}
+.in-view .ach-q1, .in-view .ach-q2 {
+  opacity: 1; transform: translateY(0);
+  transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.ach-q2 { transition-delay: 0.4s !important; }
+@keyframes ach-fadein { to { opacity: 1; transform: translateY(0); } }
+
+.ach-em {
+  font-style: normal; position: relative; display: inline-block;
+}
+.ach-em::after {
+  content: ''; position: absolute; bottom: 1px; left: 0; right: 0; height: 2px;
+  border-radius: 2px; transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+.ach-card:hover .ach-em::after { transform: scaleX(1); }
+.ach-em.cyan  { color: #7b2ff7; }
+.ach-em.cyan::after  { background: rgba(123,47,247,0.4); }
+.ach-em.violet { color: #3b82f6; }
+.ach-em.violet::after { background: rgba(59,130,246,0.4); }
+
+.ach-author {
+  display: flex; align-items: center; justify-content: center; gap: 12px;
+  opacity: 0; transform: translateY(8px);
+  animation: ach-fadein 0.6s ease 0.6s forwards;
+}
+.ach-author-line {
+  width: 28px; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+.ach-author-inner { display: flex; align-items: center; gap: 8px; }
+.ach-avatar {
+  width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent), var(--primary)); padding: 1px;
+}
+.ach-avatar-inner {
+  width: 100%; height: 100%; border-radius: 50%;
+  background: #0a0a14; display: flex; align-items: center; justify-content: center;
+  font-size: 7px; font-weight: 900; color: #fff; letter-spacing: 0.05em;
+}
+.ach-author-txt {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.28); transition: color 0.3s;
+}
+.ach-card:hover .ach-author-txt { color: rgba(255,255,255,0.45); }
+
+/* ── STATS ROW ─────────────────────────────── */
+.ach-stats {
+  display: flex; align-items: center; justify-content: center;
+  gap: 0; padding: 1.1rem 1.5rem; border-radius: 16px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(16px);
+  opacity: 0; transform: translateY(16px);
+  animation: ach-fadein 0.7s ease 0.5s forwards;
+}
+.ach-stat {
+  flex: 1; text-align: center; display: flex; flex-direction: column;
+  gap: 2px; padding: 0 0.5rem;
+  cursor: default; transition: transform 0.25s cubic-bezier(0.16,1,0.3,1);
+}
+.ach-stat:hover { transform: translateY(-3px); }
+.ach-stat:hover .ach-stat-num { text-shadow: 0 0 20px currentColor; }
+
+.ach-stat-num {
+  font-family: 'Outfit', sans-serif; font-weight: 900;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  line-height: 1; letter-spacing: -0.04em;
+  color: #fff; font-variant-numeric: tabular-nums;
+  transition: text-shadow 0.3s;
+}
+.ach-stat-suf {
+  font-family: 'Outfit', sans-serif; font-weight: 900;
+  font-size: 1rem; color: var(--accent); margin-left: 1px;
+}
+.ach-stat:nth-child(3) .ach-stat-suf { color: #7b2ff7; }
+.ach-stat:nth-child(5) .ach-stat-suf { color: #4ade80; }
+.ach-stat:nth-child(7) .ach-stat-suf { color: #fbbf24; }
+
+.ach-stat-lbl {
+  font-family: 'Outfit', sans-serif; font-weight: 700;
+  font-size: 0.7rem; color: rgba(255,255,255,0.65); letter-spacing: -0.01em;
+}
+.ach-stat-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+}
+
+.ach-stat-div {
+  width: 1px; height: 36px; flex-shrink: 0;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.07), transparent);
+}
+
+/* ── RESPONSIVE ────────────────────────────── */
+@media (max-width: 560px) {
+  .ach-section { padding: 3rem 0; }
+  .ach-card { padding: 1.5rem 1.4rem; border-radius: 18px; }
+  .ach-stats { padding: 0.85rem 1rem; flex-wrap: wrap; gap: 0.8rem; }
+  .ach-stat-div { display: none; }
+  .ach-stat { min-width: 40%; }
+  .ach-quote { font-size: clamp(1rem, 4vw, 1.3rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+</style>
+
+<script is:inline>
+(function(){
+
+  /* ── CANVAS PARTICLES ────────────────────── */
+  const cv = document.getElementById('ach-canvas');
+  const sec = document.getElementById('achievements');
+  if (cv && sec) {
+    const ctx = cv.getContext('2d');
+    let W, H, pts = [];
+    const COLS = [{r:123,g:47,b:247},{r:0,g:245,b:212},{r:167,g:139,b:250}];
+
+    function init(){
+      const r = cv.parentElement.getBoundingClientRect();
+      W = cv.width = r.width; H = cv.height = r.height;
+      pts = Array.from({length:35}, () => {
+        const c = COLS[Math.floor(Math.random()*COLS.length)];
+        return { x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.35, vy:(Math.random()-.5)*.35, r:Math.random()*1.5+0.4, a:Math.random()*.18+.04, c, ph:Math.random()*Math.PI*2, sp:.015+Math.random()*.018 };
+      });
+    }
+    init();
+
+    let raf;
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      pts.forEach(p => {
+        p.ph += p.sp;
+        const pulse = .72 + Math.sin(p.ph)*.28;
+        p.x += p.vx; p.y += p.vy; p.vx *= .999; p.vy *= .999;
+        if(p.x<0||p.x>W) p.vx*=-1; if(p.y<0||p.y>H) p.vy*=-1;
+        p.x=Math.max(0,Math.min(W,p.x)); p.y=Math.max(0,Math.min(H,p.y));
+        const a=p.a*pulse, {r,g,b}=p.c;
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r*pulse,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${r},${g},${b},${a})`; ctx.fill();
+      });
+      for(let i=0;i<pts.length;i++){
+        for(let j=i+1;j<pts.length;j++){
+          const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+          if(d<120){ const {r,g,b}=pts[i].c; ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.strokeStyle=`rgba(${r},${g},${b},${(1-d/120)*.07})`; ctx.lineWidth=.5; ctx.stroke(); }
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    }
+
+    new IntersectionObserver(([e]) => {
+      if(e.isIntersecting){ if(!raf) raf=requestAnimationFrame(draw); }
+      else { cancelAnimationFrame(raf); raf=null; }
+    },{threshold:.05}).observe(cv);
+
+    let rt; window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(init,200);},{passive:true});
+  }
+
+  /* ── COUNTER ANIMATION ───────────────────── */
+  const easeOut = t => 1 - Math.pow(1-t, 4);
+
+  function animCounter(el, target){
+    const t0 = performance.now();
+    (function step(now){
+      const p = Math.min((now-t0)/1800, 1);
+      el.textContent = Math.floor(easeOut(p)*target);
+      if(p<1) requestAnimationFrame(step);
+      else el.textContent = target;
+    })(t0);
+  }
+
+  /* ── INTERSECTION OBSERVER ───────────────── */
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(!entry.isIntersecting) return;
+      // animate stat counters
+      entry.target.querySelectorAll('.ach-stat').forEach((stat, i) => {
+        const val = parseInt(stat.dataset.val);
+        const numEl = stat.querySelector('.ach-stat-num');
+        if(!numEl) return;
+        setTimeout(() => animCounter(numEl, val), i * 120);
+      });
+      obs.unobserve(entry.target);
+    });
+  }, {threshold: 0.3});
+
+  const statsEl = document.getElementById('ach-stats');
+  if(statsEl) obs.observe(statsEl);
+
+  /* ── 3D TILT on card ─────────────────────── */
+  const card = document.getElementById('ach-card');
+  if(card && matchMedia('(hover:hover)').matches){
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = `translateY(-3px) perspective(800px) rotateY(${x*6}deg) rotateX(${-y*6}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  }
+
+})();
+</script>

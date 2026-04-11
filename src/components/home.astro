@@ -1,0 +1,627 @@
+---
+const phrases = [
+  "Full Stack Engineer.",
+  "I build. I deploy. I scale.",
+  "Backend to frontend, end to end.",
+  "Open to opportunities."
+];
+
+const bootLogs = [
+  { txt: "BIOS v2.026 Loading...",                    color: "#8892a4" },
+  { txt: "System core v2.0 initialized.",             color: "#7b2ff7" },
+  { txt: "Secure Shell established: [ USERMODE ]",    color: "#3b82f6" },
+  { txt: "Quantum encryption active.",                 color: "#39ff14" },
+  { txt: "Docker containers operational.",             color: "#3b82f6" },
+  { txt: "Kafka event bus: [ STREAMING ]",             color: "#7b2ff7" },
+  { txt: "Nexus microservices online.",                color: "#7b2ff7" },
+  { txt: "Arij Hajjaji Profile: [ AUTHENTICATED ]",    color: "#39ff14" },
+];
+---
+
+<section
+  id="home"
+  class="reveal-section relative min-h-screen bg-[#08080a] flex items-start overflow-hidden"
+  style="perspective: 2000px"
+>
+  <!-- LOCALIZED 3D BACKGROUND (Relocated from Global) -->
+  <div id="global-3d-bg" class="absolute inset-0 z-0 pointer-events-none opacity-[0.85] mix-blend-screen transition-opacity duration-1000"></div>
+
+  <div class="absolute inset-0 z-0">
+    <!-- Particle Canvas -->
+    <canvas id="hero-canvas" class="absolute inset-0 w-full h-full opacity-50 mix-blend-screen pointer-events-none"></canvas>
+    <!-- THREE.JS LOCAL 3D (CYBER CORE) -->
+  </div>
+
+  <!-- ── Layer 1: Data Stream Overlay ───────────────────── -->
+  <canvas id="it-matrix-canvas"
+          class="absolute inset-0 pointer-events-none opacity-30 z-1"></canvas>
+
+  <!-- ── Layer 2: Technical Haze ───────────────────────── -->
+  <div class="absolute inset-0 z-2 pointer-events-none
+              bg-[radial-gradient(circle_at_center,transparent_0%,#08080a_90%)]"></div>
+
+  <!-- ── Layer 3: Atmospheric Grain ────────────────────── -->
+  <div class="noise-overlay absolute inset-0 opacity-[0.05]
+              pointer-events-none mix-blend-soft-light z-3"></div>
+
+  <!-- ── CONTENT ─────────────────────────────────────────── -->
+ <div class="container mx-auto px-6 relative z-10
+            flex flex-col lg:grid lg:grid-cols-2
+            gap-12 lg:gap-8 items-center
+            min-h-screen !pt-[180px] pb-20">
+
+    <!-- LEFT: Identity -->
+    <div class="hero-left text-center lg:text-left mt-10 md:mt-0 flex flex-col gap-2 reveal-left">
+
+        <!-- Signal badge -->
+        <div class="flex items-center justify-center lg:justify-start gap-4 reveal">
+            <div class="w-12 h-px bg-blue-500/30 relative">
+                <div class="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-2
+                             rounded-full bg-blue-500
+                             shadow-[0_0_8px_var(--accent)] animate-pulse"></div>
+            </div>
+            <span class="text-[8px] font-mono font-black
+                         uppercase tracking-[0.5em] text-blue-400">
+                Signal: Synchronized
+            </span>
+        </div>
+
+        <h1 class="font-black font-outfit leading-none
+                   tracking-tighter
+                   uppercase reveal mb-8 mt-6
+                   text-[clamp(2rem,7vw,70px)] relative z-[20]
+                   drop-shadow-[0_0_15px_rgba(123,47,247,0.3)]"
+            id="hero-h1">
+            <span class="block text-white glitch-text auto-glitch quantum-title" data-text="ARIJ">ARIJ</span>
+            <span class="block gradient-text-animated glitch-text quantum-title-delayed" data-text="HAJJAJI">HAJJAJI</span>
+        </h1>
+
+        <!-- Subtitle + typewriter -->
+        <div class="flex flex-col gap-2 reveal-body">
+
+            <!-- Typewriter -->
+            <div class="text-base md:text-lg font-black font-outfit
+                        uppercase tracking-tighter text-gray-200
+                        min-h-[1.5em] flex justify-center lg:justify-start">
+                <span id="narrative-typewriter"
+                      class="text-blue-400 border-r-[3px] border-blue-500 pr-2
+                             hero-typewriter-cursor"></span>
+            </div>
+
+            <!-- CTAs -->
+            <div class="flex flex-wrap justify-center lg:justify-start gap-3 mt-2">
+
+                <!-- Primary: View Projects -->
+                <a href="#projects"
+                   class="magnetic group relative inline-flex items-center gap-2
+                          px-6 py-3
+                          rounded-full overflow-hidden
+                          font-mono font-black uppercase text-[10px] tracking-[0.25em]
+                          text-white
+                          bg-gradient-to-r from-[#7b2ff7] to-[#3b82f6]
+                          shadow-[0_0_24px_rgba(123,47,247,0.45)]
+                          hover:shadow-[0_0_48px_rgba(123,47,247,0.75)]
+                          transition-all duration-300 hover:scale-[1.04] active:scale-95">
+                    <!-- shine sweep on hover -->
+                    <div class="absolute inset-0 -translate-x-full group-hover:translate-x-full
+                                transition-transform duration-500
+                                bg-gradient-to-r from-transparent via-white/20 to-transparent
+                                pointer-events-none"></div>
+                    <span class="relative z-10">View Projects</span>
+                    <svg class="relative z-10 w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
+
+                <!-- Secondary: Download CV -->
+                <a href="/CV/Arij_Hajjaji_CV.pdf" target="_blank" rel="noopener"
+                   class="magnetic group relative inline-flex items-center gap-2
+                          px-6 py-3
+                          rounded-full
+                          font-mono font-black uppercase text-[10px] tracking-[0.25em]
+                          text-white/70 hover:text-white
+                          border border-white/15 hover:border-purple-500/50
+                          bg-white/[0.03] hover:bg-white/[0.07]
+                          backdrop-blur-sm
+                          transition-all duration-300 hover:scale-[1.04] active:scale-95">
+                    <span class="m-inner relative z-10">Download CV</span>
+                    <svg class="relative z-10 w-3.5 h-3.5 text-purple-400 transition-transform duration-300 group-hover:translate-y-0.5"
+                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT: Boot Logs -->
+    <div class="hero-right flex flex-col gap-4 reveal-right w-full lg:w-auto">
+      <div class="terminal-card glass-tilt bg-[#0d0d14]/70 backdrop-blur-3xl
+                  rounded-[2rem] border border-white/10
+                  shadow-[0_40px_100px_rgba(0,0,0,0.8)]
+                  relative overflow-hidden group">
+
+        <!-- Terminal titlebar -->
+        <div class="px-4 py-3 flex items-center gap-2
+                    border-b border-white/5 bg-white/[0.02]">
+          <div class="flex gap-2">
+            <div class="w-3 h-3 rounded-full bg-[#ff5f56]
+                        shadow-[0_0_6px_#ff5f56bb]
+                        hover:brightness-125 cursor-pointer transition-all"></div>
+            <div class="w-3 h-3 rounded-full bg-[#ffbd2e]
+                        shadow-[0_0_6px_#ffbd2ebb]
+                        hover:brightness-125 cursor-pointer transition-all"></div>
+            <div class="w-3 h-3 rounded-full bg-[#27c93f]
+                        shadow-[0_0_6px_#27c93fbb]
+                        hover:brightness-125 cursor-pointer transition-all"></div>
+          </div>
+          <div class="ml-4 px-4 py-1 rounded-md bg-white/5
+                      border border-white/10
+                      text-[8px] font-mono text-gray-500 uppercase tracking-widest">
+            nexus-ops@arij ~ bash
+          </div>
+          <div class="ml-auto text-[8px] font-mono text-gray-600
+                      uppercase tracking-widest font-black">
+            ● LIVE
+          </div>
+        </div>
+
+        <!-- Terminal body -->
+        <div id="hero-log-output"
+             class="font-mono text-[10px] md:text-[11px]
+                    h-[160px] md:h-[220px] overflow-hidden
+                    p-4 md:p-5 space-y-2">
+        </div>
+
+        <!-- Bottom command line -->
+        <div class="px-4 md:px-5 py-2 border-t border-white/5
+                    flex items-center gap-3 bg-white/[0.01]">
+          <span class="text-[9px] font-mono text-purple-500">arij@portfolio:~$</span>
+          <span class="text-[9px] font-mono text-white/20 animate-pulse">_</span>
+          <span class="ml-auto text-[8px] font-mono text-gray-700 uppercase tracking-widest">
+            Press ` for CLI
+          </span>
+        </div>
+      </div>
+
+      <!-- Terminal reflection glow -->
+      <div class="h-8 mx-8 bg-purple-500/5 blur-xl rounded-full mt-2"></div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <a href="#about"
+     class="absolute bottom-10 left-1/2 -translate-x-1/2
+            flex flex-col items-center gap-3
+            transition-all hover:translate-y-2 group">
+    <span class="text-[8px] font-mono text-gray-700
+                 tracking-[0.4em] uppercase font-bold
+                 group-hover:text-purple-500 transition-colors">
+      Acknowledge Scroll
+    </span>
+    <div class="relative w-px h-12
+                bg-gradient-to-b from-purple-500 to-transparent">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2
+                  w-1 h-1 rounded-full bg-purple-500
+                  shadow-[0_0_6px_var(--primary-glow)]
+                  animate-bounce"></div>
+    </div>
+  </a>
+  <!-- SCROLL INDICATOR -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 opacity-40 hover:opacity-100 transition-opacity duration-500 cursor-pointer reveal-body" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+    <span class="text-[8px] font-mono uppercase tracking-[0.4em] text-white">Initialize_Scroll</span>
+    <div class="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent relative overflow-hidden">
+      <div class="absolute top-0 left-0 w-full h-1/2 bg-white animate-scroll-hint"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .noise-overlay {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .circuit-grid {
+    position: absolute; inset: -100px;
+    background-image: 
+      radial-gradient(var(--accent-rgb) 1px, transparent 0),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 0),
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 0);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+    animation: grid-drift 60s linear infinite;
+  }
+  @keyframes grid-drift {
+    from { transform: translateY(0) rotate(5deg); }
+    to { transform: translateY(100px) rotate(5deg); }
+  }
+  @keyframes scroll-hint {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(200%); }
+  }
+  .animate-scroll-hint { animation: scroll-hint 2s cubic-bezier(0.19, 1, 0.22, 1) infinite; }
+
+  @keyframes blink { 50% { border-color: transparent; } }
+  .hero-typewriter-cursor { animation: blink 0.85s step-end infinite; }
+
+  .log-entry {
+    opacity: 0; transform: translateX(-8px);
+    animation: logIn 0.35s ease-out forwards;
+  }
+  @keyframes logIn { to { opacity: 1; transform: translateX(0); } }
+
+  .terminal-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.03) 50%);
+    background-size: 100% 4px; pointer-events: none; opacity: 0;
+    transition: opacity 0.5s;
+  }
+  .terminal-card:hover::after { opacity: 1; }
+
+  /* Floating Stack Icons */
+  .tech-icon-float {
+    position: absolute;
+    filter: drop-shadow(0 0 15px rgba(var(--acc-rgb), 0.3));
+    user-select: none;
+    transition: transform 0.1s linear;
+    opacity: 0.6;
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px; backdrop-filter: blur(4px);
+    padding: 10px;
+  }
+</style>
+
+<script is:inline>
+(function () {
+  'use strict';
+
+  // ── EASTER EGG FOR DEVELOPERS ──────────────────────
+  const asciiArt = `
+  ___________________________
+ /   _   _   _   _   _   _   \\
+ |  _ _ _ _ _ _ _ _ _ _ _ _  |
+ | |                       | |
+ | |       WELCOME!        | |
+ | |   You found the logs. | |
+ | |                       | |
+ | |_ _ _ _ _ _ _ _ _ _ _ _| |
+ \\___________________________/
+       \\               /
+        \\             /
+         \\___________/
+  `;
+  console.log("%c" + asciiArt, "color: #7b2ff7; font-weight: bold;");
+  console.log("%cHello fellow engineer! Looking for bugs or just checking out my source code? \nIf you figure out how to parse HTML with regular expressions, let me know.", "color: #3b82f6; font-size: 14px;");
+
+  (function initITMatrix() {
+    const canvas = document.getElementById('it-matrix-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, columns;
+    const fontSize = 11;
+    const chars = '01{}<>[]=/+;_-'.split('');
+    let drops = [];
+
+    const resize = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      columns = Math.floor(w / fontSize);
+      drops = [];
+      for(let x = 0; x < columns; x++) drops[x] = Math.random() * -100;
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(8, 8, 10, 0.15)';
+      ctx.fillRect(0, 0, w, h);
+      
+      ctx.font = fontSize + 'px "JetBrains Mono"';
+      ctx.textAlign = 'center';
+      for(let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillStyle = i % 10 === 0 ? '#7b2ff7' : '#3b82f6';
+        ctx.globalAlpha = 0.4;
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        
+        if(drops[i] * fontSize > h && Math.random() > 0.985) drops[i] = 0;
+        drops[i]++;
+      }
+    }
+    setInterval(draw, 60);
+  })();
+
+  (function initParticles() {
+    const canvas = document.getElementById('gravity-particle-grid');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let lw, lh;
+    const resize = () => { lw = canvas.width = innerWidth; lh = canvas.height = innerHeight; };
+    resize();
+    window.addEventListener('resize', resize, { passive: true });
+    const COUNT = innerWidth < 768 ? 50 : 120;
+    const ps = Array.from({ length: COUNT }, () => ({
+      x: Math.random() * innerWidth, y: Math.random() * innerHeight,
+      vx: (Math.random() - 0.5) * 0.8, vy: (Math.random() - 0.5) * 0.8,
+      r: Math.random() * 1.5 + 0.4, ox: 0, oy: 0,
+    }));
+    ps.forEach(p => { p.ox = p.vx; p.oy = p.vy; });
+    let mouse = { x: -9999, y: -9999 };
+    window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+    window.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+    (function update() {
+      ctx.clearRect(0, 0, lw, lh);
+      ps.forEach((p, i) => {
+        const dx = mouse.x - p.x, dy = mouse.y - p.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 250 && dist > 1) { p.vx += dx * 0.00004; p.vy += dy * 0.00004; }
+        p.vx += (p.ox - p.vx) * 0.008; p.vy += (p.oy - p.vy) * 0.008;
+        const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
+        if (spd > 2.5) { p.vx = (p.vx / spd) * 2.5; p.vy = (p.vy / spd) * 2.5; }
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0) p.x = lw; if (p.x > lw) p.x = 0;
+        if (p.y < 0) p.y = lh; if (p.y > lh) p.y = 0;
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(59,130,246,0.45)'; ctx.fill();
+        if (dist < 200) {
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(59,130,246,${(1 - dist / 200) * 0.7})`;
+          ctx.lineWidth = 0.8; ctx.stroke();
+        }
+        for (let j = i + 1; j < ps.length; j++) {
+          const p2 = ps[j], dx2 = p.x - p2.x, dy2 = p.y - p2.y;
+          const d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
+          if (d2 < 110) {
+            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(123,47,247,${(1 - d2 / 110) * 0.28})`;
+            ctx.lineWidth = 0.5; ctx.stroke();
+          }
+        }
+      });
+      requestAnimationFrame(update);
+    })();
+  })();
+
+  (function initTypewriter() {
+    const phrases = [
+      "Full Stack Engineer.",
+      "I build. I deploy. I scale.",
+      "Backend to frontend, end to end.",
+      "Open to opportunities."
+    ];
+    const el = document.getElementById('narrative-typewriter');
+    if (!el) return;
+    let pIdx = 0, cIdx = 0, deleting = false;
+    function tick() {
+      const cur = phrases[pIdx];
+      el.textContent = deleting ? cur.substring(0, cIdx--) : cur.substring(0, cIdx++);
+      let delay = deleting ? 45 : 140;
+      if (!deleting && cIdx > cur.length) {
+        if (pIdx === phrases.length - 1) return;
+        deleting = true; delay = 2200;
+      } else if (deleting && cIdx < 0) {
+        deleting = false; pIdx++; delay = 600;
+      }
+      setTimeout(tick, delay);
+    }
+    setTimeout(tick, 800);
+  })();
+
+  (function initTerminal() {
+    const logs = [
+      { txt: "BIOS v2.026 Loading...",                 color: "#8892a4" },
+      { txt: "Spring Boot core v3.4.1 initialized.",   color: "#3b82f6" },
+      { txt: "Downloading more RAM... [ FAILED ]",     color: "#ff5f56" },
+      { txt: "Keycloak security modules: [ OK ]",      color: "#39ff14" },
+      { txt: "Locating bugs... [ REBRANDING AS FEATURES ]", color: "#ffbd2e" },
+      { txt: "PostgreSQL pool handshake: [ OK ]",      color: "#39ff14" },
+      { txt: "Kafka event bus: [ STREAMING ]",         color: "#7b2ff7" },
+      { txt: "Resolving merge conflicts... [ PRAYING ]",color: "#ffbd2e" },
+      { txt: "Arij Hajjaji Profile: [ SECURE_&_READY ]",color: "#39ff14" },
+    ];
+    const out = document.getElementById('hero-log-output');
+    if (!out) return;
+    let idx = 0;
+    function appendLog() {
+      if (idx < logs.length) {
+        const { txt, color } = logs[idx++];
+        const d = document.createElement('div');
+        d.className = 'log-entry';
+        d.style.color = color;
+        d.innerHTML = `<span style="color:#8892a4;opacity:0.5">›</span> ${txt}`;
+        out.appendChild(d);
+        out.scrollTop = out.scrollHeight;
+        setTimeout(appendLog, 650 + Math.random() * 900);
+      } else {
+        const c = document.createElement('div');
+        c.className = 'log-entry';
+        c.style.color = '#7b2ff7';
+        c.innerHTML = '› arij@portfolio:~$ <span style="animation:blink 0.85s step-end infinite;border-right:2px solid #7b2ff7;padding-right:2px"> </span>';
+        out.appendChild(c);
+        setTimeout(() => { out.innerHTML = ''; idx = 0; appendLog(); }, 8000);
+      }
+    }
+    appendLog();
+  })();
+
+  // ── LOCAL 3D BACKGROUND ENGINE ─────────────────────
+(function initLocal3D() {
+  const container = document.getElementById('global-3d-bg');
+  if (!container) return;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);
+  container.appendChild(renderer.domElement);
+
+  // Particle field
+  const pCount = 1200;
+  const pGeo = new THREE.BufferGeometry();
+  const pPos = new Float32Array(pCount * 3);
+  for (let i = 0; i < pCount * 3; i++) pPos[i] = (Math.random() - 0.5) * 45;
+  pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+  const pMat = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.12, transparent: true, opacity: 0.95 });
+  scene.add(new THREE.Points(pGeo, pMat));
+
+  // Wireframe icosahedrons
+  const wGroup = new THREE.Group();
+  scene.add(wGroup);
+  const geo = new THREE.IcosahedronGeometry(1.5, 1);
+  const mat  = new THREE.MeshBasicMaterial({ color: 0x7b2ff7, wireframe: true, transparent: true, opacity: 0.55 });
+  const mat2 = new THREE.MeshBasicMaterial({ color: 0x3b82f6, wireframe: true, transparent: true, opacity: 0.45 });
+  const configs = [
+    { x: -5, y:  2, z: -3, s: 1.8, m: mat  },
+    { x:  4, y: -2, z: -5, s: 1.3, m: mat2 },
+    { x:  0, y:  3, z: -8, s: 2.2, m: mat  },
+    { x: -7, y: -3, z: -2, s: 1.0, m: mat2 },
+    { x:  6, y:  1, z: -4, s: 1.6, m: mat  },
+    { x:  2, y: -4, z: -6, s: 0.9, m: mat2 },
+  ];
+  const meshes = configs.map(c => {
+    const m = new THREE.Mesh(geo, c.m);
+    m.position.set(c.x, c.y, c.z);
+    m.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+    m.scale.setScalar(c.s);
+    wGroup.add(m);
+    return m;
+  });
+
+  // 6. --- ADVANCED ORBITAL SYSTEM (Nested Tech Rings) ---
+  const ringGroup = new THREE.Group();
+  scene.add(ringGroup);
+  
+  const ringConfigs = [
+    { r: 3.5, t: 0.02, c: 0x7b2ff7, s: 0.005, rx: 0.4 },
+    { r: 5.5, t: 0.015, c: 0x3b82f6, s: -0.003, rx: 0.3, rz: 0.2 },
+    { r: 7.5, t: 0.01, c: 0x7b2ff7, s: 0.002, rx: -0.2, ry: 0.5 },
+    { r: 9.5, t: 0.008, c: 0x3b82f6, s: -0.001, rx: 0.1, rz: -0.4 },
+    { r: 12.0, t: 0.005, c: 0x7b2ff7, s: 0.004, ry: 0.3 }
+  ];
+  
+  const rings = ringConfigs.map(conf => {
+    const geo = new THREE.TorusGeometry(conf.r, conf.t, 8, 100);
+    const mat = new THREE.MeshBasicMaterial({ color: conf.c, transparent: true, opacity: 0.25 });
+    const mesh = new THREE.Mesh(geo, mat);
+    if(conf.rx) mesh.rotation.x = Math.PI * conf.rx;
+    if(conf.ry) mesh.rotation.y = Math.PI * conf.ry;
+    if(conf.rz) mesh.rotation.z = Math.PI * conf.rz;
+    ringGroup.add(mesh);
+    return { mesh, speed: conf.s };
+  });
+
+  // 7. --- DATA RAIN (Animated 3D Streamers) ---
+  const streamCount = 40;
+  const streamGroup = new THREE.Group();
+  scene.add(streamGroup);
+  const streamGeo = new THREE.BoxGeometry(0.02, 4, 0.02);
+  const streamMat = new THREE.MeshBasicMaterial({ color: 0x3b82f6, transparent: true, opacity: 0.15 });
+  
+  for(let i = 0; i < streamCount; i++) {
+     const stream = new THREE.Mesh(streamGeo, streamMat);
+     stream.position.set(
+        (Math.random() - 0.5) * 50,
+        Math.random() * 50,
+        (Math.random() - 0.5) * 30 - 10
+     );
+     streamGroup.add(stream);
+  }
+
+  // 7. --- THE NEXUS CORE (Attractive Focal Point) ---
+  const coreGroup = new THREE.Group();
+  scene.add(coreGroup);
+  
+  const coreGeo = new THREE.IcosahedronGeometry(1.2, 2);
+  const coreMat = new THREE.MeshBasicMaterial({ 
+    color: 0x3b82f6, 
+    wireframe: true, 
+    transparent: true, 
+    opacity: 0.4 
+  });
+  const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+  coreGroup.add(coreMesh);
+
+  // Inner Glow Sphere
+  const innerGeo = new THREE.SphereGeometry(0.6, 32, 32);
+  const innerMat = new THREE.MeshBasicMaterial({ 
+    color: 0x7b2ff7, 
+    transparent: true, 
+    opacity: 0.6 
+  });
+  const innerCore = new THREE.Mesh(innerGeo, innerMat);
+  coreGroup.add(innerCore);
+
+  camera.position.z = 14;
+
+  let tx = 0, ty = 0;
+  window.addEventListener('mousemove', e => {
+    tx = (e.clientX / window.innerWidth  - 0.5);
+    ty = (e.clientY / window.innerHeight - 0.5);
+  });
+
+  let time = 0;
+  (function animate() {
+    requestAnimationFrame(animate);
+    time += 0.0015;
+
+    // Orbital Rings Rotation
+    rings.forEach(r => {
+       r.mesh.rotation.z += r.speed;
+       r.mesh.rotation.y += r.speed * 0.5;
+    });
+
+    // Data Rain Animation
+    streamGroup.children.forEach(s => {
+       s.position.y -= 0.15;
+       if(s.position.y < -30) s.position.y = 30;
+    });
+
+    // Core Animation
+    coreGroup.rotation.y -= 0.005;
+    coreGroup.rotation.z += 0.002;
+    const coreScale = 1 + Math.sin(time * 2) * 0.1;
+    coreGroup.scale.setScalar(coreScale);
+    innerCore.material.opacity = 0.4 + Math.sin(time * 3) * 0.2;
+
+    wGroup.rotation.y += 0.0022;
+    wGroup.rotation.x += 0.0008;
+    wGroup.position.x += (tx * 3.5 - wGroup.position.x) * 0.04;
+    wGroup.position.y += (-ty * 3.5 - wGroup.position.y) * 0.04;
+    
+    // Parallax Core
+    coreGroup.position.x = tx * 1.5;
+    coreGroup.position.y = -ty * 1.5;
+
+    meshes.forEach((m, i) => {
+      m.rotation.y += 0.004 * (i % 2 ? 1 : -1);
+      m.rotation.x += 0.002;
+      // Orbit motion
+      m.position.y += Math.sin(time + i) * 0.005;
+    });
+
+    // Wave particles
+    const pos = pGeo.attributes.position.array;
+    for (let i = 0; i < pCount; i++) {
+      pos[i * 3 + 1] += Math.sin(time + pos[i * 3]) * 0.008;
+    }
+    pGeo.attributes.position.needsUpdate = true;
+
+    renderer.render(scene, camera);
+  })();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+})();</script>
+

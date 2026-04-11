@@ -1,0 +1,419 @@
+---
+const innerOrbit = [
+  { name: "Spring Boot", class: "devicon-spring-plain colored", glow: "#6DB33F" },
+  { name: "Angular", class: "devicon-angularjs-plain colored", glow: "#DD0031" },
+  { name: ".NET Core", class: "devicon-dotnetcore-plain colored", glow: "#512BD4" },
+  { name: "React", class: "devicon-react-original colored", glow: "#61DAFB" },
+  { name: "Node.js", class: "devicon-nodejs-plain colored", glow: "#339933" },
+  { name: "Docker", class: "devicon-docker-plain colored", glow: "#2496ED" },
+];
+
+const midOrbit = [
+  { name: "Java", class: "devicon-java-plain colored", glow: "#ED8B00" },
+  { name: "C#", class: "devicon-csharp-plain colored", glow: "#239120" },
+  { name: "TypeScript", class: "devicon-typescript-plain colored", glow: "#3178C6" },
+  { name: "PostgreSQL", class: "devicon-postgresql-plain colored", glow: "#336791" },
+  { name: "MySQL", class: "devicon-mysql-plain colored", glow: "#4479A1" },
+  { name: "MongoDB", class: "devicon-mongodb-plain colored", glow: "#47A248" },
+  { name: "Python", class: "devicon-python-plain colored", glow: "#3776AB" },
+  { name: "PHP", class: "devicon-php-plain colored", glow: "#777BB4" },
+];
+
+const outerOrbit = [
+  { name: "Jenkins", class: "devicon-jenkins-plain colored", glow: "#D24939" },
+  { name: "GitHub Actions", class: "devicon-githubactions-plain colored", glow: "#2088FF" },
+  { name: "Apache Kafka", class: "devicon-apachekafka-original colored", glow: "#ffffff" },
+  { name: "Redis", class: "devicon-redis-plain colored", glow: "#DC382D" },
+  { name: "Git", class: "devicon-git-plain colored", glow: "#F05032" },
+  { name: "Prometheus", class: "devicon-prometheus-original colored", glow: "#E6522C" },
+];
+---
+
+<section id="about" class="reveal-section py-40 relative bg-[#08080a]" style="overflow: visible;">
+
+  <div id="about-3d-bg" class="absolute inset-0 z-0 pointer-events-none opacity-40"></div>
+  <div class="absolute inset-0 opacity-[0.03] pointer-events-none overflow-hidden"
+    style="background-size:40px 40px;background-image:linear-gradient(45deg,#3b82f6 1px,transparent 1px),linear-gradient(-45deg,#3b82f6 1px,transparent 1px);">
+  </div>
+  <div style="position:absolute;top:10%;left:5%;width:400px;height:400px;background:radial-gradient(circle,rgba(59,130,246,0.04) 0%,transparent 70%);pointer-events:none;"></div>
+  <div style="position:absolute;bottom:15%;right:5%;width:350px;height:350px;background:radial-gradient(circle,rgba(167,139,250,0.04) 0%,transparent 70%);pointer-events:none;"></div>
+
+  <div class="container mx-auto px-6 relative z-10">
+
+    <!-- HEADER -->
+    <div class="flex flex-col items-center mb-20 reveal">
+      <div class="flex items-center gap-3 mb-4">
+        <div style="width:40px;height:1px;background:linear-gradient(to right,transparent,var(--primary));"></div>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--primary);text-transform:uppercase;letter-spacing:0.4em;font-weight:700;">Profile_Details</span>
+        <div style="width:40px;height:1px;background:linear-gradient(to left,transparent,var(--primary));"></div>
+      </div>
+      <h2 class="split-title font-outfit font-black uppercase tracking-tight text-center" style="font-size:clamp(2.5rem,6vw,4rem);line-height:1;">
+        ABOUT <span class="gradient-text">ARIJ</span>
+      </h2>
+    </div>
+
+    <!-- MAIN 2-COL -->
+    <div class="flex flex-col lg:flex-row gap-16 xl:gap-20 items-center">
+
+      <!-- LEFT: ORBIT -->
+      <div class="lg:w-1/2 flex items-center justify-center reveal-zoom">
+        <div id="orbit-root" class="relative flex items-center justify-center"
+          style="width:460px;height:460px;flex-shrink:0;">
+          <div style="position:absolute;width:230px;height:230px;border-radius:50%;border:1px solid rgba(255,255,255,0.04);pointer-events:none;"></div>
+          <div style="position:absolute;width:340px;height:340px;border-radius:50%;border:1px solid rgba(255,255,255,0.04);pointer-events:none;"></div>
+          <div style="position:absolute;width:440px;height:440px;border-radius:50%;border:1px solid rgba(255,255,255,0.04);pointer-events:none;"></div>
+
+          <div style="position:relative;z-index:30;width:120px;height:120px;">
+            <!-- Three.js Skill Core -->
+            <div id="about-skill-3d" style="position:absolute;inset:-40px;pointer-events:none;z-index:1;"></div>
+            
+            <div style="width:100%;height:100%;border-radius:50%;border:2px solid rgba(59,130,246,0.3);background:radial-gradient(circle at center,rgba(13,13,20,0.8) 0%,rgba(5,5,8,0.9) 100%);backdrop-blur-md shadow:0 0 40px rgba(59,130,246,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;border:1px solid rgba(255,255,255,0.05);z-index:5;">
+              <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:1.2rem;color:var(--primary);letter-spacing:-0.05em;z-index:6;">&lt;AH/&gt;</div>
+              <div style="display:flex;align-items:center;gap:6px;margin-top:6px;z-index:6;">
+                <div style="width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 8px #4ade80;animation:pulse 2s infinite;"></div>
+                <span style="font-family:'JetBrains Mono',monospace;font-size:8px;color:rgba(74,222,128,0.7);text-transform:uppercase;letter-spacing:0.15em;">available</span>
+              </div>
+            </div>
+          </div>
+
+          {innerOrbit.map((t) => (
+            <div class="orbit-icon inner-icon" data-tech={t.name}
+              style={`position:absolute;top:50%;left:50%;width:40px;height:40px;margin:-20px 0 0 -20px;border-radius:50%;background:#0d0d14;border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.3s,box-shadow 0.3s;z-index:20;--glow:${t.glow};`}>
+              <i class={t.class} style="font-size:16px;position:relative;z-index:2;"></i>
+            </div>
+          ))}
+          {midOrbit.map((t) => (
+            <div class="orbit-icon mid-icon" data-tech={t.name}
+              style={`position:absolute;top:50%;left:50%;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;background:#0d0d14;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.3s,box-shadow 0.3s;z-index:20;--glow:${t.glow};`}>
+              <i class={t.class} style="font-size:14px;position:relative;z-index:2;"></i>
+            </div>
+          ))}
+          {outerOrbit.map((t) => (
+            <div class="orbit-icon outer-icon" data-tech={t.name}
+              style={`position:absolute;top:50%;left:50%;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;background:#0d0d14;border:1px solid rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color 0.3s,box-shadow 0.3s;z-index:20;--glow:${t.glow};`}>
+              <i class={t.class} style="font-size:11px;position:relative;z-index:2;"></i>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- RIGHT: BIO + TERMINAL -->
+      <div class="lg:w-1/2 flex flex-col gap-8 reveal-right">
+
+        <!-- NAME BADGE -->
+        <div>
+          <div style="display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:999px;border:1px solid rgba(123,47,247,0.2);background:rgba(123,47,247,0.04);margin-bottom:16px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent);display:inline-block;animation:pulse 2s infinite;"></span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:0.3em;font-weight:800;">Available for new opportunities</span>
+          </div>
+          <h3 class="font-outfit" style="font-weight:900;font-size:clamp(1.5rem,3vw,2.2rem);color:#fff;line-height:1.1;margin:0 0 8px;letter-spacing:-0.03em;">
+            Arij Hajjaji
+          </h3>
+          <p style="font-family:'Inter',sans-serif;font-size:11px;color:var(--primary);text-transform:uppercase;letter-spacing:0.2em;margin:0;font-weight:700;">
+            Full Stack Engineer &nbsp;·&nbsp; Tunis, Tunisia
+          </p>
+        </div>
+
+        <!-- BIO -->
+        <div style="position:relative;padding:16px 20px;border-radius:12px;border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.02);overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;width:2px;height:100%;background:linear-gradient(to bottom,var(--accent),var(--primary));"></div>
+          <p style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#9ca3af;line-height:1.85;margin:0;">
+            Junior Software Engineer passionate about building <span style="color:#fff;">scalable web applications</span> with Spring Boot, Angular &amp; .NET. I turn ideas into <span style="color:var(--accent);">clean, efficient code</span> and automate workflows to make systems smarter. Also exploring <span style="color:var(--primary);">artificial intelligence</span> to simplify complex processes.
+          </p>
+        </div>
+
+        <!-- TERMINAL -->
+        <div id="terminal-box" style="border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,0.08);background:#0a0a0f;">
+          <div style="display:flex;align-items:center;gap:8px;padding:10px 16px;background:#0d0d14;border-bottom:1px solid rgba(255,255,255,0.06);">
+            <span style="width:11px;height:11px;border-radius:50%;background:#ff5f57;display:inline-block;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#febc2e;display:inline-block;"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#28c840;display:inline-block;"></span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#4b5563;margin-left:8px;letter-spacing:0.1em;">arij@portfolio:~</span>
+          </div>
+          <div id="terminal-body" style="padding:20px 22px;min-height:180px;font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.8;color:#9ca3af;">
+            <div style="display:flex;align-items:center;flex-wrap:wrap;">
+              <span style="color:var(--accent);">arij@portfolio</span><span style="color:#6b7280;">:</span><span style="color:var(--primary);">~</span><span style="color:#6b7280;">&nbsp;$&nbsp;</span><span id="cmd-line"></span><span id="cursor-cmd" style="display:inline-block;width:8px;height:14px;background:var(--primary);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite;"></span>
+            </div>
+            <div id="terminal-output" style="margin-top:2px;"></div>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="flex items-center gap-4 flex-wrap">
+          <a href="#contact" style="padding:10px 24px;border-radius:9999px;border:1px solid rgba(123,47,247,0.3);background:rgba(123,47,247,0.05);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--primary);text-transform:uppercase;letter-spacing:0.2em;text-decoration:none;transition:all 0.3s;font-weight:700;" onmouseover="this.style.background='var(--primary)';this.style.color='#000';" onmouseout="this.style.background='rgba(123,47,247,0.05)';this.style.color='var(--primary)';">
+            Get in touch →
+          </a>
+          <a href="https://github.com/Arijhajjaji22" target="_blank" style="padding:10px 24px;border-radius:9999px;border:1px solid rgba(255,255,255,0.1);background:transparent;font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.2em;text-decoration:none;transition:all 0.3s;font-weight:700;" onmouseover="this.style.borderColor='rgba(255,255,255,0.3)';this.style.color='#fff';" onmouseout="this.style.borderColor='rgba(255,255,255,0.1)';this.style.color='rgba(255,255,255,0.4)';">
+            GitHub Profile
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+  @keyframes radar-exp {
+    0%  { transform: scale(1); opacity: 0; }
+    10% { opacity: 0.6; }
+    100%{ transform: scale(3); opacity: 0; }
+  }
+  @keyframes scanline-sweep {
+    0%   { transform: translateY(-100%); }
+    100% { transform: translateY(200%); }
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  #radar-ring  { animation: radar-exp 3s cubic-bezier(0.2,0,0.2,1) infinite; }
+  #scanline-el { animation: scanline-sweep 3s linear infinite; }
+
+  .orbit-icon:hover {
+    border-color: var(--glow) !important;
+    box-shadow: 0 0 20px var(--glow), 0 0 6px var(--glow);
+    transform: var(--orbit-transform, translate(0,0)) scale(1.2) !important;
+  }
+</style>
+
+<script is:inline>
+(function () {
+
+  /* ── 3D SKILL NUCLEUS ──────────────── */
+  window.addEventListener('load', function initSkillNucleus() {
+    const container = document.getElementById('about-skill-3d');
+    if (!container || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(200, 200);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    const geo = new THREE.IcosahedronGeometry(0.7, 1);
+    const mat = new THREE.MeshBasicMaterial({ color: 0x3b82f6, wireframe: true, transparent: true, opacity: 0.6 });
+    const mesh = new THREE.Mesh(geo, mat);
+    group.add(mesh);
+
+    const innerGeo = new THREE.IcosahedronGeometry(0.35, 0);
+    const innerMat = new THREE.MeshBasicMaterial({ color: 0x7b2ff7, transparent: true, opacity: 0.8 });
+    const innerMesh = new THREE.Mesh(innerGeo, innerMat);
+    group.add(innerMesh);
+
+    camera.position.z = 2.5;
+
+    function animate() {
+      requestAnimationFrame(animate);
+      group.rotation.y += 0.01;
+      group.rotation.x += 0.005;
+      mesh.scale.setScalar(1 + Math.sin(Date.now() * 0.002) * 0.05);
+      renderer.render(scene, camera);
+    }
+    animate();
+  });
+
+  /* ── ORBIT ─────────────────────────── */
+  const inners = document.querySelectorAll('.inner-icon');
+  const mids   = document.querySelectorAll('.mid-icon');
+  const outers = document.querySelectorAll('.outer-icon');
+  let aIn = 0, aMid = 0, aOut = 0;
+  const rIn = 115, rMid = 170, rOut = 220;
+
+  function tick() {
+    inners.forEach((el, i) => {
+      const rad = ((aIn + (360 / inners.length) * i) * Math.PI) / 180;
+      el.style.setProperty('--orbit-transform', `translate(${Math.cos(rad)*rIn}px,${Math.sin(rad)*rIn}px)`);
+      el.style.transform = `translate(${Math.cos(rad)*rIn}px,${Math.sin(rad)*rIn}px)`;
+    });
+    mids.forEach((el, i) => {
+      const rad = ((-aMid + (360 / mids.length) * i) * Math.PI) / 180;
+      el.style.setProperty('--orbit-transform', `translate(${Math.cos(rad)*rMid}px,${Math.sin(rad)*rMid}px)`);
+      el.style.transform = `translate(${Math.cos(rad)*rMid}px,${Math.sin(rad)*rMid}px)`;
+    });
+    outers.forEach((el, i) => {
+      const rad = ((aOut + (360 / outers.length) * i) * Math.PI) / 180;
+      el.style.setProperty('--orbit-transform', `translate(${Math.cos(rad)*rOut}px,${Math.sin(rad)*rOut}px)`);
+      el.style.transform = `translate(${Math.cos(rad)*rOut}px,${Math.sin(rad)*rOut}px)`;
+    });
+    aIn += 0.35; aMid += 0.18; aOut += 0.09;
+    requestAnimationFrame(tick);
+  }
+  tick();
+
+  document.querySelectorAll('.orbit-icon').forEach(el => {
+    el.addEventListener('mouseenter', () => { /* label feedback logic */ });
+    el.addEventListener('mouseleave', () => { /* label feedback logic */ });
+  });
+
+  /* ── TERMINAL ───────────────────────── */
+  const cmdEl    = document.getElementById('cmd-line');
+  const cursorEl = document.getElementById('cursor-cmd');
+  const outputEl = document.getElementById('terminal-output');
+
+  const sessions = [
+    {
+      cmd: 'cat profile.json',
+      lines: [
+        '{',
+        '  <span style="color:var(--primary)">"name"</span>:     <span style="color:#4ade80">"Arij Hajjaji"</span>,',
+        '  <span style="color:var(--primary)">"role"</span>:     <span style="color:#4ade80">"Full Stack Engineer"</span>,',
+        '  <span style="color:var(--primary)">"location"</span>: <span style="color:#4ade80">"Tunis, Tunisia"</span>,',
+        '  <span style="color:var(--primary)">"stack"</span>:    <span style="color:var(--accent)">["Spring Boot", "Angular", ".NET"]</span>,',
+        '  <span style="color:var(--primary)">"focus"</span>:    <span style="color:#4ade80">"AI + Microservices"</span>,',
+        '  <span style="color:var(--primary)">"available"</span>: <span style="color:#f97316">true</span>',
+        '}',
+      ]
+    },
+    {
+      cmd: 'ls ./strengths',
+      lines: [
+        '<span style="color:var(--accent)">distributed-systems/</span>   <span style="color:#4ade80">ai-integration/</span>',
+        '<span style="color:var(--primary)">devops-pipelines/</span>   <span style="color:#fb923c">clean-architecture/</span>',
+        '<span style="color:var(--accent)">microservices/</span>   <span style="color:#4ade80">real-time-apps/</span>',
+      ]
+    },
+    {
+      cmd: 'echo $CURRENTLY_BUILDING',
+      lines: [
+        '<span style="color:#4ade80">Aura</span>     — AI assistant · Spring AI · RAG · PGVector',
+        '<span style="color:#a78bfa">TaskFlow</span> — Kanban app · Kafka · GraphQL · Keycloak',
+      ]
+    },
+  ];
+
+  let sIdx = 0;
+
+  function runSession(s) {
+    outputEl.innerHTML = '';
+    cmdEl.textContent  = '';
+    cursorEl.style.display = 'inline-block';
+
+    let ci = 0;
+    const typeCmd = setInterval(() => {
+      cmdEl.textContent += s.cmd[ci++];
+      if (ci >= s.cmd.length) {
+        clearInterval(typeCmd);
+        cursorEl.style.display = 'none';
+        let li = 0;
+        const printLine = () => {
+          if (li >= s.lines.length) {
+            setTimeout(() => {
+              sIdx = (sIdx + 1) % sessions.length;
+              const promptDiv = document.createElement('div');
+              promptDiv.style.marginTop = '10px';
+              promptDiv.innerHTML = '<span style="color:var(--accent)">arij@portfolio</span><span style="color:#6b7280">:</span><span style="color:var(--primary)">~</span><span style="color:#6b7280"> $ </span>';
+              outputEl.appendChild(promptDiv);
+              setTimeout(() => runSession(sessions[sIdx]), 400);
+            }, 2600);
+            return;
+          }
+          const div = document.createElement('div');
+          div.innerHTML = s.lines[li];
+          div.style.cssText = 'color:#9ca3af;opacity:0;transform:translateY(4px);transition:all 0.22s ease;';
+          outputEl.appendChild(div);
+          requestAnimationFrame(() => { div.style.opacity='1'; div.style.transform='translateY(0)'; });
+          li++;
+          setTimeout(printLine, 100);
+        };
+        setTimeout(printLine, 180);
+      }
+    }, 52);
+  }
+
+  const termObs = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      setTimeout(() => runSession(sessions[0]), 500);
+      termObs.disconnect();
+    }
+  }, { threshold: 0.3 });
+
+  const termBox = document.getElementById('terminal-box');
+  if (termBox) termObs.observe(termBox);
+
+  /* ── 3D SECTION BACKGROUND (NEURAL MESH) ── */
+  (function initAboutBackground() {
+    const container = document.getElementById('about-3d-bg');
+    if (!container || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
+
+    const particlesCount = 80;
+    const positions = new Float32Array(particlesCount * 3);
+    const particles = new THREE.BufferGeometry();
+    
+    for(let i=0; i<particlesCount * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 10;
+    }
+    
+    particles.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    const material = new THREE.PointsMaterial({ color: 0x3b82f6, size: 0.05, transparent: true, opacity: 0.5 });
+    const points = new THREE.Points(particles, material);
+    scene.add(points);
+
+    // Lines connecting points
+    const linesMaterial = new THREE.LineBasicMaterial({ color: 0x3b82f6, transparent: true, opacity: 0.1 });
+    const linesGeometry = new THREE.BufferGeometry();
+    const lines = new THREE.LineSegments(linesGeometry, linesMaterial);
+    scene.add(lines);
+
+    camera.position.z = 5;
+
+    let mouseX = 0, mouseY = 0;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+    });
+
+    function animate() {
+      requestAnimationFrame(animate);
+      points.rotation.y += 0.001;
+      points.rotation.x += 0.0005;
+      
+      points.position.x += (mouseX * 0.5 - points.position.x) * 0.05;
+      points.position.y += (-mouseY * 0.5 - points.position.y) * 0.05;
+
+      // Update lines
+      const positions = points.geometry.attributes.position.array;
+      const linePositions = [];
+      for(let i=0; i<particlesCount; i++) {
+        for(let j=i+1; j<particlesCount; j++) {
+          const dx = positions[i*3] - positions[j*3];
+          const dy = positions[i*3+1] - positions[j*3+1];
+          const dz = positions[i*3+2] - positions[j*3+2];
+          const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+          if(dist < 1.5) {
+            linePositions.push(positions[i*3], positions[i*3+1], positions[i*3+2]);
+            linePositions.push(positions[j*3], positions[j*3+1], positions[j*3+2]);
+          }
+        }
+      }
+      lines.geometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+      lines.geometry.attributes.position.needsUpdate = true;
+
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  })();
+
+})();
+</script>

@@ -1,0 +1,971 @@
+---
+const stats = [
+  { emoji: "☕", num: 1240,   label: "Coffee Concentration",   tip: "Status: Over-caffeinated",           color: "#3b82f6", rgb: "59,130,246",  suffix: "liters",   tag: "FUEL",      sound: "boing"   },
+  { emoji: "🐛", num: 3412,   label: "Bugs 'Relocated'",       tip: "They aren't dead, just... elsewhere", color: "#a78bfa", rgb: "167,139,250", suffix: "tickets",  tag: "BIOLOGY",   sound: "pop"     },
+  { emoji: "⌨️", num: 842910, label: "Mechanical Keystrokes",  tip: "Wife hates the clicking",           color: "#60a5fa", rgb: "96,165,250",  suffix: "clacks",   tag: "ASMR",      sound: "type"    },
+  { emoji: "🌙", num: 156,    label: "Midnight Realizations",  tip: "When the best code is born",        color: "#fbbf24", rgb: "251,191,36",  suffix: "epiphanies", tag: "NOCTURNAL", sound: "yawn"    },
+  { emoji: "🤝", num: 42,     label: "StackOverflow Copy-Pastes", tip: "I mean 'Research Contributions'", color: "#f472b6", rgb: "244,114,182", suffix: "imports",  tag: "HONESTY",   sound: "laugh"   },
+  { emoji: "🧠", num: 99,     label: "Mental RAM Usage",       tip: "Warning: Page fault imminent",      color: "#2dd4bf", rgb: "45,212,191",  suffix: "percent",  tag: "SYSTEM",    sound: "whale"   },
+];
+const maxStat = Math.max(...stats.map(s => s.num));
+---
+
+<section class="fs reveal-section" id="fs-section">
+
+  <!-- BACKGROUND -->
+  <div class="fs-bg" aria-hidden="true">
+    <canvas id="fs-canvas"></canvas>
+    <!-- 3D Geometric Core -->
+    <div id="fs-core-3d" class="absolute inset-0 pointer-events-none opacity-20"></div>
+    <div class="fs-blob b1"></div>
+    <div class="fs-blob b2"></div>
+    <div class="fs-grid"></div>
+    <div class="fs-noise"></div>
+  </div>
+
+  <div class="fs-wrap">
+
+    <!-- HEADER -->
+    <header class="fs-hd">
+      <div class="fs-pill">
+        <span class="fs-pdot"></span>
+        SYSTEM.METRICS
+      </div>
+      <h2 class="text-3xl md:text-5xl font-black font-outfit uppercase tracking-tighter mb-4">
+        SYSTEM <span class="gradient-text-animated">METRICS</span>
+      </h2>
+      <div class="fs-sub-wrap">
+        <span id="fs-typewriter" class="fs-sub opacity-70">Initializing core status...</span>
+        <span class="fs-cursor">_</span>
+      </div>
+    </header>
+
+    <!-- DRUM -->
+    <div class="fs-stage">
+      <div class="fs-drum" id="fs-drum">
+        {stats.map((s, i) => (
+          <button
+            class="fs-card"
+            data-i={i}
+            data-slot="x"
+            data-rgb={s.rgb}
+            data-sound={s.sound}
+            style={`--c:${s.color};--rgb:${s.rgb}`}
+            aria-label={s.label}
+          >
+            <!-- Conic spinning border -->
+            <div class="fs-spin-border"></div>
+            <!-- Corner brackets -->
+            <span class="fs-br tl"></span>
+            <span class="fs-br tr"></span>
+            <span class="fs-br bl"></span>
+            <span class="fs-br br"></span>
+
+            <div class="fs-body">
+              <!-- Holographic Overlay -->
+              <div class="fs-holo"></div>
+              <div class="fs-scan"></div>
+
+              <!-- HEADER ROW -->
+              <div class="fs-top">
+                <div class="fs-icon-wrap">
+                  <div class="fs-icon-glow"></div>
+                  <span class="fs-icon-ring"></span>
+                  <span class="fs-emoji">{s.emoji}</span>
+                </div>
+
+                <div class="fs-info">
+                  <p class="fs-label">{s.label}</p>
+                  <span class="fs-badge">
+                    <span class="fs-badge-dot"></span>
+                    {s.tag}
+                  </span>
+                </div>
+
+                <span class="fs-num-badge">{String(i + 1).padStart(2, "0")}</span>
+              </div>
+
+              <!-- BIG NUMBER -->
+              <div class="fs-mid">
+                <div class="fs-count-row">
+                  <span class="fs-count" data-target={s.num}>0</span>
+                  <span class="fs-unit">{s.suffix}</span>
+                </div>
+
+                <!-- Progress bar -->
+                <div class="fs-bar">
+                  <div class="fs-bar-track">
+                    <div class="fs-bar-fill" data-pct={Math.max(6, Math.round((s.num / maxStat) * 100))}></div>
+                    <div class="fs-bar-glow" data-pct={Math.max(6, Math.round((s.num / maxStat) * 100))}></div>
+                  </div>
+                  <span class="fs-pct">0%</span>
+                </div>
+              </div>
+
+              <!-- TIP -->
+              <div class="fs-bot">
+                <div class="fs-meta-stack">
+                  <span class="fs-tip">
+                    <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                    {s.tip}
+                  </span>
+                  <div class="fs-entropy">
+                    <span>ENTROPY_LVL: {Math.floor(Math.random() * 20 + 80)}%</span>
+                  </div>
+                </div>
+                <span class="fs-live">
+                  <span class="fs-live-dot"></span>LIVE
+                </span>
+              </div>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="fs-ctrl">
+      <button class="fs-arr" id="fs-prev" aria-label="Previous">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18,15 12,9 6,15"/></svg>
+      </button>
+
+      <nav class="fs-nav" id="fs-nav">
+        {stats.map((s, i) => (
+          <button class="fs-dot" data-i={i} style={`--c:${s.color};--rgb:${s.rgb}`} aria-label={s.label} title={s.label}>
+            <span class="fs-dot-icon">{s.emoji}</span>
+            <span class="fs-dot-ring"></span>
+          </button>
+        ))}
+      </nav>
+
+      <button class="fs-arr" id="fs-next" aria-label="Next">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6,9 12,15 18,9"/></svg>
+      </button>
+    </div>
+
+    <div class="fs-ctr">
+      <span class="fs-cn" id="fs-cn">01</span>
+      <span class="fs-cs">/</span>
+      <span class="fs-ct">06</span>
+    </div>
+
+  </div>
+</section>
+
+<style>
+/* ─── BASE ────────────────────────────────────── */
+.fs {
+  position: relative;
+  padding: 8rem 0 10rem;
+  background: #08080a;
+  overflow: hidden;
+  isolation: isolate;
+}
+.fs-wrap {
+  position: relative;
+  z-index: 10;
+  max-width: 660px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* ─── BG ──────────────────────────────────────── */
+.fs-bg { position: absolute; inset: 0; pointer-events: none; }
+#fs-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0.25; }
+.fs-blob {
+  position: absolute; border-radius: 50%;
+  filter: blur(110px); pointer-events: none;
+  animation: fs-drift 18s ease-in-out infinite alternate;
+}
+.b1 { width: 500px; height: 500px; top: -160px; left: -120px; background: radial-gradient(circle, rgba(59,130,246,0.09) 0%, transparent 70%); }
+.b2 { width: 420px; height: 420px; bottom: -120px; right: -80px; background: radial-gradient(circle, rgba(167,139,250,0.1) 0%, transparent 70%); animation-delay: -9s; animation-direction: alternate-reverse; }
+.b3 { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(244,114,182,0.05) 0%, transparent 70%); animation-delay: -5s; }
+@keyframes fs-drift { 0% { transform: translate(0,0) scale(1); } 100% { transform: translate(35px,-25px) scale(1.08); } }
+
+.fs-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(59,130,246,0.014) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59,130,246,0.014) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, black 10%, transparent 68%);
+}
+.fs-noise {
+  position: absolute; inset: 0; z-index: 2;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.025'/%3E%3C/svg%3E");
+  opacity: 0.4; mix-blend-mode: overlay;
+}
+
+/* ─── HEADER ──────────────────────────────────── */
+.fs-hd { text-align: center; margin-bottom: 2.8rem; }
+
+.fs-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  background: rgba(123,47,247,0.06);
+  border: 1px solid rgba(123,47,247,0.15);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px; letter-spacing: 0.3em;
+  text-transform: uppercase; color: #7b2ff7;
+  margin-bottom: 2rem;
+  position: relative; overflow: hidden;
+  font-weight: 800;
+}
+.fs-pill::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(59,130,246,0.1), transparent);
+  animation: fs-shimmer 3.5s ease-in-out infinite;
+}
+@keyframes fs-shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(200%); } }
+.fs-pdot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #7b2ff7;
+  box-shadow: 0 0 10px #7b2ff7;
+  animation: fs-pdot 2s ease-in-out infinite; position: relative; z-index: 1;
+}
+@keyframes fs-pdot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+.fs-title { margin: 0 0 0.6rem; line-height: 1; }
+.fs-t1 {
+  display: block;
+  font-family: 'Outfit', sans-serif; font-weight: 500;
+  font-size: clamp(1rem, 2.8vw, 1.2rem);
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  animation: fs-up 0.6s ease both;
+}
+.fs-t2 {
+  display: block;
+  font-family: 'Outfit', sans-serif; font-weight: 900;
+  font-size: clamp(2.2rem, 6vw, 4rem);
+  letter-spacing: -0.04em; text-transform: uppercase;
+  background: linear-gradient(135deg, #7b2ff7 0%, #3b82f6 50%, #c084fc 100%);
+  background-size: 280% 280%;
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  animation: fs-up 0.6s ease 0.1s both, fs-grad 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(123,47,247,0.15));
+}
+@keyframes fs-up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fs-grad { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+.fs-sub-wrap {
+  display: flex; justify-content: center; align-items: center; gap: 4px;
+}
+.fs-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: rgba(255,255,255,0.4); line-height: 1.8;
+}
+.fs-cursor {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; color: var(--primary);
+  animation: fs-blink 1s step-end infinite;
+}
+@keyframes fs-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ─── STAGE ───────────────────────────────────── */
+.fs-stage { position: relative; }
+
+.fs-drum {
+  --cw: min(520px, 92vw);
+  --ch: 190px;
+  position: relative;
+  height: 440px;
+  perspective: 1300px;
+}
+
+/* ─── CARDS ───────────────────────────────────── */
+.fs-card {
+  position: absolute; left: 50%; top: 50%;
+  width: var(--cw); height: var(--ch);
+  margin-left: calc(var(--cw) / -2);
+  margin-top: calc(var(--ch) / -2);
+  padding: 0; background: none; border: 0; outline: none;
+  cursor: pointer; transform-style: preserve-3d;
+  transition: transform 0.85s cubic-bezier(0.16,1,0.3,1), opacity 0.6s ease, filter 0.6s ease;
+  will-change: transform, opacity;
+}
+.fs-card[data-slot="c"]  { transform: none; opacity: 1; z-index: 10; filter: brightness(1); }
+.fs-card[data-slot="u1"] { transform: translateY(-116px) rotateX(32deg) translateZ(-65px) scale(0.82); opacity: 0.25; z-index: 5; filter: brightness(0.38) saturate(0.4) blur(0.4px); }
+.fs-card[data-slot="d1"] { transform: translateY(116px)  rotateX(-32deg) translateZ(-65px) scale(0.82); opacity: 0.25; z-index: 5; filter: brightness(0.38) saturate(0.4) blur(0.4px); }
+.fs-card[data-slot="u2"] { transform: translateY(-190px) rotateX(54deg) translateZ(-145px) scale(0.62); opacity: 0.05; z-index: 2; filter: brightness(0.15) blur(1px); pointer-events: none; }
+.fs-card[data-slot="d2"] { transform: translateY(190px)  rotateX(-54deg) translateZ(-145px) scale(0.62); opacity: 0.05; z-index: 2; filter: brightness(0.15) blur(1px); pointer-events: none; }
+.fs-card[data-slot="x"]  { transform: translateZ(-280px) scale(0.2); opacity: 0; z-index: 0; pointer-events: none; }
+
+/* Conic border */
+.fs-spin-border {
+  position: absolute; inset: -1px; border-radius: 22px; padding: 1px;
+  background: conic-gradient(from var(--ba, 0deg), transparent 55%, rgba(var(--rgb),0.55) 72%, rgba(var(--rgb),0.9) 78%, rgba(var(--rgb),0.55) 84%, transparent 94%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity 0.5s; pointer-events: none; z-index: 5;
+  animation: fs-spin 4.5s linear infinite;
+}
+.fs-card[data-slot="c"] .fs-spin-border { opacity: 1; }
+@property --ba { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+@keyframes fs-spin { from { --ba: 0deg; } to { --ba: 360deg; } }
+
+/* Corner brackets */
+.fs-br {
+  position: absolute; width: 14px; height: 14px;
+  opacity: 0; z-index: 6; transition: opacity 0.4s ease, width 0.4s ease, height 0.4s ease;
+}
+.fs-card[data-slot="c"] .fs-br { opacity: 1; width: 16px; height: 16px; }
+.fs-br.tl { top: -1px; left: -1px;  border-top: 2px solid var(--c); border-left: 2px solid var(--c);  border-radius: 22px 0 0 0; }
+.fs-br.tr { top: -1px; right: -1px; border-top: 2px solid var(--c); border-right: 2px solid var(--c); border-radius: 0 22px 0 0; }
+.fs-br.bl { bottom: -1px; left: -1px;  border-bottom: 2px solid var(--c); border-left: 2px solid var(--c);  border-radius: 0 0 0 22px; }
+.fs-br.br { bottom: -1px; right: -1px; border-bottom: 2px solid var(--c); border-right: 2px solid var(--c); border-radius: 0 0 22px 0; }
+
+/* Body */
+.fs-body {
+  position: relative; height: 100%; border-radius: 20px;
+  padding: 1.25rem 1.5rem;
+  display: flex; flex-direction: column;
+  background:
+    linear-gradient(155deg, rgba(var(--rgb),0.1) 0%, transparent 42%),
+    linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.018) 100%);
+  border: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(32px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.07);
+  overflow: hidden;
+  transition: border-color 0.4s, box-shadow 0.45s;
+}
+.fs-card[data-slot="c"] .fs-body {
+  border-color: rgba(var(--rgb), 0.22);
+  box-shadow:
+    0 28px 70px rgba(0,0,0,0.65),
+    0 0 70px rgba(var(--rgb), 0.07),
+    0 0 0 1px rgba(var(--rgb), 0.07),
+    inset 0 1px 0 rgba(255,255,255,0.09),
+    inset 0 0 30px rgba(var(--rgb), 0.03);
+  animation: fs-float 5s ease-in-out infinite;
+}
+.fs-card[data-slot="c"]:hover .fs-body {
+  border-color: rgba(var(--rgb), 0.35);
+  box-shadow:
+    0 32px 80px rgba(0,0,0,0.7),
+    0 0 90px rgba(var(--rgb), 0.12),
+    0 0 0 1px rgba(var(--rgb), 0.1),
+    inset 0 0 40px rgba(var(--rgb), 0.05);
+}
+@keyframes fs-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+
+/* Holographic Effect */
+.fs-holo {
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
+  opacity: 0; transition: opacity 0.5s;
+  pointer-events: none; z-index: 15;
+  mask-image: repeating-linear-gradient(0deg, black 0px, black 1px, transparent 1px, transparent 2px);
+}
+.fs-card[data-slot="c"] .fs-holo { opacity: 0.3; }
+
+/* Scanline */
+.fs-scan {
+  position: absolute; left: 0; right: 0; height: 40px; top: -40px;
+  background: linear-gradient(to bottom, transparent, rgba(var(--rgb),0.15), transparent);
+  z-index: 10; pointer-events: none; opacity: 0;
+}
+.fs-card[data-slot="c"] .fs-scan { opacity: 1; animation: fs-scanmove 4s linear infinite; }
+@keyframes fs-scanmove { 0% { top: -40px; } 100% { top: 100%; } }
+
+/* ─── CARD CONTENT ────────────────────────────── */
+/* TOP */
+.fs-top {
+  display: flex; align-items: center; gap: 0.9rem;
+  margin-bottom: 0.9rem; position: relative; z-index: 2;
+}
+
+.fs-icon-wrap {
+  position: relative; width: 48px; height: 48px; border-radius: 14px;
+  display: grid; place-items: center; flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.fs-icon-glow {
+  position: absolute; inset: -8px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--rgb),0.2), transparent 65%);
+  animation: fs-breathe 3s ease-in-out infinite; pointer-events: none;
+}
+@keyframes fs-breathe { 0%,100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.3); opacity: 0.2; } }
+.fs-icon-ring {
+  position: absolute; inset: 0; border-radius: 14px;
+  border: 1px solid rgba(var(--rgb), 0.25);
+  background: linear-gradient(150deg, rgba(var(--rgb),0.18), rgba(var(--rgb),0.05));
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.fs-card[data-slot="c"]:hover .fs-icon-wrap { transform: scale(1.12) rotate(-6deg); }
+.fs-card[data-slot="c"]:hover .fs-icon-ring {
+  border-color: rgba(var(--rgb),0.5);
+  box-shadow: 0 0 20px rgba(var(--rgb),0.18);
+}
+.fs-emoji {
+  position: relative; z-index: 2; font-size: 1.35rem;
+  filter: drop-shadow(0 2px 6px rgba(var(--rgb),0.35));
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.fs-card[data-slot="c"]:hover .fs-emoji { transform: scale(1.18) translateY(-2px); }
+
+.fs-info { flex: 1; min-width: 0; }
+.fs-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.88rem; font-weight: 700;
+  color: rgba(255,255,255,0.88);
+  letter-spacing: -0.01em; line-height: 1.2;
+  margin: 0 0 5px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fs-badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 2px 8px 2px 6px; border-radius: 999px;
+  background: rgba(var(--rgb), 0.08);
+  border: 1px solid rgba(var(--rgb), 0.18);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px; letter-spacing: 0.22em;
+  text-transform: uppercase; color: var(--c);
+}
+.fs-badge-dot {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--c); box-shadow: 0 0 6px rgba(var(--rgb),0.8);
+  animation: fs-pdot 2s ease-in-out infinite;
+}
+
+.fs-num-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; letter-spacing: 0.15em;
+  color: rgba(255,255,255,0.08);
+  padding: 4px 8px; border-radius: 8px;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.04);
+  flex-shrink: 0;
+}
+
+/* MID */
+.fs-mid { flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative; z-index: 2; }
+.fs-count-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 0.6rem; }
+.fs-count {
+  font-family: 'Outfit', sans-serif; font-weight: 900;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  letter-spacing: -0.06em; color: #fff; line-height: 1;
+  font-variant-numeric: tabular-nums;
+  transition: text-shadow 0.4s;
+}
+.fs-card[data-slot="c"]:hover .fs-count { text-shadow: 0 0 35px rgba(var(--rgb),0.3); }
+.fs-unit {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 8.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(var(--rgb),0.45);
+}
+
+.fs-bar { display: flex; align-items: center; gap: 10px; }
+.fs-bar-track {
+  position: relative; flex: 1; height: 4px;
+  border-radius: 999px; background: rgba(255,255,255,0.05); overflow: hidden;
+}
+.fs-bar-fill {
+  width: 0%; height: 100%; border-radius: inherit;
+  background: linear-gradient(90deg, var(--c), rgba(var(--rgb),0.5));
+  box-shadow: 0 0 8px rgba(var(--rgb),0.35);
+  transition: width 1.5s cubic-bezier(0.16,1,0.3,1);
+  position: relative; z-index: 2;
+}
+.fs-bar-fill::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  animation: fs-bar-shim 2.5s ease-in-out infinite;
+  opacity: 0;
+}
+.fs-card[data-slot="c"] .fs-bar-fill::after { opacity: 1; }
+@keyframes fs-bar-shim { 0% { transform: translateX(-100%); } 100% { transform: translateX(400%); } }
+.fs-bar-glow {
+  position: absolute; top: -3px; left: 0; height: 10px;
+  width: 0%; border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(var(--rgb),0.25));
+  filter: blur(3px);
+  transition: width 1.5s cubic-bezier(0.16,1,0.3,1);
+  z-index: 1;
+}
+.fs-pct {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; font-weight: 700;
+  color: rgba(var(--rgb),0.65); min-width: 30px; text-align: right;
+}
+
+/* BOT */
+.fs-bot {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 0.7rem; padding-top: 0.65rem;
+  border-top: 1px solid rgba(255,255,255,0.045);
+  position: relative; z-index: 2;
+}
+.fs-tip {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 0.65rem; color: rgba(255,255,255,0.2);
+  font-style: italic; line-height: 1.3;
+  opacity: 0; transform: translateY(5px);
+  transition: opacity 0.45s, transform 0.45s;
+}
+.fs-tip svg { flex-shrink: 0; color: rgba(var(--rgb),0.45); }
+.fs-card[data-slot="c"] .fs-tip { opacity: 1; transform: none; }
+.fs-entropy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 6px; color: rgba(255,255,255,0.15);
+  letter-spacing: 0.1em; margin-top: 4px;
+}
+.fs-meta-stack { display: flex; flex-direction: column; }
+.fs-live {
+  display: flex; align-items: center; gap: 5px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 7px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(var(--rgb),0.55);
+  opacity: 0; transform: translateX(5px); transition: all 0.45s;
+}
+.fs-card[data-slot="c"] .fs-live { opacity: 1; transform: none; }
+.fs-live-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--c); box-shadow: 0 0 6px rgba(var(--rgb),0.8);
+  animation: fs-pdot 2s ease-in-out infinite;
+}
+
+/* ─── CONTROLS ────────────────────────────────── */
+.fs-ctrl { display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-top: 1.6rem; }
+.fs-arr {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(6,6,16,0.6); backdrop-filter: blur(10px);
+  color: rgba(255,255,255,0.5); display: grid; place-items: center;
+  cursor: pointer; transition: all 0.22s ease;
+}
+.fs-arr:hover { border-color: rgba(255,255,255,0.18); color: #fff; transform: scale(1.1); box-shadow: 0 0 16px rgba(34,211,238,0.08); }
+.fs-arr:active { transform: scale(0.92); }
+
+.fs-nav { display: flex; gap: 5px; }
+.fs-dot {
+  position: relative; width: 34px; height: 34px; border-radius: 10px;
+  display: grid; place-items: center;
+  background: rgba(255,255,255,0.025);
+  border: 1px solid rgba(255,255,255,0.05);
+  cursor: pointer; opacity: 0.35;
+  transition: all 0.32s cubic-bezier(0.16,1,0.3,1);
+}
+.fs-dot:hover { opacity: 0.65; transform: translateY(-3px); }
+.fs-dot.on {
+  opacity: 1; background: rgba(var(--rgb),0.1); border-color: var(--c);
+  box-shadow: 0 0 16px rgba(var(--rgb),0.14), 0 6px 18px rgba(0,0,0,0.35);
+  transform: translateY(-3px) scale(1.07);
+}
+.fs-dot-icon { font-size: 0.85rem; position: relative; z-index: 2; transition: transform 0.25s; }
+.fs-dot.on .fs-dot-icon { transform: scale(1.14); }
+.fs-dot-ring {
+  position: absolute; inset: -3px; border-radius: 13px;
+  border: 1.5px solid var(--c); opacity: 0; transform: scale(1.12);
+  transition: all 0.32s ease;
+}
+.fs-dot.on .fs-dot-ring { opacity: 0.38; transform: scale(1); }
+
+.fs-ctr {
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+  margin-top: 1.2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; letter-spacing: 0.14em; color: rgba(255,255,255,0.12);
+}
+.fs-cn { font-weight: 700; min-width: 16px; text-align: center; transition: color 0.35s; }
+.fs-cs { opacity: 0.35; }
+
+/* ─── RESPONSIVE ──────────────────────────────── */
+@media (max-width: 600px) {
+  .fs { padding: 3.5rem 0 3rem; }
+  .fs-drum { --cw: min(340px, 92vw); --ch: 178px; height: 400px; }
+  .fs-card[data-slot="u1"] { transform: translateY(-105px) rotateX(28deg) translateZ(-48px) scale(0.83); }
+  .fs-card[data-slot="d1"] { transform: translateY(105px)  rotateX(-28deg) translateZ(-48px) scale(0.83); }
+  .fs-card[data-slot="u2"],.fs-card[data-slot="d2"] { opacity: 0; }
+  .fs-body { padding: 1rem 1.1rem; }
+  .fs-count { font-size: 1.75rem; }
+  .fs-icon-wrap { width: 40px; height: 40px; }
+  .fs-emoji { font-size: 1.1rem; }
+}
+@media (max-width: 380px) {
+  .fs-drum { --cw: min(295px, 94vw); --ch: 168px; height: 370px; }
+  .fs-count { font-size: 1.5rem; }
+  .fs-label { font-size: 0.78rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+</style>
+
+<script is:inline>
+(() => {
+  /* ─── WEB AUDIO SOUNDS ─────────────────────── */
+  let audioCtx = null;
+  function getCtx() {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    return audioCtx;
+  }
+
+  const sounds = {
+    boing: (ctx) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.setValueAtTime(440, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(120, ctx.currentTime + 0.3);
+      g.gain.setValueAtTime(0.25, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+      o.start(); o.stop(ctx.currentTime + 0.4);
+    },
+    pop: (ctx) => {
+      const buf = ctx.createBuffer(1, ctx.sampleRate * 0.08, ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < d.length; i++) d[i] = (Math.random()*2-1) * Math.pow(1-i/d.length, 3);
+      const src = ctx.createBufferSource(), g = ctx.createGain();
+      const f = ctx.createBiquadFilter(); f.type = 'bandpass'; f.frequency.value = 800; f.Q.value = 0.5;
+      src.buffer = buf; src.connect(f); f.connect(g); g.connect(ctx.destination);
+      g.gain.setValueAtTime(0.5, ctx.currentTime);
+      src.start();
+    },
+    type: (ctx) => {
+      for (let k = 0; k < 3; k++) {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.type = 'square';
+        o.frequency.value = 600 + k * 200;
+        g.gain.setValueAtTime(0, ctx.currentTime + k*0.05);
+        g.gain.linearRampToValueAtTime(0.08, ctx.currentTime + k*0.05 + 0.01);
+        g.gain.linearRampToValueAtTime(0, ctx.currentTime + k*0.05 + 0.04);
+        o.start(ctx.currentTime + k*0.05);
+        o.stop(ctx.currentTime + k*0.05 + 0.05);
+      }
+    },
+    whale: (ctx) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine';
+      o.frequency.setValueAtTime(80, ctx.currentTime);
+      o.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.3);
+      o.frequency.exponentialRampToValueAtTime(60, ctx.currentTime + 0.8);
+      g.gain.setValueAtTime(0.3, ctx.currentTime);
+      g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
+      o.start(); o.stop(ctx.currentTime + 0.9);
+    },
+    laugh: (ctx) => {
+      for (let i = 0; i < 5; i++) {
+        const o = ctx.createOscillator(), g = ctx.createGain();
+        o.connect(g); g.connect(ctx.destination);
+        o.frequency.value = 300 + i*80;
+        const t = ctx.currentTime + i*0.1;
+        g.gain.setValueAtTime(0, t);
+        g.gain.linearRampToValueAtTime(0.15, t + 0.03);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 0.09);
+        o.start(t); o.stop(t + 0.1);
+      }
+    },
+    yawn: (ctx) => {
+      const o = ctx.createOscillator(), g = ctx.createGain(), f = ctx.createBiquadFilter();
+      f.type = 'lowpass'; f.frequency.setValueAtTime(200, ctx.currentTime); f.frequency.exponentialRampToValueAtTime(1000, ctx.currentTime + 0.4); f.frequency.exponentialRampToValueAtTime(150, ctx.currentTime + 1);
+      o.connect(f); f.connect(g); g.connect(ctx.destination);
+      o.type = 'sawtooth'; o.frequency.setValueAtTime(100, ctx.currentTime); o.frequency.exponentialRampToValueAtTime(160, ctx.currentTime + 0.4); o.frequency.exponentialRampToValueAtTime(80, ctx.currentTime + 1);
+      g.gain.setValueAtTime(0, ctx.currentTime); g.gain.linearRampToValueAtTime(0.2, ctx.currentTime + 0.2); g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 1.1);
+      o.start(); o.stop(ctx.currentTime + 1.2);
+    },
+  };
+
+  function playSound(name) {
+    try {
+      const ctx = getCtx();
+      if (ctx.state === 'suspended') ctx.resume();
+      sounds[name]?.(ctx);
+    } catch(e) {}
+  }
+
+  /* ─── PARTICLE CANVAS ──────────────────────── */
+  const canvas = document.getElementById('fs-canvas');
+  const section = document.getElementById('fs-section');
+  if (canvas && section) {
+    const ctx2 = canvas.getContext('2d');
+    let W, H, pts = [];
+    let mx = -9999, my = -9999;
+    const COLS = [{r:0,g:245,b:212},{r:167,g:139,b:250},{r:96,g:165,b:250},{r:244,g:114,b:182},{r:251,g:191,b:36}];
+
+    function init() {
+      W = canvas.width = canvas.offsetWidth;
+      H = canvas.height = canvas.offsetHeight;
+      pts = Array.from({length:50}, () => {
+        const c = COLS[Math.floor(Math.random()*COLS.length)];
+        return { x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.5, vy:(Math.random()-.5)*.5, size:1+Math.random()*1.6, color:c, alpha:.2+Math.random()*.4, ph:Math.random()*Math.PI*2, sp:.018+Math.random()*.022 };
+      });
+    }
+    init();
+
+    section.addEventListener('mousemove', e => {
+      const r = canvas.getBoundingClientRect();
+      mx = e.clientX - r.left; my = e.clientY - r.top;
+    }, {passive:true});
+    section.addEventListener('mouseleave', () => { mx = -9999; my = -9999; });
+
+    let raf;
+    function draw() {
+      ctx2.clearRect(0,0,W,H);
+      
+      // Draw flowing data streams
+      ctx2.lineWidth = 0.5;
+      pts.forEach((p, idx) => {
+        p.ph += p.sp;
+        const pulse = .7 + Math.sin(p.ph)*.3;
+        
+        // Mouse reaction
+        const dx = mx-p.x, dy = my-p.y, dist = Math.sqrt(dx*dx+dy*dy);
+        if (dist < 170 && dist > 0) { 
+          const f=(170-dist)/170*.011; 
+          p.vx -= (dx/dist)*f; 
+          p.vy -= (dy/dist)*f; 
+        }
+        
+        p.x += p.vx; p.y += p.vy; 
+        p.vx *= .995; p.vy *= .995;
+        
+        // Wrap around
+        if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+        if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+
+        const a = p.alpha*pulse;
+        const {r,g,b} = p.color;
+        
+        // Draw particle
+        ctx2.beginPath(); ctx2.arc(p.x,p.y,p.size*pulse,0,Math.PI*2);
+        ctx2.fillStyle = `rgba(${r},${g},${b},${a})`; ctx2.fill();
+        
+        // Draw trailing ghost for 'data stream' effect
+        if (idx % 3 === 0) {
+           ctx2.beginPath();
+           ctx2.moveTo(p.x, p.y);
+           ctx2.lineTo(p.x - p.vx * 20, p.y - p.vy * 20);
+           ctx2.strokeStyle = `rgba(${r},${g},${b},${a * 0.2})`;
+           ctx2.stroke();
+        }
+      });
+      for (let i=0;i<pts.length;i++) {
+        for (let j=i+1;j<pts.length;j++) {
+          const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y, d=Math.sqrt(dx*dx+dy*dy);
+          if (d<150) {
+            const {r:r1,g:g1,b:b1}=pts[i].color, {r:r2,g:g2,b:b2}=pts[j].color;
+            ctx2.beginPath(); ctx2.moveTo(pts[i].x,pts[i].y); ctx2.lineTo(pts[j].x,pts[j].y);
+            ctx2.strokeStyle=`rgba(${(r1+r2)/2},${(g1+g2)/2},${(b1+b2)/2},${(1-d/150)*.1})`; ctx2.lineWidth=.5; ctx2.stroke();
+          }
+        }
+        if (mx>0) {
+          const dx=pts[i].x-mx, dy=pts[i].y-my, d=Math.sqrt(dx*dx+dy*dy);
+          if (d<190) { const {r,g,b}=pts[i].color; ctx2.beginPath(); ctx2.moveTo(pts[i].x,pts[i].y); ctx2.lineTo(mx,my); ctx2.strokeStyle=`rgba(${r},${g},${b},${(1-d/190)*.18})`; ctx2.lineWidth=.65; ctx2.stroke(); }
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    new IntersectionObserver(([e]) => { if(e.isIntersecting){if(!raf)raf=requestAnimationFrame(draw);} else{cancelAnimationFrame(raf);raf=null;} },{threshold:.05}).observe(canvas);
+    let rt; window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(init,250);},{passive:true});
+  }
+
+  /* ─── DRUM LOGIC ───────────────────────────── */
+  const drum = document.getElementById('fs-drum');
+  if (!drum) return;
+  const cards = [...drum.querySelectorAll('.fs-card')];
+  const dots  = [...document.querySelectorAll('#fs-nav .fs-dot')];
+  const cnEl  = document.getElementById('fs-cn');
+  const n = cards.length;
+  let active = 0, timer = null;
+
+  const ease4 = t => 1-(1-t)**4;
+  const SLOTS = {0:'c',1:'d1','-1':'u1',2:'d2','-2':'u2'};
+
+  function slotOf(i) {
+    let d = ((i-active)%n+n)%n;
+    if (d>n/2) d-=n;
+    return SLOTS[d]||'x';
+  }
+
+  function animNum(el, tgt) {
+    const t0 = performance.now();
+    (function go(ts){
+      const p = Math.min((ts-t0)/1550,1);
+      el.textContent = Math.floor(tgt*ease4(p)).toLocaleString();
+      if(p<1) requestAnimationFrame(go); else el.textContent=tgt.toLocaleString();
+    })(t0);
+  }
+
+  function animPct(el, tgt) {
+    const t0 = performance.now();
+    (function go(ts){
+      const p = Math.min((ts-t0)/1350,1);
+      el.textContent = Math.floor(tgt*ease4(p))+'%';
+      if(p<1) requestAnimationFrame(go); else el.textContent=tgt+'%';
+    })(t0);
+  }
+
+  function update() {
+    cards.forEach((c,i) => {
+      const s = slotOf(i), was = c.dataset.slot;
+      c.dataset.slot = s;
+      if (s==='c' && was!=='c') {
+        const numEl = c.querySelector('.fs-count');
+        if (numEl) animNum(numEl, +numEl.dataset.target);
+        const fill = c.querySelector('.fs-bar-fill');
+        const fillG = c.querySelector('.fs-bar-glow');
+        const pctEl = c.querySelector('.fs-pct');
+        if (fill) {
+          const pct = +fill.dataset.pct;
+          fill.style.width='0%'; if(fillG) fillG.style.width='0%';
+          requestAnimationFrame(()=>requestAnimationFrame(()=>{ fill.style.width=pct+'%'; if(fillG) fillG.style.width=pct+'%'; }));
+          if(pctEl) animPct(pctEl, pct);
+        }
+      }
+    });
+
+    dots.forEach((d,i) => d.classList.toggle('on', i===active));
+
+    if (cnEl) {
+      cnEl.textContent = String(active+1).padStart(2,'0');
+      cnEl.style.color = cards[active].style.getPropertyValue('--c');
+    }
+  }
+
+  function goTo(i, playAudio) {
+    active = ((i%n)+n)%n;
+    update();
+    if (playAudio) {
+      const snd = cards[active].dataset.sound;
+      playSound(snd);
+    }
+  }
+
+  function next(audio=false) { goTo(active+1, audio); }
+  function prev(audio=false) { goTo(active-1, audio); }
+  function startAuto() { clearInterval(timer); timer = setInterval(()=>next(false), 4800); }
+
+  /* Click on card icon triggers sound */
+  cards.forEach(c => {
+    c.addEventListener('click', () => {
+      const wasActive = c.dataset.slot === 'c';
+      goTo(+c.dataset.i, true);
+      if (wasActive) playSound(c.dataset.sound); // click on already-active card = replay
+      startAuto();
+    });
+  });
+
+  /* Click on icon specifically */
+  cards.forEach(c => {
+    const icon = c.querySelector('.fs-icon-wrap');
+    if (icon) {
+      icon.addEventListener('click', e => {
+        e.stopPropagation();
+        playSound(c.dataset.sound);
+        /* Bounce animation */
+        const emoji = c.querySelector('.fs-emoji');
+        if (emoji) {
+          emoji.style.animation = 'none';
+          emoji.style.transform = 'scale(1.5) rotate(15deg)';
+          setTimeout(()=>{ emoji.style.transform=''; emoji.style.animation=''; }, 350);
+        }
+      });
+    }
+  });
+
+  dots.forEach(d => d.addEventListener('click', () => { goTo(+d.dataset.i, true); startAuto(); }));
+  document.getElementById('fs-prev')?.addEventListener('click', () => { prev(true); startAuto(); });
+  document.getElementById('fs-next')?.addEventListener('click', () => { next(true); startAuto(); });
+  drum.addEventListener('mouseenter', ()=>clearInterval(timer));
+  drum.addEventListener('mouseleave', startAuto);
+
+  /* Touch */
+  let ty0=0;
+  drum.addEventListener('touchstart', e=>{ty0=e.changedTouches[0].clientY;},{passive:true});
+  drum.addEventListener('touchend', e=>{ const dy=e.changedTouches[0].clientY-ty0; if(Math.abs(dy)>45){dy<0?next(true):prev(true);startAuto();}},{passive:true});
+
+  /* Keyboard */
+  window.addEventListener('keydown', e=>{
+    const r=document.getElementById('fs-section')?.getBoundingClientRect();
+    if(!r||r.top>innerHeight||r.bottom<0) return;
+    if(e.key==='ArrowDown'||e.key==='ArrowRight'){next(true);startAuto();}
+    if(e.key==='ArrowUp'||e.key==='ArrowLeft'){prev(true);startAuto();}
+  });
+
+  /* 3D tilt */
+  if(matchMedia('(hover:hover)').matches) {
+    cards.forEach(c=>{
+      c.addEventListener('mousemove', e=>{
+        if(c.dataset.slot!=='c') return;
+        const r=c.getBoundingClientRect(), b=c.querySelector('.fs-body');
+        const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+        b.style.transform=`perspective(850px) rotateY(${x*9}deg) rotateX(${-y*9}deg) scale(1.012)`;
+      });
+      c.addEventListener('mouseleave',()=>{ c.querySelector('.fs-body').style.transform=''; });
+    });
+  }
+
+  /* 3D Core Background */
+  (function initCore() {
+    const container = document.getElementById('fs-core-3d');
+    if (!container || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(container.offsetWidth, container.offsetHeight);
+    container.appendChild(renderer.domElement);
+
+    const group = new THREE.Group();
+    scene.add(group);
+
+    // Wireframe Box
+    const boxGeo = new THREE.IcosahedronGeometry(12, 1);
+    const boxMat = new THREE.MeshBasicMaterial({ color: 0x3b82f6, wireframe: true, transparent: true, opacity: 0.1 });
+    const core = new THREE.Mesh(boxGeo, boxMat);
+    group.add(core);
+
+    camera.position.z = 30;
+
+    function animateCore() {
+      requestAnimationFrame(animateCore);
+      group.rotation.y += 0.002;
+      group.rotation.x += 0.001;
+      renderer.render(scene, camera);
+    }
+    animateCore();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = container.offsetWidth / container.offsetHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.offsetWidth, container.offsetHeight);
+    });
+  })();
+
+  /* Typewriter */
+  const subEl = document.getElementById('fs-typewriter');
+  const items = [
+    "Fetching coffee status...",
+    "Bypassing sanity checks...",
+    "Optimizing mental RAM...",
+    "Refactoring chaos into code...",
+    "Chasing architectural ghosts...",
+    "Syncing with midnight epiphanies..."
+  ];
+  let curItem = 0;
+
+  function typeAction() {
+    let text = items[curItem];
+    let i = 0;
+    subEl.textContent = "";
+    const t = setInterval(() => {
+      if (i < text.length) {
+        subEl.textContent += text[i++];
+      } else {
+        clearInterval(t);
+        setTimeout(() => {
+          curItem = (curItem + 1) % items.length;
+          typeAction();
+        }, 3000);
+      }
+    }, 50);
+  }
+  typeAction();
+
+  new IntersectionObserver(([e])=>{ if(e.isIntersecting){goTo(0,false);startAuto();} },{threshold:.2}).observe(drum);
+})();
+</script>

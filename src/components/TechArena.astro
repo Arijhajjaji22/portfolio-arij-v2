@@ -1,0 +1,305 @@
+---
+const engineeringMindset = [
+  { id: "01", name: "DIST_SYSTEMS", type: "CORE", color: "#7b2ff7", icon: "devicon-network-plain", mandate: "SCALE", insight: "Master distributed patterns to build systems that survive traffic.", phil: "Architecting resilient, ultra-scale environments with zero-downtime integrity." },
+  { id: "02", name: "AI_FLOWS", type: "EVO", color: "#c084fc", icon: "devicon-googlecloud-plain", mandate: "COGNITIVE", insight: "AI is the new structural foundation for intelligent software.", phil: "Integrating Agentic RAG to bridge the gap between static code and cognitive intent." },
+  { id: "03", name: "PERFORMANCE", type: "CORE", color: "#3b82f6", icon: "devicon-speed-plain", mandate: "LATENCY", insight: "Performance is the silent feature that builds or breaks user trust at the first byte.", phil: "Sub-millisecond engineering. Optimizing hardware-level execution logic." },
+  { id: "04", name: "DEVSECOPS", type: "EVO", color: "#ff4d4d", icon: "devicon-docker-plain", mandate: "SECURITY", insight: "Code that isn't secure shouldn't exist in production. It's a fundamental duty.", phil: "Automating zero-trust identity across delivery pipelines for absolute security." },
+  { id: "05", name: "ARCHITECTURE", type: "CORE", color: "#eab308", icon: "devicon-java-plain", mandate: "LONGEVITY", insight: "Deep architectural mastery distinguishes engineers from temporary coders.", phil: "Implementing Hexagonal and DDD to ensure long-term system survival." },
+  { id: "06", name: "EVENT_DRIVEN", type: "EVO", color: "#06b6d4", icon: "devicon-apachekafka-original", mandate: "REACTIVE", insight: "Mastering asymmetric flows is vital for modern synchronization.", phil: "Harnessing asynchronous streams to build decoupled, ultra-fast ecosystems." },
+  { id: "07", name: "CLOUD_NATIVE", type: "CORE", color: "#22c55e", icon: "devicon-kubernetes-plain", mandate: "AUTONOMY", insight: "Infra awareness is the key to bottom-up optimization.", phil: "Building self-healing, environment-aware software that scales effortlessly." }
+];
+---
+
+<section id="innovation-nexus" class="tech-arena">
+  <div class="nexus-hud">
+     <div class="h-frame tl"></div>
+     <div class="h-frame br"></div>
+  </div>
+
+  <div id="nebula-container" class="nebula-container">
+    <canvas id="arena-canvas"></canvas>
+    
+    <div class="nebula-ui">
+       <div class="n-brand reveal-blur">
+          <div class="n-badge">SYSTEM_NEURAL_MAP</div>
+          <h2 class="n-title uppercase font-black tracking-tighter">ENGINEERING <span class="gradient-text-animated">DNA</span></h2>
+          <p class="n-subtitle text-white/50 text-sm mt-4 max-w-[280px] font-sans tracking-tight leading-relaxed">
+            The essential skills every elite engineer must master to build modern, high-scale software.
+          </p>
+          <div class="n-separator"></div>
+       </div>
+       
+       <div class="n-footer">
+          <div class="n-help">
+             <div class="help-box"><span class="key">DRAG</span> <span>NAVIGATE</span></div>
+          </div>
+          <div class="n-legend">
+             <div class="l-track"><div class="t-dot core"></div><span>MASTERY</span></div>
+             <div class="l-track"><div class="t-dot evolution"></div><span>EVOLUTION</span></div>
+          </div>
+       </div>
+    </div>
+
+    <!-- TOOLTIP -->
+    <div id="nebula-tooltip" class="nebula-tooltip">
+       <div class="tooltip-wrapper">
+          <div class="tooltip-glass"></div>
+          <div class="tooltip-border"></div>
+          <div class="tooltip-content">
+             <button id="close-tooltip" class="mobile-close">✕</button>
+             <div class="t-header">
+                <div id="t-icon-box" class="t-icon-box"><i id="t-icon"></i></div>
+                <div class="t-title-group">
+                   <div id="t-type" class="t-tag">---</div>
+                   <h3 id="t-name" class="t-name">CHOOSE_CORE</h3>
+                </div>
+             </div>
+             <div class="t-mandate"><span class="m-label">MANDATE:</span> <span id="t-mandate" class="m-val">STABLE</span></div>
+             <p id="t-phil" class="t-philosophy"></p>
+             <div class="t-insight-box">
+                <div class="i-hdr"><span class="i-dot"></span> INSIGHT</div>
+                <p id="t-insight"></p>
+             </div>
+             <div class="t-footer-status"><span class="blink">●</span> <span class="font-mono text-[8px] opacity-30">ENHANCED_SYNC_OK</span></div>
+          </div>
+       </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.tech-arena { position: relative; height: 100vh; width: 100%; background: #020205; overflow: hidden; }
+.nexus-hud { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+.h-frame { position: absolute; width: 30px; height: 30px; border: 1px solid rgba(255,255,255,0.05); }
+.tl { top: 2rem; left: 2rem; border-right: 0; border-bottom: 0; }
+.br { bottom: 2rem; right: 2rem; border-top: 0; border-left: 0; }
+.nebula-container { position: absolute; inset: 0; z-index: 10; }
+#arena-canvas { width: 100%; height: 100%; display: block; }
+.nebula-ui { position: absolute; inset: 0; z-index: 50; padding: 3rem; pointer-events: none; display: flex; flex-direction: column; justify-content: space-between; }
+.n-badge { font-family: 'JetBrains Mono', monospace; font-size: 8px; letter-spacing: 0.4em; color: #7b2ff7; margin-bottom: 0.3rem; opacity: 0.4; }
+.n-title { font-size: clamp(1.2rem, 3vw, 2.2rem); font-weight: 950; color: #fff; line-height: 1; letter-spacing: -0.05em; }
+.n-separator { width: 30px; height: 1px; background: #7b2ff7; margin-top: 0.8rem; }
+.n-footer { display: flex; justify-content: space-between; align-items: flex-end; }
+.n-help { display: flex; flex-direction: column; gap: 0.4rem; }
+.help-box { display: flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.2); }
+.key { padding: 2px 5px; background: rgba(255,255,255,0.03); border-radius: 3px; border: 1px solid rgba(255,255,255,0.05); color: #fff; }
+.n-legend { display: flex; flex-direction: column; gap: 0.4rem; }
+.l-track { display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 8px; color: rgba(255,255,255,0.2); }
+.t-dot { width: 4px; height: 4px; border-radius: 50%; }
+.core { background: #7b2ff7; }
+.evolution { background: #c084fc; }
+.nebula-tooltip { position: fixed; pointer-events: none; z-index: 1000; width: 320px; opacity: 0; transform: scale(0.95) translateY(15px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+.nebula-tooltip.active { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
+.tooltip-glass { position: absolute; inset: 0; background: rgba(8, 8, 12, 0.98); backdrop-filter: blur(40px); }
+.tooltip-border { position: absolute; inset: 0; border: 1px solid rgba(255,255,255,0.06); border-left: 2px solid #7b2ff7; }
+.tooltip-content { position: relative; padding: 2rem; }
+.mobile-close { display: none; position: absolute; top: 1rem; right: 1rem; color: #fff; opacity: 0.5; font-size: 1rem; cursor: pointer; border: none; background: none; }
+.t-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.t-icon-box { width: 48px; height: 48px; background: rgba(123, 47, 247, 0.08); border-radius: 10px; display: grid; place-items: center; font-size: 1.5rem; border: 1px solid rgba(123, 47, 247, 0.15); }
+.t-tag { font-family: 'JetBrains Mono', monospace; font-size: 7px; color: #7b2ff7; letter-spacing: 0.2em; }
+.t-name { font-size: 1.3rem; font-weight: 900; color: #fff; line-height: 1.1; letter-spacing: -0.03em; }
+.t-mandate { display: flex; align-items: center; gap: 8px; margin-bottom: 1.2rem; padding: 5px 10px; background: rgba(255,255,255,0.02); border-radius: 3px; }
+.m-label { font-family: 'JetBrains Mono', monospace; font-size: 6px; color: rgba(255,255,255,0.2); }
+.m-val { font-family: 'JetBrains Mono', monospace; font-size: 7px; font-weight: 800; color: #7b2ff7; }
+.t-philosophy { font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.5; margin-bottom: 1.2rem; }
+.t-insight-box { padding: 1rem; background: rgba(123, 47, 247, 0.03); border-radius: 0 6px 6px 0; border-left: 1.5px solid #7b2ff7; }
+.i-hdr { font-family: 'JetBrains Mono', monospace; font-size: 7px; color: #7b2ff7; margin-bottom: 4px; font-weight: 800; }
+#t-insight { font-size: 0.8rem; color: #fff; line-height: 1.4; font-style: italic; opacity: 0.8; }
+.t-footer-status { margin-top: 1rem; display: flex; align-items: center; gap: 6px; }
+.blink { color: #22c55e; font-size: 6px; animation: blinker 1.5s step-start infinite; }
+@keyframes blinker { 50% { opacity: 0; } }
+
+@media (max-width: 768px) {
+  .nebula-tooltip { inset: auto 1rem 1rem 1rem !important; width: auto !important; max-width: none; }
+  .mobile-close { display: block; }
+  .n-legend, .n-help, .n-separator { display: none; }
+  .nebula-ui { padding: 1.5rem; }
+}
+</style>
+
+<script is:inline>
+(function() {
+  const container = document.getElementById('nebula-container');
+  const canvas = document.getElementById('arena-canvas');
+  if (!container || !canvas || typeof THREE === 'undefined') return;
+
+  const w = container.offsetWidth, h = container.offsetHeight;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, w/h, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setSize(w, h);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 3));
+
+  const nebulaGroup = new THREE.Group();
+  scene.add(nebulaGroup);
+
+  // ── CINEMATIC 3D BACKGROUND (STARS & GRID) ──
+  const starGeo = new THREE.BufferGeometry();
+  const starCount = 2000;
+  const starPos = new Float32Array(starCount * 3);
+  for(let i=0; i<starCount*3; i++) starPos[i] = (Math.random() - 0.5) * 100;
+  starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+  const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x7b2ff7, size: 0.05, transparent: true, opacity: 0.4 }));
+  scene.add(stars);
+
+  const gridHelper = new THREE.GridHelper(100, 40, 0x7b2ff7, 0x08080a);
+  gridHelper.position.y = -15;
+  gridHelper.rotation.x = Math.PI / 10;
+  gridHelper.material.transparent = true;
+  gridHelper.material.opacity = 0.05;
+  scene.add(gridHelper);
+
+  const mindset = [
+    { name: "DIST_SYSTEMS", type: "CORE", color: "#7b2ff7", icon: "devicon-nginx-original", mandate: "SCALE", insight: "Master distributed patterns to build systems that survive traffic.", phil: "Architecting resilient, ultra-scale environments." },
+    { name: "AI_FLOWS", type: "EVO", color: "#c084fc", icon: "devicon-googlecloud-plain", mandate: "COGNITIVE", insight: "AI is the new structural foundation for intelligent software.", phil: "Integrating Agentic RAG for cognitive intent logic." },
+    { name: "PERFORMANCE", type: "CORE", color: "#3b82f6", icon: "devicon-redis-plain", mandate: "LATENCY", insight: "Performance is the silent feature that builds user trust.", phil: "Sub-millisecond engineering and hardware optimization." },
+    { name: "DEVSECOPS", type: "EVO", color: "#ff4d4d", icon: "devicon-docker-plain", mandate: "SECURITY", insight: "Code that isn't secure shouldn't exist in production.", phil: "Automating zero-trust identity across delivery pipelines." },
+    { name: "ARCHITECTURE", type: "CORE", color: "#eab308", icon: "devicon-java-plain", mandate: "LONGEVITY", insight: "Deep architecture distinguishes engineers from coders.", phil: "Implementing Hexagonal/DDD for long-term survival." },
+    { name: "EVENT_DRIVEN", type: "EVO", color: "#06b6d4", icon: "devicon-apachekafka-original", mandate: "REACTIVE", insight: "Mastering asymmetric flows is vital for modern synchronization.", phil: "Harnessing real-time streams for decoupled ecosystems." },
+    { name: "CLOUD_NATIVE", type: "CORE", color: "#22c55e", icon: "devicon-kubernetes-plain", mandate: "AUTONOMY", insight: "Infra awareness is the key to bottom-up optimization.", phil: "Building self-healing, environment-aware software." }
+  ];
+
+  function createLabel(text, color) {
+    const canvasObj = document.createElement('canvas');
+    const ctx = canvasObj.getContext('2d');
+    canvasObj.width = 512; canvasObj.height = 128;
+    ctx.font = 'bold 30px "JetBrains Mono"';
+    ctx.textAlign = 'center'; ctx.fillStyle = color;
+    ctx.fillText(text.replace(/_/g, ' '), 256, 64);
+    const texture = new THREE.CanvasTexture(canvasObj);
+    const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.5 });
+    const sprite = new THREE.Sprite(spriteMaterial);
+    sprite.scale.set(4.5, 1.1, 1);
+    return sprite;
+  }
+
+  const nodes = [];
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+
+  mindset.forEach((m, i) => {
+    const phi = Math.acos(-1 + (2 * i) / mindset.length);
+    const theta = Math.sqrt(mindset.length * Math.PI) * phi;
+    const r = 8.5; 
+
+    const nGroup = new THREE.Group();
+    nGroup.position.set(r * Math.cos(theta) * Math.sin(phi), r * Math.sin(theta) * Math.sin(phi), r * Math.cos(phi));
+
+    const orb = new THREE.Mesh(new THREE.IcosahedronGeometry(0.55, 1), new THREE.MeshBasicMaterial({ color: m.color, wireframe: true, transparent: true, opacity: 0.15 }));
+    nGroup.add(orb);
+    const core = new THREE.Mesh(new THREE.SphereGeometry(0.25, 16, 16), new THREE.MeshBasicMaterial({ color: m.color }));
+    nGroup.add(core);
+
+    const label = createLabel(m.name, m.color);
+    label.position.y = 1.0;
+    nGroup.add(label);
+
+    const collider = new THREE.Mesh(new THREE.SphereGeometry(1.5, 4, 4), new THREE.MeshBasicMaterial({ visible: false }));
+    nGroup.add(collider);
+
+    nGroup.userData = { ...m, orb, label, core, collider };
+    nodes.push(nGroup);
+    nebulaGroup.add(nGroup);
+  });
+
+  const lineMat = new THREE.LineBasicMaterial({ color: 0x7b2ff7, transparent: true, opacity: 0.05 });
+  for(let i=0; i<nodes.length; i++) {
+    for(let j=i+1; j<nodes.length; j++) {
+      const g = new THREE.BufferGeometry().setFromPoints([nodes[i].position, nodes[j].position]);
+      nebulaGroup.add(new THREE.Line(g, lineMat));
+    }
+  }
+
+  function updateCamera() {
+    const width = container.offsetWidth;
+    const zPos = width < 768 ? 30 : (width < 1200 ? 26 : 22);
+    camera.position.z = zPos;
+    camera.lookAt(0,0,0);
+    camera.aspect = width / container.offsetHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, container.offsetHeight);
+  }
+  updateCamera();
+
+  const tooltip = document.getElementById('nebula-tooltip');
+  const tIcon = document.getElementById('t-icon');
+  const tBox = document.getElementById('t-icon-box');
+  const tType = document.getElementById('t-type');
+  const tName = document.getElementById('t-name');
+  const tMandate = document.getElementById('t-mandate');
+  const tPhil = document.getElementById('t-phil');
+  const tInsight = document.getElementById('t-insight');
+  const closeBtn = document.getElementById('close-tooltip');
+
+  let activeNode = null, isDragging = false, prevX = 0, prevY = 0;
+
+  window.addEventListener('mousedown', () => isDragging = true);
+  window.addEventListener('mouseup', () => isDragging = false);
+  closeBtn.addEventListener('click', () => { activeNode = null; tooltip.classList.remove('active'); });
+
+  window.addEventListener('mousemove', (e) => {
+    if(isDragging) {
+      nebulaGroup.rotation.y += (e.clientX - prevX) * 0.005;
+      nebulaGroup.rotation.x += (e.clientY - prevY) * 0.005;
+    }
+    prevX = e.clientX; prevY = e.clientY;
+
+    if (window.innerWidth > 768) {
+      const tipW = 320;
+      let px = e.clientX + 25;
+      let py = e.clientY + 15;
+      if (px + tipW > window.innerWidth) px = e.clientX - tipW - 40;
+      tooltip.style.left = px + 'px'; tooltip.style.top = py + 'px';
+    }
+
+    const rect = canvas.getBoundingClientRect();
+    mouse.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObjects(nodes.map(n => n.userData.collider)); 
+
+    if (intersects.length > 0) {
+      const selected = intersects[0].object.parent;
+      if (activeNode !== selected) {
+        activeNode = selected;
+        const d = activeNode.userData;
+        tIcon.className = d.icon; tIcon.style.color = d.color;
+        tBox.style.background = d.color + '15';
+        tType.innerText = d.type; tType.style.color = d.color;
+        tName.innerText = d.name.replace(/_/g, ' ');
+        tMandate.innerText = d.mandate; tMandate.style.color = d.color;
+        tPhil.innerText = d.phil; tInsight.innerText = `"${d.insight}"`;
+        tooltip.style.borderLeftColor = d.color;
+        tooltip.classList.add('active');
+        nodes.forEach(n => {
+           const match = n === activeNode;
+           n.scale.setScalar(match ? 1.5 : 0.8);
+           n.userData.label.material.opacity = match ? 1 : 0.1;
+           n.userData.orb.material.opacity = match ? 0.6 : 0.1;
+        });
+      }
+    } else if (window.innerWidth > 768) {
+       activeNode = null; tooltip.classList.remove('active');
+       nodes.forEach(n => { n.scale.setScalar(1); n.userData.label.material.opacity = 0.5; n.userData.orb.material.opacity = 0.15; });
+    }
+  });
+
+  function animate() {
+    requestAnimationFrame(animate);
+    
+    const time = Date.now() * 0.001;
+    
+    nebulaGroup.rotation.y += 0.001;
+    stars.rotation.y -= 0.0005;
+    stars.rotation.x += 0.0002;
+    
+    gridHelper.position.z = (time * 2) % 10 - 5;
+    
+    if(!isDragging) { nebulaGroup.rotation.y += 0.0008; }
+    nodes.forEach(n => { n.userData.orb.rotation.y += 0.01; n.userData.label.quaternion.copy(camera.quaternion); });
+    renderer.render(scene, camera);
+  }
+  animate();
+  window.addEventListener('resize', updateCamera);
+})();
+</script>

@@ -1,0 +1,1360 @@
+---
+const journey = [
+  { 
+    code: "01", 
+    label: "Problem Solving",
+    subtitle: "Algorithmic Thinking",
+    desc: "Breaking down complex programming challenges into elegant, efficient, and highly optimized solutions.",
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="journey-icon"><path class="draw-path" d="M4 17l6-6-6-6M12 19h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line class="blink-cursor" x1="12" y1="19" x2="20" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`, 
+    tag: "FOUNDATION",
+    highlights: ["Data Structures", "Algorithm Design", "Time Complexity"],
+    status: "MASTERED"
+  },
+  { 
+    code: "02", 
+    label: "System Design",
+    subtitle: "Architecture & Patterns",
+    desc: "Architecting scalable, maintainable enterprise systems using clean code principles and robust design patterns.",
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="journey-icon"><path class="draw-path" d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path class="float-layer" d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="--d:0.2s"/><path class="float-layer" d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="--d:0.4s"/></svg>`, 
+    tag: "ARCHITECTURE",
+    highlights: ["Microservices", "Clean Code", "Domain-Driven"],
+    status: "ADVANCED"
+  },
+  { 
+    code: "03", 
+    label: "Frontend",
+    subtitle: "User Interfaces",
+    desc: "Building high-performance, dynamic, and responsive web applications with a focus on seamless user experiences.",
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="journey-icon"><rect class="draw-path" x="2" y="3" width="20" height="14" rx="2" ry="2" stroke="currentColor" stroke-width="2"/><line class="draw-path" x1="8" y1="21" x2="16" y2="21" stroke="currentColor" stroke-width="2"/><line class="draw-path" x1="12" y1="17" x2="12" y2="21" stroke="currentColor" stroke-width="2"/><circle class="pulse-node" cx="12" cy="10" r="1" fill="currentColor"/></svg>`, 
+    tag: "CLIENT",
+    highlights: ["React", "Angular", "TypeScript"],
+    status: "PROFICIENT"
+  },
+  { 
+    code: "04", 
+    label: "Backend",
+    subtitle: "Server & APIs",
+    desc: "Developing secure RESTful APIs, optimizing database architecture, and engineering reliable server-side logic.",
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="journey-icon"><ellipse class="draw-path" cx="12" cy="5" rx="9" ry="3" stroke="currentColor" stroke-width="2"/><path class="draw-path" d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" stroke="currentColor" stroke-width="2"/><path class="draw-path" d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" stroke="currentColor" stroke-width="2"/><path class="data-flow" d="M12 8v4" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"/></svg>`, 
+    tag: "SERVER",
+    highlights: ["Spring Boot", ".NET", "Node.js"],
+    status: "PROFICIENT"
+  },
+  { 
+    code: "05", 
+    label: "DevOps",
+    subtitle: "Infrastructure & Automation",
+    desc: "Streamlining CI/CD deployment pipelines, managing cloud infrastructure, and fully containerizing distributed applications.",
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="journey-icon"><path class="draw-path" d="M4 14a4 4 0 0 1-.5-7.5A7 7 0 1 1 15.5 17H4v-3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><polyline class="spin-gear" points="2 12 4 14 6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`, 
+    tag: "OPERATIONS",
+    highlights: ["Docker", "CI/CD", "Cloud"],
+    status: "DEVELOPING"
+  },
+  { 
+    code: "06", 
+    label: "AI Integration",
+    subtitle: "Intelligent Automation",
+    desc: "Engineering intelligent applications by integrating AI language models, vector databases, and highly automated RAG workflows.",
+    icon: `<svg width="32" height="32" viewBox="0 0 24 24" fill="none" class="journey-icon"><path class="draw-path" d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line class="pulse-line" x1="12" y1="22" x2="12" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line class="pulse-line" x1="12" y1="12" x2="21" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="--d:0.3s"/><line class="pulse-line" x1="12" y1="12" x2="3" y2="7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="--d:0.6s"/></svg>`, 
+    tag: "EMERGING",
+    highlights: ["RAG Systems", "LLM APIs", "n8n Workflows"],
+    status: "EXPLORING"
+  },
+];
+
+const accents = [
+  { color: "#7b2ff7", rgb: "123, 47, 247" }, // Purple
+  { color: "#3b82f6", rgb: "59, 130, 246" },   // Teal
+  { color: "#c084fc", rgb: "192, 132, 252" }, // Light Purple
+  { color: "#2dd4bf", rgb: "45, 212, 191" },  // Mint
+  { color: "#8b5cf6", rgb: "139, 92, 246" },  // Violet
+  { color: "#0ea5e9", rgb: "14, 165, 233" },  // Sky
+];
+
+const dotColors = ["#7b2ff7","#3b82f6","#c084fc","#2dd4bf","#8b5cf6","#0ea5e9"];
+---
+
+<section id="skills" class="skills-section">
+  <div class="skills-bg" aria-hidden="true">
+    <div class="skills-grid"></div>
+    <div class="aurora a1"></div>
+    <div id="skills-particles"></div>
+    <!-- Simple Clean 3D Background Engine -->
+    <div id="journey-3d-bg" style="position: absolute; inset: 0; z-index: 1; opacity: 0.15; pointer-events: none;"></div>
+  </div>
+
+  <div class="skills-container">
+    <header class="skills-header">
+      <div class="eyebrow">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-pill">
+          <span class="eyebrow-dot"></span>
+          CAPABILITIES
+        </span>
+      </div>
+
+      <h2 class="skills-title">
+        <span class="title-light">Technical</span>
+        <span class="title-bold">Expertise</span>
+      </h2>
+
+      <p class="skills-subtitle">
+        Core competencies developed through years of hands-on experience
+      </p>
+    </header>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-viewport" id="skills-carousel">
+        <div class="orbit-ring orbit-1" aria-hidden="true"></div>
+        <div class="orbit-ring orbit-2" aria-hidden="true"></div>
+        <div class="orbit-glow" aria-hidden="true"></div>
+
+        <div class="carousel-track" id="skills-track">
+          {journey.map((item, i) => (
+            <article
+              class="skill-card"
+              data-index={i}
+              style={`--accent:${accents[i].color};--rgb:${accents[i].rgb};--delay:${i * 0.1}s`}
+            >
+              <div class="card-inner">
+                <div class="card-shine" aria-hidden="true"></div>
+                <div class="card-border" aria-hidden="true"></div>
+
+                <div class="card-content">
+                  {/* Header */}
+                  <div class="card-header">
+                    <span class="card-number">{item.code}</span>
+                    <span class="card-tag">{item.tag}</span>
+                  </div>
+
+                  {/* Icon */}
+                  <div class="card-icon">
+                    <div class="icon-glow" aria-hidden="true"></div>
+                    <div class="icon-ring" aria-hidden="true"></div>
+                    <span class="icon-emoji" set:html={item.icon}></span>
+                  </div>
+
+                  {/* Title */}
+                  <div class="card-title-wrap">
+                    <h3 class="card-title">{item.label}</h3>
+                    <span class="card-subtitle">{item.subtitle}</span>
+                  </div>
+
+                  {/* Description */}
+                  <p class="card-desc">{item.desc}</p>
+
+                  {/* Tech Tags */}
+                  <div class="card-highlights">
+                    {item.highlights.map((tech) => (
+                      <span class="highlight-tag">{tech}</span>
+                    ))}
+                  </div>
+
+                  {/* Footer */}
+                  <div class="card-footer">
+                    <div class="status-indicator">
+                      <span class="status-dot"></span>
+                      <span class="status-text">{item.status}</span>
+                    </div>
+                    <div class="card-action">
+                      <span class="action-text">View Details</span>
+                      <svg class="action-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+
+        <button class="nav-btn nav-prev" id="nav-prev" aria-label="Previous skill">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15,18 9,12 15,6"></polyline>
+          </svg>
+        </button>
+        
+        <button class="nav-btn nav-next" id="nav-next" aria-label="Next skill">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="9,18 15,12 9,6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      {/* Navigation Dots */}
+      <nav class="carousel-dots" id="carousel-dots" aria-label="Skill navigation">
+        {journey.map((item, i) => (
+          <button
+            class="dot"
+            data-index={i}
+            style={`--dot-color:${dotColors[i]}`}
+            aria-label={`Go to ${item.label}`}
+          >
+            <span class="dot-fill"></span>
+          </button>
+        ))}
+      </nav>
+
+      {/* Progress Counter */}
+      <div class="carousel-counter">
+        <span class="counter-current" id="counter-current">01</span>
+        <span class="counter-divider">/</span>
+        <span class="counter-total">06</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ════════════════════════════════════════════════════════
+   VARIABLES & BASE
+════════════════════════════════════════════════════════ */
+.skills-section {
+  --bg-dark: #08080a;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --text-white: #ffffff;
+  --text-dim: rgba(255, 255, 255, 0.5);
+  --text-muted: rgba(255, 255, 255, 0.22);
+  --border-light: rgba(255, 255, 255, 0.05);
+  --border-lighter: rgba(255, 255, 255, 0.08);
+  
+  position: relative;
+  overflow: hidden;
+  padding: 8rem 0 10rem;
+  background: var(--bg-dark);
+  isolation: isolate;
+  font-family: 'Inter', sans-serif;
+}
+
+.skills-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* ════════════════════════════════════════════════════════
+   BACKGROUND
+════════════════════════════════════════════════════════ */
+.skills-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.skills-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, 0.015) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse at center, black 20%, transparent 70%);
+}
+
+.aurora {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: aurora-float 18s ease-in-out infinite alternate;
+}
+
+.a1 {
+  width: 500px;
+  height: 500px;
+  top: -150px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.05) 0%, transparent 60%);
+}
+
+.a2 {
+  width: 450px;
+  height: 450px;
+  bottom: -120px;
+  right: -50px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.06) 0%, transparent 60%);
+  animation-delay: -8s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes aurora-float {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(30px, -25px) scale(1.05); }
+}
+
+#skills-particles {
+  position: absolute;
+  inset: 0;
+}
+
+.particle {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  animation: particle-rise linear infinite;
+}
+
+@keyframes particle-rise {
+  0% { opacity: 0; transform: translateY(0) scale(1); }
+  15% { opacity: 0.15; }
+  85% { opacity: 0.05; }
+  100% { opacity: 0; transform: translateY(-60px) scale(0); }
+}
+
+/* ════════════════════════════════════════════════════════
+   HEADER
+════════════════════════════════════════════════════════ */
+.skills-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.eyebrow-line {
+  width: 20px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.5));
+}
+
+.eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 8px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #7b2ff7;
+  background: rgba(123, 47, 247, 0.06);
+  border: 1px solid rgba(123, 47, 247, 0.15);
+  padding: 4px 10px 4px 7px;
+  border-radius: 100px;
+  font-weight: 800;
+}
+
+.eyebrow-dot {
+  width: 5px;
+  height: 5px;
+  background: #7b2ff7;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #7b2ff7;
+  animation: dot-pulse 2s ease-in-out infinite;
+}
+
+@keyframes dot-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+.skills-title {
+  margin: 0;
+  line-height: 1.1;
+}
+
+.title-light {
+  display: block;
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.2rem, 3.5vw, 1.8rem);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  animation: fade-in 0.7s ease both;
+}
+
+.title-bold {
+  display: block;
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #7b2ff7 0%, #3b82f6 50%, #c084fc 100%);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: 
+    fade-in 0.7s ease 0.1s both,
+    gradient-move 6s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes gradient-move {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.skills-subtitle {
+  margin: 0.8rem auto 0;
+  font-family: ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  max-width: 320px;
+  line-height: 1.7;
+  animation: fade-in 0.7s ease 0.2s both;
+}
+
+/* ════════════════════════════════════════════════════════
+   CAROUSEL
+════════════════════════════════════════════════════════ */
+.carousel-wrapper {
+  position: relative;
+}
+
+.carousel-viewport {
+  position: relative;
+  height: 520px;
+  perspective: 1800px;
+  perspective-origin: center center;
+  overflow: hidden;
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(0, 229, 255, 0.025), transparent 45%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.012), rgba(255, 255, 255, 0.004));
+  border: 1px solid var(--border-light);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.025),
+    0 25px 60px rgba(0, 0, 0, 0.35);
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+}
+
+/* Orbit decorations */
+.orbit-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  pointer-events: none;
+}
+
+.orbit-1 {
+  width: 420px;
+  height: 420px;
+  animation: orbit-rotate 28s linear infinite;
+}
+
+.orbit-2 {
+  width: 600px;
+  height: 600px;
+  border-style: dashed;
+  border-color: rgba(139, 92, 246, 0.06);
+  animation: orbit-rotate 40s linear infinite reverse;
+}
+
+.orbit-glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.04) 0%, transparent 65%);
+  filter: blur(30px);
+  animation: glow-breathe 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes orbit-rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes glow-breathe {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+/* ════════════════════════════════════════════════════════
+   CARDS
+════════════════════════════════════════════════════════ */
+.skill-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 280px;
+  max-width: calc(100vw - 2.5rem);
+  opacity: 0;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.55s ease;
+  will-change: transform, opacity;
+}
+
+.skill-card.is-ready {
+  opacity: 0.08;
+}
+
+.skill-card.is-center {
+  opacity: 1;
+  z-index: 10;
+  pointer-events: auto;
+  transform: translate3d(-50%, -50%, 140px) rotateY(0deg) scale(1.02);
+  filter: brightness(1) saturate(1);
+}
+
+.skill-card.is-left {
+  opacity: 0.6;
+  z-index: 7;
+  transform: translate3d(calc(-50% - 270px), -50%, -40px) rotateY(28deg) scale(0.86);
+
+}
+
+.skill-card.is-right {
+  opacity: 0.6;
+  z-index: 7;
+  transform: translate3d(calc(-50% + 270px), -50%, -40px) rotateY(-28deg) scale(0.86);
+
+}
+
+.skill-card.is-far-left {
+  opacity: 0.18;
+  z-index: 4;
+  transform: translate3d(calc(-50% - 460px), -50%, -140px) rotateY(38deg) scale(0.68);
+
+}
+
+.skill-card.is-far-right {
+  opacity: 0.18;
+  z-index: 4;
+  transform: translate3d(calc(-50% + 460px), -50%, -140px) rotateY(-38deg) scale(0.68);
+
+}
+
+.skill-card.is-hidden {
+  opacity: 0;
+  z-index: 1;
+  transform: translate3d(-50%, -50%, -200px) scale(0.55);
+}
+
+/* Card Inner */
+.card-inner {
+  position: relative;
+  border-radius: 20px;
+  background:
+    linear-gradient(155deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015)),
+    linear-gradient(180deg, rgba(var(--rgb), 0.03), transparent);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(10px);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -12px 25px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.4s ease;
+}
+
+.skill-card.is-center .card-inner {
+  border-color: rgba(var(--rgb), 0.25);
+  box-shadow:
+    0 28px 70px rgba(0, 0, 0, 0.45),
+    0 0 50px rgba(var(--rgb), 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 0 30px rgba(var(--rgb), 0.04);
+  animation: card-hover 5s ease-in-out infinite;
+}
+
+@keyframes card-hover {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.card-shine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), rgba(var(--rgb), 0.3), transparent);
+  animation: shine-slide 3.5s linear infinite;
+}
+
+@keyframes shine-slide {
+  0% { transform: translateX(-50%); opacity: 0.15; }
+  50% { opacity: 0.7; }
+  100% { transform: translateX(70%); opacity: 0.15; }
+}
+
+.card-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(var(--rgb), 0.12), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.skill-card.is-center .card-border {
+  opacity: 1;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  padding: 18px;
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.card-number {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(var(--rgb), 0.7);
+  letter-spacing: 0.1em;
+}
+
+.card-tag {
+  font-family: ui-monospace, monospace;
+  font-size: 7px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(var(--rgb), 0.08);
+  border: 1px solid rgba(var(--rgb), 0.18);
+  padding: 3px 7px;
+  border-radius: 100px;
+}
+
+/* Card Icon */
+.card-icon {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--rgb), 0.15), transparent 65%);
+  animation: icon-breathe 3s ease-in-out infinite;
+}
+
+@keyframes icon-breathe {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.2); opacity: 0.2; }
+}
+
+.icon-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  border: 1px solid rgba(var(--rgb), 0.2);
+  background: linear-gradient(180deg, rgba(var(--rgb), 0.1), rgba(var(--rgb), 0.03));
+}
+
+.icon-emoji {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  transition: color 0.4s ease;
+}
+
+.skill-card.is-center .icon-emoji {
+  color: var(--accent);
+}
+
+.journey-icon {
+  width: 38px;
+  height: 38px;
+  transition: all 0.5s ease;
+  filter: drop-shadow(0 0 4px rgba(var(--rgb), 0.3));
+}
+
+.skill-card.is-center .journey-icon {
+  animation: float-icon 3.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(var(--rgb), 0.8));
+}
+
+@keyframes float-icon {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.1); }
+}
+
+.skill-card.is-center .journey-icon .draw-path {
+  animation: draw-stroke 3s ease-in-out infinite alternate;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 0;
+}
+
+@keyframes draw-stroke {
+  0% { stroke-dashoffset: 80; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* Specific Animations */
+.blink-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+.float-layer {
+  animation: float-layer 2s ease-in-out infinite alternate;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes float-layer {
+  from { transform: translateY(0); }
+  to { transform: translateY(-3px); }
+}
+
+.pulse-node {
+  animation: pulse-node 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-node {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+}
+
+.data-flow {
+  animation: data-flow 2s linear infinite;
+  stroke-dasharray: 4;
+}
+
+@keyframes data-flow {
+  from { stroke-dashoffset: 8; }
+  to { stroke-dashoffset: 0; }
+}
+
+.spin-gear {
+  transform-origin: center;
+  animation: spin-gear 4s linear infinite;
+}
+
+@keyframes spin-gear {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.pulse-line {
+  animation: pulse-line 2s ease-in-out infinite alternate;
+  animation-delay: var(--d, 0s);
+}
+
+@keyframes pulse-line {
+  from { opacity: 0.3; stroke-width: 1; }
+  to { opacity: 1; stroke-width: 2.5; }
+}
+
+/* Card Title */
+.card-title-wrap {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.card-title {
+  margin: 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  color: var(--text-white);
+  line-height: 1;
+}
+
+.card-subtitle {
+  display: block;
+  margin-top: 3px;
+  font-family: ui-monospace, monospace;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+/* Card Description */
+.card-desc {
+  margin: 0 0 12px;
+  font-size: 11px;
+  line-height: 1.65;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* Highlight Tags */
+.card-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  margin-bottom: 14px;
+}
+
+.highlight-tag {
+  font-family: ui-monospace, monospace;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.25s ease;
+}
+
+.skill-card.is-center .highlight-tag:hover {
+  color: var(--accent);
+  border-color: rgba(var(--rgb), 0.2);
+  background: rgba(var(--rgb), 0.06);
+}
+
+/* Card Footer */
+.card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.status-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(var(--rgb), 0.8);
+  animation: status-blink 2s ease-in-out infinite;
+}
+
+@keyframes status-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.status-text {
+  font-family: ui-monospace, monospace;
+  font-size: 7px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(var(--rgb), 0.5);
+}
+
+.card-action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0;
+  transform: translateX(-5px);
+  transition: all 0.3s ease;
+}
+
+.skill-card.is-center .card-action {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.action-text {
+  font-family: ui-monospace, monospace;
+  font-size: 7px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.2s ease;
+}
+
+.action-icon {
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+}
+
+.skill-card.is-center .card-action:hover .action-text {
+  color: var(--accent);
+}
+
+.skill-card.is-center .card-action:hover .action-icon {
+  color: var(--accent);
+  transform: translateX(2px);
+}
+
+/* ════════════════════════════════════════════════════════
+   NAVIGATION
+════════════════════════════════════════════════════════ */
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(10, 10, 18, 0.55);
+  backdrop-filter: blur(10px);
+  color: rgba(255, 255, 255, 0.7);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  z-index: 15;
+  transition: all 0.25s ease;
+}
+
+.nav-btn:hover {
+  transform: translateY(-50%) scale(1.08);
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(20, 20, 30, 0.7);
+  color: white;
+  box-shadow: 0 0 18px rgba(0, 229, 255, 0.12);
+}
+
+.nav-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.nav-prev { left: 14px; }
+.nav-next { right: 14px; }
+
+/* Dots */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 1rem;
+}
+
+.dot {
+  width: 26px;
+  height: 26px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 0.25s ease;
+}
+
+.dot:hover {
+  transform: scale(1.12);
+}
+
+.dot-fill {
+  width: 5px;
+  height: 5px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.12);
+  transition: all 0.3s ease;
+}
+
+.dot.is-active .dot-fill {
+  width: 18px;
+  background: var(--dot-color);
+  box-shadow: 0 0 10px var(--dot-color);
+}
+
+/* Counter */
+.carousel-counter {
+  position: absolute;
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-family: ui-monospace, monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.counter-current {
+  color: #3b82f6;
+  font-weight: 600;
+}
+
+.counter-divider {
+  opacity: 0.35;
+}
+
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════ */
+@media (max-width: 1024px) {
+  .skill-card.is-left {
+    transform: translate3d(calc(-50% - 210px), -50%, -50px) rotateY(24deg) scale(0.82);
+  }
+  .skill-card.is-right {
+    transform: translate3d(calc(-50% + 210px), -50%, -50px) rotateY(-24deg) scale(0.82);
+  }
+  .skill-card.is-far-left {
+    transform: translate3d(calc(-50% - 360px), -50%, -120px) rotateY(34deg) scale(0.64);
+  }
+  .skill-card.is-far-right {
+    transform: translate3d(calc(-50% + 360px), -50%, -120px) rotateY(-34deg) scale(0.64);
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-section {
+    padding: 3.5rem 0 3rem;
+  }
+
+  .skills-header {
+    margin-bottom: 1.8rem;
+  }
+
+  .title-light { font-size: 1.3rem; }
+  .title-bold { font-size: 1.6rem; }
+
+  .carousel-viewport {
+    height: 480px;
+    border-radius: 20px;
+  }
+
+  .skill-card {
+    width: min(270px, calc(100vw - 2rem));
+  }
+
+  .skill-card.is-center {
+    transform: translate3d(-50%, -50%, 50px) scale(1);
+  }
+
+  .skill-card.is-left,
+  .skill-card.is-right {
+    opacity: 0.15;
+    transform: translate3d(-50%, -50%, -80px) scale(0.78);
+  }
+
+  .skill-card.is-far-left,
+  .skill-card.is-far-right,
+  .skill-card.is-hidden {
+    opacity: 0;
+  }
+
+  .orbit-1 { width: 300px; height: 300px; }
+  .orbit-2 { width: 420px; height: 420px; }
+
+  .nav-prev { left: 8px; width: 36px; height: 36px; }
+  .nav-next { right: 8px; width: 36px; height: 36px; }
+
+  .nav-btn svg { width: 16px; height: 16px; }
+}
+
+@media (max-width: 480px) {
+  .skills-section {
+    padding: 2.5rem 0 2rem;
+  }
+
+  .eyebrow-line { display: none; }
+
+  .carousel-viewport {
+    height: 450px;
+    border-radius: 16px;
+  }
+
+  .card-content {
+    padding: 14px;
+  }
+
+  .card-title { font-size: 16px; }
+  .card-desc { font-size: 10px; }
+
+  .card-icon {
+    width: 60px;
+    height: 60px;
+  }
+
+  .icon-emoji { font-size: 24px; }
+
+  .card-highlights { gap: 4px; }
+  .highlight-tag {
+    font-size: 7px;
+    padding: 3px 6px;
+  }
+
+  .carousel-counter {
+    bottom: -1.6rem;
+  }
+}
+</style>
+
+<script is:inline>
+(function () {
+  const track = document.getElementById('skills-track');
+  const viewport = document.getElementById('skills-carousel');
+  const prevBtn = document.getElementById('nav-prev');
+  const nextBtn = document.getElementById('nav-next');
+  const dotsNav = document.getElementById('carousel-dots');
+  const counterEl = document.getElementById('counter-current');
+  const particlesRoot = document.getElementById('skills-particles');
+
+  if (!track) return;
+
+  const cards = [...track.querySelectorAll('.skill-card')];
+  const dots = [...(dotsNav?.querySelectorAll('.dot') || [])];
+  const total = cards.length;
+
+  let current = 0;
+  let autoTimer = null;
+  let paused = false;
+
+  // Initialize cards
+  cards.forEach(card => card.classList.add('is-ready'));
+
+  function positionCards() {
+    cards.forEach((card, i) => {
+      card.classList.remove(
+        'is-center', 'is-left', 'is-right',
+        'is-far-left', 'is-far-right', 'is-hidden'
+      );
+
+      const offset = (i - current + total) % total;
+
+      if (offset === 0) {
+        card.classList.add('is-center');
+      } else if (offset === 1) {
+        card.classList.add('is-right');
+      } else if (offset === 2) {
+        card.classList.add('is-far-right');
+      } else if (offset === total - 1) {
+        card.classList.add('is-left');
+      } else if (offset === total - 2) {
+        card.classList.add('is-far-left');
+      } else {
+        card.classList.add('is-hidden');
+      }
+    });
+
+    // Update dots
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('is-active', i === current);
+    });
+
+    // Update counter
+    if (counterEl) {
+      counterEl.textContent = String(current + 1).padStart(2, '0');
+    }
+  }
+
+  function goTo(index) {
+    current = ((index % total) + total) % total;
+    positionCards();
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function stopAuto() {
+    if (autoTimer) clearInterval(autoTimer);
+  }
+
+  function startAuto() {
+    stopAuto();
+    autoTimer = setInterval(() => {
+      if (!paused) next();
+    }, 4000);
+  }
+
+  // Event listeners
+  nextBtn?.addEventListener('click', () => { next(); startAuto(); });
+  prevBtn?.addEventListener('click', () => { prev(); startAuto(); });
+
+  dots.forEach((dot, i) => {
+    dot.addEventListener('click', () => { goTo(i); startAuto(); });
+  });
+
+  viewport?.addEventListener('mouseenter', () => { paused = true; });
+  viewport?.addEventListener('mouseleave', () => { paused = false; });
+
+  // Touch support
+  let touchStartX = 0;
+  viewport?.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].clientX;
+  }, { passive: true });
+
+  viewport?.addEventListener('touchend', e => {
+    const delta = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(delta) > 50) {
+      delta < 0 ? next() : prev();
+      startAuto();
+    }
+  }, { passive: true });
+
+  // Keyboard
+  window.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { next(); startAuto(); }
+    if (e.key === 'ArrowLeft') { prev(); startAuto(); }
+  });
+
+  // Particles
+  if (particlesRoot) {
+    const positions = [
+      [8, 20], [22, 65], [35, 30], [48, 80], [62, 25],
+      [75, 55], [88, 18], [15, 45], [42, 12], [68, 70],
+      [80, 38], [28, 85], [55, 48], [92, 62]
+    ];
+
+    positions.forEach(([x, y], i) => {
+      const p = document.createElement('span');
+      p.className = 'particle';
+      p.style.cssText = `
+        left: ${x}%;
+        top: ${y}%;
+        animation-duration: ${18 + Math.random() * 10}s;
+        animation-delay: -${i * 1.2}s;
+      `;
+      particlesRoot.appendChild(p);
+    });
+  }
+
+  // Initialize
+  positionCards();
+  startAuto();
+
+  // ── CARD TILT EFFECT ───────────────────────────
+  const sensitivity = 20;
+
+  viewport?.addEventListener('mousemove', (e) => {
+    const centerCard = track.querySelector('.is-center');
+    if (!centerCard) return;
+
+    const rect = centerCard.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const percentX = (x - centerX) / centerX;
+    const percentY = (y - centerY) / centerY;
+
+    const rotateX = percentY * sensitivity;
+    const rotateY = percentX * sensitivity * -1;
+
+    centerCard.style.transform = `translate3d(-50%, -50%, 140px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+  });
+
+  viewport?.addEventListener('mouseleave', () => {
+    const centerCard = track.querySelector('.is-center');
+    if (centerCard) {
+      centerCard.style.transform = '';
+    }
+  });
+
+  // ── SIMPLE 3D BACKGROUND ENGINE ─────────────────
+  (function initSimpleJourney3D() {
+    const container = document.getElementById('journey-3d-bg');
+    if (!container || typeof THREE === 'undefined') return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
+
+    // Add a single elegant Torus Knot
+    const geometry = new THREE.TorusKnotGeometry(10, 2.5, 120, 16);
+    const material = new THREE.MeshBasicMaterial({ 
+      color: 0x7b2ff7, 
+      wireframe: true, 
+      transparent: true, 
+      opacity: 0.25 
+    });
+    
+    const torusKnot = new THREE.Mesh(geometry, material);
+    scene.add(torusKnot);
+
+    camera.position.z = 40;
+
+    let mouseX = 0;
+    let mouseY = 0;
+
+    window.addEventListener('mousemove', (e) => {
+      mouseX = (e.clientX - window.innerWidth / 2) * 0.0005;
+      mouseY = (e.clientY - window.innerHeight / 2) * 0.0005;
+    });
+
+    let frame = 0;
+    function animate() {
+      requestAnimationFrame(animate);
+      frame += 0.005;
+
+      // Slow elegant rotation
+      torusKnot.rotation.x += 0.002;
+      torusKnot.rotation.y += 0.003;
+      
+      // Gentle floating
+      torusKnot.position.y = Math.sin(frame) * 1.5;
+
+      // Very subtle parallax
+      torusKnot.rotation.x += (mouseY - torusKnot.rotation.x) * 0.02;
+      torusKnot.rotation.y += (mouseX - torusKnot.rotation.y) * 0.02;
+
+      renderer.render(scene, camera);
+    }
+    
+    const observer = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting) {
+            animate();
+        }
+    });
+    observer.observe(document.getElementById('skills'));
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+  })();
+})();
+</script>

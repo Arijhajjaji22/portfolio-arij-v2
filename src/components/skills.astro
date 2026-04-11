@@ -1,0 +1,297 @@
+---
+const skillGroups = [
+  {
+    label: "Backend",
+    color: "cyan",
+    skills: [
+      { name: "Spring Boot", level: 92 },
+      { name: ".NET Core", level: 87 },
+      { name: "Node.js", level: 72 },
+      { name: "Microservices", level: 85 },
+    ]
+  },
+  {
+    label: "Frontend",
+    color: "violet",
+    skills: [
+      { name: "Angular", level: 88 },
+      { name: "TypeScript", level: 85 },
+      { name: "React", level: 74 },
+      { name: "Astro", level: 70 },
+    ]
+  },
+  {
+    label: "DevOps / Cloud",
+    color: "green",
+    skills: [
+      { name: "Docker", level: 90 },
+      { name: "Jenkins CI/CD", level: 80 },
+      { name: "Prometheus/Grafana", level: 75 },
+      { name: "Elasticsearch", level: 78 },
+    ]
+  },
+  {
+    label: "Data / AI",
+    color: "orange",
+    skills: [
+      { name: "Spring AI / RAG", level: 78 },
+      { name: "PostgreSQL / PGVector", level: 82 },
+      { name: "Redis", level: 76 },
+      { name: "GraphQL", level: 80 },
+    ]
+  }
+];
+
+const colorMap: Record<string, string> = {
+  cyan: "#3b82f6",
+  violet: "#7b2ff7",
+  green: "#39ff14",
+  orange: "#ff6b35"
+};
+---
+
+<section id="skills" class="reveal-section py-40 bg-[#050508] relative overflow-hidden">
+
+  <!-- Background: 3D Data Constellation Engine -->
+  <div id="skills-3d-bg" class="absolute inset-0 opacity-20 pointer-events-none z-0"></div>
+
+  <!-- Noise grid -->
+  <div class="absolute inset-0 opacity-[0.025] bg-[linear-gradient(rgba(123,47,247,0.3)_1px,transparent_1px),linear-gradient(90deg,rgba(123,47,247,0.3)_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none"></div>
+
+  <!-- Radial glows -->
+  <div class="absolute top-1/4 left-0 w-[400px] h-[400px] bg-purple-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+  <div class="absolute bottom-1/4 right-0 w-[400px] h-[400px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="container mx-auto px-6 relative z-10">
+
+    <!-- Header -->
+    <div class="mb-40 reveal-section">
+      <div class="text-[10px] font-mono text-blue-400 uppercase tracking-[0.5em] mb-4">System.Capabilities</div>
+      <h2 class="split-title text-2xl md:text-4xl font-black font-outfit uppercase tracking-tighter leading-none italic">
+        TECH <br/><span class="gradient-text-animated italic">ARSENAL</span>
+      </h2>
+    </div>
+
+    <!-- ── Skill Bars Grid ── -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 mb-40">
+      {skillGroups.map((group) => (
+        <div class="skill-group reveal-blur" data-color={colorMap[group.color]}>
+          <div class="flex items-center gap-4 mb-10">
+            <div class="w-2 h-8 rounded-full" style={`background-color: ${colorMap[group.color]}; box-shadow: 0 0 12px ${colorMap[group.color]}`}></div>
+            <span class="text-[10px] font-mono uppercase tracking-[0.5em] text-gray-500 font-black">{group.label}</span>
+          </div>
+
+          <div class="space-y-8">
+            {group.skills.map((skill) => (
+              <div class="skill-item" data-level={skill.level}>
+                <div class="flex justify-between mb-3">
+                  <span class="text-[11px] font-mono font-black uppercase tracking-widest text-gray-300">{skill.name}</span>
+                  <span class="skill-pct text-[11px] font-mono text-gray-600 tabular-nums">0%</span>
+                </div>
+                <div class="h-[3px] bg-white/5 rounded-full overflow-hidden relative">
+                  <div
+                    class="skill-bar h-full rounded-full w-0 transition-none relative"
+                    style={`background: linear-gradient(90deg, ${colorMap[group.color]}, ${colorMap[group.color]}88); box-shadow: 0 0 12px ${colorMap[group.color]}44`}
+                  ></div>
+                  <!-- Shimmer -->
+                  <div class="skill-shimmer absolute inset-y-0 w-12 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-12 opacity-0 rounded-full"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- ── Hexagonal Tech Logos (Icon Cluster) ── -->
+    <div class="reveal">
+      <div class="text-[10px] font-mono text-gray-700 uppercase tracking-[0.5em] mb-12 text-center font-black">Additional.Protocols</div>
+      <div id="tech-hex-grid" class="flex flex-wrap justify-center gap-6">
+        {[
+          { name: "S.Boot", icon: "devicon-spring-plain colored" },
+          { name: "Angular", icon: "devicon-angularjs-plain colored" },
+          { name: ".NET", icon: "devicon-dotnetcore-plain colored" },
+          { name: "Docker", icon: "devicon-docker-plain colored" },
+          { name: "PostgreSQL", icon: "devicon-postgresql-plain colored" },
+          { name: "Redis", icon: "devicon-redis-plain colored" },
+          { name: "Kafka", icon: "devicon-apachekafka-original text-white" },
+          { name: "Git", icon: "devicon-git-plain colored" },
+          { name: "Linux", icon: "devicon-linux-plain text-white" },
+          { name: "K8s", icon: "devicon-kubernetes-plain colored" },
+          { name: "Solidity", icon: "devicon-solidity-plain text-white" },
+          { name: "Tailwind", icon: "devicon-tailwindcss-plain colored" },
+        ].map((t) => (
+          <div
+            class="tech-chip group relative flex flex-col items-center justify-center w-24 h-24 rounded-2xl bg-[#0d0d14]/80 backdrop-blur-md border border-white/5 hover:border-purple-500/50 cursor-pointer overflow-hidden transition-all duration-500"
+          >
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <i class={`${t.icon} text-3xl mb-2 group-hover:scale-110 group-hover:drop-shadow-[0_0_8px_rgba(123,47,247,0.5)] transition-all duration-500`}></i>
+            <span class="text-[9px] font-mono text-gray-500 group-hover:text-white transition-colors uppercase tracking-[0.2em] font-black">{t.name}</span>
+            <div class="absolute bottom-1 w-1/2 h-[1px] bg-gradient-to-r from-transparent via-purple-500/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Skill shimmer animation */
+  @keyframes shimmer-slide {
+    0% { transform: translateX(-3rem); opacity: 1; }
+    100% { transform: translateX(120%); opacity: 0; }
+  }
+  .skill-shimmer.active {
+    animation: shimmer-slide 0.8s ease-out forwards;
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    const skillGroups = document.querySelectorAll('.skill-group');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const group = entry.target;
+        const items = group.querySelectorAll('.skill-item');
+        items.forEach((item, i) => {
+          const level = parseInt(item.dataset.level);
+          const bar = item.querySelector('.skill-bar');
+          const pct = item.querySelector('.skill-pct');
+          const shimmer = item.querySelector('.skill-shimmer');
+
+          setTimeout(() => {
+            // Animate bar width
+            bar.style.transition = 'width 1.2s cubic-bezier(0.22, 1, 0.36, 1)';
+            bar.style.width = level + '%';
+
+            // Count up percentage
+            let current = 0;
+            const interval = setInterval(() => {
+              current = Math.min(current + Math.ceil(level / 40), level);
+              pct.textContent = current + '%';
+              pct.style.color = current >= level ? 'rgba(255,255,255,0.4)' : '#4b5563';
+              if (current >= level) clearInterval(interval);
+            }, 30);
+
+            // Shimmer after bar finishes
+            setTimeout(() => {
+              shimmer.classList.add('active');
+            }, 1200);
+
+          }, i * 150);
+        });
+        observer.unobserve(group);
+      });
+    }, { threshold: 0.3 });
+
+    skillGroups.forEach(g => observer.observe(g));
+
+    /* ── 3D Background Engine: Data Constellation ── */
+    function initSkills3D() {
+      const container = document.getElementById('skills-3d-bg');
+      if (!container || typeof THREE === 'undefined') return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(container.offsetWidth, container.offsetHeight);
+      container.appendChild(renderer.domElement);
+
+      const group = new THREE.Group();
+      scene.add(group);
+
+      const particleCount = 100;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 60; // Spread wide
+      }
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      // Particles
+      const material = new THREE.PointsMaterial({
+        size: 0.2,
+        color: 0x3b82f6,
+        transparent: true,
+        opacity: 0.8,
+        blending: THREE.AdditiveBlending
+      });
+      const particles = new THREE.Points(geometry, material);
+      group.add(particles);
+
+      // Connecting lines
+      const lineMaterial = new THREE.LineBasicMaterial({
+        color: 0x7b2ff7,
+        transparent: true,
+        opacity: 0.1,
+        blending: THREE.AdditiveBlending
+      });
+
+      const lineGeometry = new THREE.BufferGeometry();
+      const linePositions = [];
+      const pos = geometry.attributes.position.array;
+
+      for (let i = 0; i < particleCount; i++) {
+        for (let j = i + 1; j < particleCount; j++) {
+          const dx = pos[i * 3] - pos[j * 3];
+          const dy = pos[i * 3 + 1] - pos[j * 3 + 1];
+          const dz = pos[i * 3 + 2] - pos[j * 3 + 2];
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+          if (dist < 10) { // Connect close particles
+            linePositions.push(
+              pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2],
+              pos[j * 3], pos[j * 3 + 1], pos[j * 3 + 2]
+            );
+          }
+        }
+      }
+      lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+      const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+      group.add(lines);
+
+      camera.position.z = 25;
+
+      let mouseX = 0;
+      let mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX - window.innerWidth / 2) * 0.0005;
+        mouseY = (e.clientY - window.innerHeight / 2) * 0.0005;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        group.rotation.y += 0.001;
+        group.rotation.x += 0.0005;
+
+        // Subtle mouse parallax
+        group.rotation.y += (mouseX - group.rotation.y) * 0.05;
+        group.rotation.x += (mouseY - group.rotation.x) * 0.05;
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        if (!container.offsetWidth) return;
+        camera.aspect = container.offsetWidth / container.offsetHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.offsetWidth, container.offsetHeight);
+      });
+    }
+
+    if (typeof THREE === 'undefined') {
+       const script = document.createElement('script');
+       script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+       script.onload = initSkills3D;
+       document.head.appendChild(script);
+    } else {
+       initSkills3D();
+    }
+  })();
+</script>

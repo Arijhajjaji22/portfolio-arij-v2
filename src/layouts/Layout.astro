@@ -1,0 +1,1398 @@
+---
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+import SecurityGate from '../components/SecurityGate.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<title>{title}</title>
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Inter:wght@100..900&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- DEVICON -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    
+    <!-- THREE.JS GLOBAL -->
+    <script is:inline src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+	</head>
+	<body class="bg-[#08080a] text-[#f0f0f0] selection:bg-purple-500/30 overflow-x-hidden">
+    <div class="scanline-wipe"></div>
+    
+
+    <!-- GLOBAL AMBIENT GLOWS -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+       <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/10 blur-[120px] rounded-full"></div>
+       <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-500/10 blur-[120px] rounded-full"></div>
+       
+       <!-- Technical Grid Overlay -->
+       <div class="absolute inset-0 opacity-[0.03] bg-[linear-gradient(90deg,rgba(255,255,255,.1)_1px,transparent_1px),linear-gradient(rgba(255,255,255,.1)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+    </div>
+
+    <!-- GLOBAL HUD SYSTEM -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-[100] p-8 hidden lg:flex flex-col justify-between mix-blend-overlay opacity-30">
+        <div class="flex justify-between items-start">
+            <div class="font-mono text-[10px] uppercase tracking-widest leading-loose text-white">
+                <span class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse shadow-[0_0_8px_rgba(59,130,246,1)]"></span>
+                    SYSTEM_STATUS: ACTIVE
+                </span>
+                CORE_LOAD: 23%<br/>
+                NETWORK: <span class="text-blue-400">ENCRYPTED</span>
+            </div>
+            <div class="font-mono text-[10px] uppercase tracking-widest text-right text-white">
+                MODULE: PORTFOLIO_V2.26<br/>
+                ENGINE: NEXUS_CORE_V1<br/>
+                BUILD_HASH: <span class="font-bold opacity-60">X-0410</span>
+            </div>
+        </div>
+        <div class="flex justify-between items-end">
+            <div class="w-24 h-px bg-white/20"></div>
+            <div class="w-24 h-px bg-white/20"></div>
+        </div>
+    </div>
+
+    <!-- SPOTLIGHT -->
+    <div id="global-spotlight" class="pointer-events-none fixed inset-0 z-50 mix-blend-overlay transition-opacity duration-500 opacity-0 hidden md:block"></div>
+
+    <!-- 1. SECURITY GATE INTRO -->
+    <SecurityGate />
+
+    <!-- 2. PREMIUM CUSTOM CURSOR -->
+    <div id="cursor-core" class="fixed w-1.5 h-1.5 rounded-full bg-white pointer-events-none z-[300000] opacity-0 mix-blend-difference hidden md:block"></div>
+    <div id="cursor-aura" class="fixed w-10 h-10 rounded-full border border-white/40 pointer-events-none z-[300000] opacity-0 mix-blend-difference hidden md:block transition-transform duration-500 ease-out">
+        <div class="absolute inset-[-4px] border border-white/10 rounded-full scale-125"></div>
+    </div>
+
+    <!-- 3. SECRET CLI -->
+    <div id="secret-cli" class="fixed bottom-0 left-0 w-full h-[380px] md:h-[420px] bg-[#050508] border-t border-purple-500/30 z-[90000] translate-y-full transition-transform duration-500 font-mono flex flex-col shadow-[0_-20px_50px_rgba(0,0,0,0.8)] backdrop-blur-xl">
+       <div class="px-6 py-3 flex items-center justify-between border-b border-white/5 bg-white/[0.02]">
+          <div class="flex gap-2">
+             <div class="w-2.5 h-2.5 rounded-full bg-red-500/30"></div>
+             <div class="w-2.5 h-2.5 rounded-full bg-amber-500/30"></div>
+             <div class="w-2.5 h-2.5 rounded-full bg-green-500/30"></div>
+             <span class="ml-4 text-[8px] text-gray-600 uppercase tracking-widest font-black hidden sm:inline">Nexus Shell — arij@nexus-core_</span>
+          </div>
+          <button id="cli-close" class="text-gray-600 hover:text-white transition-colors p-2">✕</button>
+       </div>
+       <div id="cli-output" class="flex-1 p-6 md:p-8 overflow-y-auto space-y-2 text-xs md:text-sm text-purple-400/80 scrollbar-hide"></div>
+       <div class="px-6 md:px-8 py-4 border-t border-white/5 flex items-center gap-3">
+          <span class="text-xs md:text-sm text-purple-500">arij@portfolio:~$</span>
+          <input type="text" id="cli-input" class="bg-transparent border-none outline-none flex-1 text-white lowercase text-xs md:text-sm" autofocus spellcheck="false" autocomplete="off" />
+       </div>
+    </div>
+
+    <!-- 4. CUSTOM CONTEXT MENU -->
+    <div id="context-menu" class="fixed z-[100001] bg-[#0d0d14] border border-white/10 rounded-xl p-2 w-64 hidden md:block shadow-2xl scale-[0.95] opacity-0 transition-all pointer-events-auto">
+       <div class="p-3 text-[10px] font-mono uppercase tracking-widest text-gray-600 cursor-not-allowed flex justify-between">
+          <span>Inspect Element</span>
+          <span>Nice Try</span>
+       </div>
+       <hr class="border-white/5 my-1" />
+       <div id="m-email" class="p-3 text-[10px] font-mono uppercase tracking-widest hover:bg-purple-500/10 hover:text-purple-400 rounded-lg cursor-pointer transition-all flex items-center gap-3">
+          <span class="text-lg">📧</span> Copy Email Address
+       </div>
+       <div id="m-cv" class="p-3 text-[10px] font-mono uppercase tracking-widest hover:bg-purple-500/10 hover:text-purple-400 rounded-lg cursor-pointer transition-all flex items-center gap-3">
+          <span class="text-lg">📄</span> Download Dossier
+       </div>
+    </div>
+
+    <!-- 5. SCROLL HUD -->
+    <div id="scroll-hud" class="fixed bottom-8 left-1/2 -translate-x-1/2 z-[80000] px-6 py-2.5 bg-[#0d0d14]/60 backdrop-blur-2xl border border-white/10 rounded-full font-mono text-[8px] md:text-[9px] text-gray-500 uppercase tracking-[0.3em] pointer-events-none transition-all duration-700 opacity-0 translate-y-10 scale-90 w-[90%] md:w-auto text-center">
+       <span class="text-purple-500 mr-2 md:mr-3">></span><span id="hud-content">Initializing...</span>
+    </div>
+
+    <!-- GLOBAL PROGRESS -->
+    <div id="scroll-progress" class="fixed top-0 left-0 h-1 bg-purple-500 z-[100003] w-full origin-left scale-x-0 transition-transform duration-100 shadow-[0_0_15px_rgba(123,47,247,0.8)] will-change-transform"></div>
+
+    <!-- BACK TO TOP -->
+    <div id="back-to-top" role="button" aria-label="Back to Top">
+       <div class="b2t-inner magnetic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+             <path d="M12 19V5M5 12l7-7 7 7"/>
+          </svg>
+       </div>
+    </div>
+
+    <!-- TOASTS CONTAINER -->
+    <div id="toast-root" class="fixed top-20 md:top-8 right-4 md:right-8 z-[110000] flex flex-col gap-4 pointer-events-none max-w-[calc(100vw-2rem)]"></div>
+
+    <!-- RPG CHARACTER SHEET -->
+    <div id="rpg-sheet" class="fixed inset-0 z-[120000] hidden pointer-events-auto" aria-hidden="true">
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-[2px]"></div>
+      <div class="relative w-full h-full flex items-center justify-center p-6">
+        <div class="rpg-panel">
+          <div class="rpg-panel__frame"></div>
+          <div class="relative z-10 p-6 md:p-10">
+            <div class="flex items-start justify-between gap-4 mb-6">
+              <div>
+                <div class="rpg-kicker text-[10px] md:text-[11px] font-mono uppercase tracking-[0.5em] text-purple-500">Character Sheet</div>
+                <div class="rpg-title mt-3 text-2xl md:text-4xl font-black font-outfit uppercase tracking-tighter">Senior Engineer Lv.2</div>
+                <div class="mt-3 flex flex-wrap gap-3 text-[10px] md:text-[11px] font-mono uppercase tracking-widest text-gray-400">
+                  <span>Race: Full Stack Human</span>
+                  <span>Guild: Hosinox</span>
+                </div>
+              </div>
+              <button id="rpg-close" class="rpg-close-btn border border-white/10 rounded-lg px-3 py-2 text-[11px] font-mono uppercase tracking-widest text-gray-500 hover:text-white hover:border-blue-500/40 transition-colors">ESC</button>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div>
+                <div class="rpg-section-title text-[10px] md:text-[11px] font-mono uppercase tracking-[0.35em] text-blue-400 mb-3">Stats</div>
+                <div class="space-y-4">
+                  <div class="rpg-bar-row">
+                    <div class="rpg-bar-label">STR (Problem Solving) <span class="rpg-bar-value">92/100</span></div>
+                    <div class="rpg-bar-track"><div class="rpg-bar-fill" data-stat="92"></div></div>
+                  </div>
+                  <div class="rpg-bar-row">
+                    <div class="rpg-bar-label">INT (Architecture) <span class="rpg-bar-value">95/100</span></div>
+                    <div class="rpg-bar-track"><div class="rpg-bar-fill" data-stat="95"></div></div>
+                  </div>
+                  <div class="rpg-bar-row">
+                    <div class="rpg-bar-label">DEX (Frontend) <span class="rpg-bar-value">85/100</span></div>
+                    <div class="rpg-bar-track"><div class="rpg-bar-fill" data-stat="85"></div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Matrix rain overlay -->
+    <div id="matrix-overlay" class="fixed inset-0 z-[130000] hidden pointer-events-none opacity-0 transition-opacity duration-500 bg-black/90">
+      <canvas id="matrix-canvas" class="w-full h-full"></canvas>
+    </div>
+
+    <!-- ASCII overlay -->
+    <div id="ascii-overlay" class="fixed inset-0 z-[130001] hidden pointer-events-none opacity-0 transition-opacity duration-300 bg-black/75">
+      <pre id="ascii-arij" class="absolute inset-0 flex items-center justify-center m-0 p-6 text-blue-400 font-mono text-[10px] md:text-[14px] leading-none text-center whitespace-pre-wrap"></pre>
+    </div>
+
+    <!-- Coffee rain overlay -->
+    <div id="coffee-rain" class="fixed inset-0 z-[130002] hidden pointer-events-none"></div>
+
+		<slot />
+
+		<style is:global>
+			:root { 
+        --primary: #7b2ff7; 
+        --primary-glow: rgba(123, 47, 247, 0.5);
+        --accent: #3b82f6; 
+        --bg: #08080a; 
+        --card: rgba(255, 255, 255, 0.03); 
+        --text: #f0f0f0; 
+        --text-muted: rgba(240, 240, 240, 0.5);
+      }
+      
+      @media (min-width: 768px) {
+        html, body, a, button, section, div { cursor: none !important; }
+      }
+
+      * { scrollbar-width: thin; scrollbar-color: var(--primary) transparent; }
+      ::-webkit-scrollbar { width: 5px; }
+      ::-webkit-scrollbar-track { background: transparent; }
+      ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+      /* MICRO-INTERACTIONS */
+      .hover-underline-lr { position: relative; }
+      .hover-underline-lr::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: currentColor; transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+      .hover-underline-lr:hover::after { width: 100%; }
+
+      .btn-hover-y { transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .btn-hover-y:hover { transform: translateY(-2px); }
+      .btn-hover-y:active { transform: translateY(1px); }
+
+      .icon-rotate { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .icon-rotate:hover { transform: rotate(10deg); }
+
+      .nav-pill { position: relative; transition: color 0.3s ease; }
+      .nav-pill::before { content: ''; position: absolute; inset: -4px -12px; border-radius: 99px; background: rgba(123,47,247,0.05); transform: scale(0.5); opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); z-index: -1; }
+      .nav-pill:hover::before { transform: scale(1); opacity: 1; }
+
+      .card-border-fade { border-color: rgba(255,255,255,0.05); transition: border-color 0.5s ease; }
+      .card-border-fade:hover { border-color: rgba(255,255,255,0.3); }
+
+      .img-scale { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .img-scale:hover { transform: scale(1.03); }
+
+      .tag-float { transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
+      .tag-float:hover { transform: translateY(-3px); }
+
+      .focus-border-grow { position: relative; }
+      .focus-border-grow-line { position: absolute; left: 0; top: 0; width: 2px; height: 0; background: var(--primary); transition: height 0.4s ease; transition-delay: 0.1s; pointer-events: none; }
+      .focus-border-grow input:focus ~ .focus-border-grow-line, .focus-border-grow textarea:focus ~ .focus-border-grow-line { height: 100%; }
+
+      /* GLITCH TEXT EFFECT */
+      .glitch-text { position: relative; display: inline-block; }
+      .glitch-text::before, .glitch-text::after {
+        content: attr(data-text); position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        opacity: 0.8; z-index: -1; pointer-events: none;
+      }
+      .glitch-text:hover::before, .glitch-text.auto-glitch::before {
+        animation: glitch-1 0.4s cubic-bezier(.25, .46, .45, .94) both infinite;
+        color: #ff0040; text-shadow: 2px 0 #ff0040; clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%); transform: translateX(-3px);
+      }
+      .glitch-text:hover::after, .glitch-text.auto-glitch::after {
+        animation: glitch-2 0.4s cubic-bezier(.25, .46, .45, .94) reverse both infinite;
+        color: var(--accent); text-shadow: -2px 0 var(--accent); clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%); transform: translateX(3px);
+      }
+      .glitch-text:hover { animation: glitch-flicker 0.4s linear infinite; }
+
+      @keyframes glitch-1 {
+        0% { clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%); }
+        20% { clip-path: polygon(0 15%, 100% 15%, 100% 15%, 0 15%); }
+        40% { clip-path: polygon(0 10%, 100% 10%, 100% 20%, 0 20%); }
+        60% { clip-path: polygon(0 1%, 100% 1%, 100% 2%, 0 2%); }
+        80% { clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%); }
+        100% { clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%); }
+      }
+      @keyframes glitch-2 {
+        0% { clip-path: polygon(0 80%, 100% 80%, 100% 100%, 0 100%); }
+        30% { clip-path: polygon(0 50%, 100% 50%, 100% 51%, 0 51%); }
+        50% { clip-path: polygon(0 70%, 100% 70%, 100% 75%, 0 75%); }
+        70% { clip-path: polygon(0 80%, 100% 80%, 100% 90%, 0 90%); }
+        90% { clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%); }
+        100% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); }
+      }
+      @keyframes glitch-flicker { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
+
+      /* ANIMATED GRADIENT TEXT */
+      .gradient-text-animated {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 35%, #ffffff 50%, var(--primary) 65%, var(--accent) 100%);
+        background-size: 200% 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: move-gradient 4s ease infinite, shadow-glow 4s ease infinite;
+      }
+      .gradient-text-animated:hover { animation-duration: 0.8s; }
+
+      @keyframes move-gradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+      @keyframes shadow-glow { 0%, 100% { filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3)); } 50% { filter: drop-shadow(0 0 25px rgba(59, 130, 246, 0.5)); } }
+
+      /* ── CINEMATIC ENTRANCE SYSTEM ── */
+      [class*="reveal"] { opacity: 0; will-change: transform, opacity, filter; }
+
+      .reveal { 
+        transform: translateY(30px); 
+        transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1); 
+      }
+      .reveal.in-view { opacity: 1; transform: translateY(0); }
+
+      /* Slide from Left */
+      .reveal-left {
+        transform: translateX(-50px);
+        transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal-left.in-view { opacity: 1; transform: translateX(0); }
+
+      /* Slide from Right */
+      .reveal-right {
+        transform: translateX(50px);
+        transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal-right.in-view { opacity: 1; transform: translateX(0); }
+
+      /* Zoom In */
+      .reveal-zoom {
+        transform: scale(0.85);
+        transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal-zoom.in-view { opacity: 1; transform: scale(1); }
+
+      /* Blur In */
+      .reveal-blur {
+        filter: blur(15px);
+        transform: translateY(20px);
+        transition: opacity 1.2s ease, filter 1.2s ease, transform 1.2s ease;
+      }
+      .reveal-blur.in-view { opacity: 1; filter: blur(0); transform: translateY(0); }
+
+      /* Sections entrance (CINEMATIC) */
+      .reveal-section { 
+        opacity: 0; 
+        transform: scale(0.98) translateY(20px);
+        filter: blur(4px);
+        transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+                    transform 1.2s cubic-bezier(0.22, 1, 0.36, 1), 
+                    filter 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        pointer-events: none; 
+      }
+      .reveal-section.visible { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+        filter: blur(0); 
+        pointer-events: auto; 
+      }
+
+      .reveal-label { transform: translateX(-50px); opacity: 0; transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+      .visible .reveal-label { transform: translateX(0); opacity: 1; }
+
+      .reveal-title-word { display: inline-block; transform: translateY(-30px) rotate(-5deg); opacity: 0; transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); white-space: pre; }
+      .visible .reveal-title-word { transform: translateY(0) rotate(0deg); opacity: 1; transition-delay: var(--delay); }
+
+      .reveal-body { transform: translateY(20px); opacity: 0; transition: all 0.8s ease; transition-delay: 0.3s; }
+      .visible .reveal-body { transform: translateY(0); opacity: 1; }
+
+      .reveal-cta { transform: scale(0.8); opacity: 0; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); transition-delay: 0.5s; }
+      .visible .reveal-cta { transform: scale(1); opacity: 1; }
+
+      .reveal-card { transform: translateY(40px) scale(0.95); opacity: 0; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); transition-delay: var(--delay); }
+      .visible .reveal-card { transform: translateY(0) scale(1); opacity: 1; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .glitch-text::before, .glitch-text::after, .reveal-title-word, .reveal-card { transition: none !important; animation: none !important; transform: none !important; opacity: 1 !important; }
+      }
+			html { 
+        scroll-behavior: smooth; 
+        background: var(--bg); 
+        height: 100%; 
+      }
+			body { 
+        font-family: 'Inter', sans-serif; 
+        overflow-x: hidden; 
+        background: var(--bg); 
+        min-height: 100vh; 
+        -webkit-font-smoothing: antialiased; 
+        -moz-osx-font-smoothing: grayscale; 
+        color: var(--text); 
+      }
+      .section-layout-fix {
+        width: 100%;
+        position: relative;
+      }
+			.font-outfit { font-family: 'Outfit', sans-serif; }
+			.font-inter { font-family: 'Inter', sans-serif; }
+			.font-mono { font-family: 'JetBrains Mono', monospace; }
+			.gradient-text { background: linear-gradient(to right, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+			h1, h2, h3 { font-family: 'Outfit', sans-serif; letter-spacing: -0.03em; font-weight: 800; }
+			p, span, div { letter-spacing: -0.01em; }
+			.reveal { opacity: 0; transform: translateY(30px); transition: all 1.2s cubic-bezier(0.22, 1, 0.36, 1); }
+			.reveal.in-view { opacity: 1; transform: translateY(0); }
+      .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 1rem; }
+      @media (min-width: 768px) { .container { padding: 0 1.5rem; } }
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+      
+      /* ACHIEVEMENT TOAST */
+      .achieve-card { 
+         background: #0d0d14; border: 1px solid rgba(59, 130, 246, 0.3); padding: 14px 20px; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+         display: flex; align-items: center; gap: 1rem; min-width: 280px;
+         animation: ach-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      @media (min-width: 768px) {
+         .achieve-card { padding: 18px 24px; border-radius: 20px; gap: 1.2rem; min-width: 320px; }
+      }
+      @keyframes ach-in { from { transform: translateX(100%) scale(0.9); opacity: 0; } to { transform: translateX(0) scale(1); opacity: 1; } }
+
+      /* CYBER RIPPLE */
+      .cyber-ripple { position: absolute; pointer-events: none; border-radius: 50%; border: 2px solid rgba(59,130,246,0.5); transform: translate(-50%, -50%) scale(0); animation: ripple-anim 0.6s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; z-index: 999999; }
+      .cyber-ripple-inner { position: absolute; pointer-events: none; border-radius: 50%; border: 1px solid rgba(255,255,255,0.3); transform: translate(-50%, -50%) scale(0); animation: ripple-anim-inner 0.4s cubic-bezier(0.1, 0.8, 0.3, 1) forwards; z-index: 999999; }
+      @keyframes ripple-anim { to { transform: translate(-50%, -50%) scale(4); opacity: 0; width: 60px; height: 60px; } }
+      @keyframes ripple-anim-inner { 0% { transform: translate(-50%, -50%) scale(0); opacity: 1; width: 20px; height: 20px; } 100% { transform: translate(-50%, -50%) scale(8); opacity: 0; width: 20px; height: 20px; border-width: 0; } }
+
+      .glass-card { 
+        position: relative;
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+      .glass-card:hover {
+        background: rgba(255, 255, 255, 0.03);
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+      }
+      .glass-inner { transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); will-change: transform; transform-style: preserve-3d; }
+      .glass-light { transition: opacity 0.3s ease; mix-blend-mode: overlay; pointer-events: none; }
+      .canvas-gpu { transform: translateZ(0); will-change: transform; }
+
+      section {
+        transform-style: preserve-3d;
+        perspective: 1200px;
+      }
+
+      /* ── RPG SHEET STYLES ────────────────────────────────────────── */
+      .rpg-panel {
+        position: relative;
+        width: min(980px, 100%);
+        max-height: min(92vh, 760px);
+        overflow: hidden;
+        background: rgba(13, 13, 20, 0.72);
+        border-radius: 16px;
+        box-shadow: 0 40px 120px rgba(0,0,0,0.65);
+      }
+      .rpg-panel__frame {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(rgba(59,130,246,0.35), rgba(59,130,246,0.35)) top / 100% 2px no-repeat,
+          linear-gradient(rgba(123,47,247,0.25), rgba(123,47,247,0.25)) bottom / 100% 2px no-repeat,
+          repeating-linear-gradient(90deg, rgba(59,130,246,0.22) 0 8px, rgba(0,0,0,0) 8px 12px) left / 12px 100% no-repeat,
+          repeating-linear-gradient(90deg, rgba(59,130,246,0.22) 0 8px, rgba(0,0,0,0) 8px 12px) right / 12px 100% no-repeat;
+        filter: drop-shadow(0 0 18px rgba(59,130,246,0.20));
+      }
+      .rpg-panel::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+          linear-gradient(135deg, rgba(59,130,246,0.25) 0 25%, transparent 25% 100%),
+          repeating-linear-gradient(0deg, rgba(59,130,246,0.18) 0 2px, transparent 2px 4px);
+        opacity: 0.25;
+        mix-blend-mode: screen;
+      }
+      .rpg-close-btn { cursor: pointer; }
+      .rpg-title { text-shadow: 0 0 28px rgba(59,130,246,0.18); }
+      .rpg-section-title { text-shadow: 0 0 18px rgba(59,130,246,0.14); }
+      .rpg-meta-card { background: rgba(13, 13, 20, 0.55); }
+      .rpg-meta-pill {
+        padding: 10px 12px;
+        border-radius: 14px;
+        border: 1px solid rgba(59,130,246,0.22);
+        background: rgba(5,5,8,0.6);
+        color: rgba(240,240,240,0.95);
+        box-shadow: inset 0 0 0 1px rgba(123,47,247,0.12);
+      }
+      .rpg-bar-label {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        color: rgba(240,240,240,0.92);
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'JetBrains Mono', monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-size: 12px;
+      }
+      .rpg-bar-sub { color: rgba(59,130,246,0.65); font-weight: 700; font-size: 11px; letter-spacing: 0.02em; }
+      .rpg-bar-value { color: rgba(240,240,240,0.9); font-weight: 800; margin-left: 8px; }
+      .rpg-bar-track {
+        margin-top: 8px;
+        height: 12px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.06);
+        border: 1px solid rgba(255,255,255,0.08);
+        overflow: hidden;
+      }
+      .rpg-bar-fill {
+        height: 100%;
+        width: 0%;
+        border-radius: 999px;
+        background: linear-gradient(90deg,
+          rgba(59,130,246,0.15) 0%,
+          rgba(59,130,246,0.95) 25%,
+          rgba(123,47,247,0.95) 60%,
+          rgba(255,255,255,0.65) 85%,
+          rgba(0,229,255,0.9) 100%
+        );
+        box-shadow: 0 0 24px rgba(0,229,255,0.35);
+        opacity: 0;
+        transition: width 950ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease;
+      }
+      .rpg-open .rpg-bar-fill { opacity: 1; }
+
+      /* ── MATRIX RAIN ─────────────────────────────────────────────── */
+      #matrix-overlay.matrix-show { opacity: 1; }
+      #ascii-overlay.ascii-show { opacity: 1; }
+
+      /* ── COFFEE RAIN ─────────────────────────────────────────────── */
+      @keyframes coffeeFall {
+        0% { transform: translateY(-30px) translateX(0) rotate(0deg); opacity: 0; }
+        10% { opacity: 1; }
+        100% { transform: translateY(110vh) translateX(40px) rotate(220deg); opacity: 0; }
+      }
+      .coffee-drop {
+        position: absolute;
+        top: -30px;
+        font-size: 18px;
+        filter: drop-shadow(0 0 10px rgba(0,229,255,0.25));
+        animation: coffeeFall var(--dur, 2.4s) linear forwards;
+        will-change: transform, opacity;
+      }
+
+      /* ── GODMODE TITLE ───────────────────────────────────────────── */
+      .godmode-title {
+        color: transparent !important;
+        -webkit-text-fill-color: transparent !important;
+        background-image: linear-gradient(90deg, #3b82f6, #7b2ff7, #ffffff, #7b2ff7, #3b82f6);
+        background-size: 250% 100%;
+        -webkit-background-clip: text;
+        background-clip: text;
+        animation: godmodeRainbow 0.8s linear infinite;
+        text-shadow: 0 0 22px rgba(59,130,246,0.2);
+      }
+      /* ── CINEMATIC SCANLINE ── */
+      .scanline-wipe {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        pointer-events: none;
+        background: linear-gradient(to bottom, 
+          transparent 0%, 
+          rgba(59, 130, 246, 0.05) 45%, 
+          rgba(59, 130, 246, 0.1) 50%, 
+          rgba(59, 130, 246, 0.05) 55%, 
+          transparent 100%
+        );
+        height: 100px;
+        width: 100%;
+        opacity: 0.5;
+        animation: scanline-move 8s cubic-bezier(0.19, 1, 0.22, 1) infinite;
+      }
+      @keyframes scanline-move {
+        0% { transform: translateY(-100vh); }
+        100% { transform: translateY(200vh); }
+      }
+
+      /* GLASS TILT EFFECT */
+      .glass-tilt {
+        transition: transform 0.2s ease-out;
+        transform-style: preserve-3d;
+      }
+      .glass-tilt > * {
+        pointer-events: none;
+      }
+
+      /* BACK TO TOP BUTTON */
+      #back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 999999;
+        opacity: 0;
+        visibility: hidden;
+        translate: 0 10px;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        cursor: pointer;
+      }
+      #back-to-top.show {
+        opacity: 1;
+        visibility: visible;
+        translate: 0 0;
+      }
+      #back-to-top:hover {
+        scale: 1.1;
+      }
+      #back-to-top .b2t-inner {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(13, 13, 20, 0.8);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(123, 47, 247, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      }
+
+      /* ── QUANTUM AURA ────────────────────────────────────────────── */
+      .quantum-title {
+         animation: quantum-flicker 4s infinite alternate;
+      }
+      .quantum-title-delayed {
+         animation: quantum-flicker 4s infinite alternate-reverse;
+         animation-delay: 1s;
+      }
+      @keyframes quantum-flicker {
+         0% { text-shadow: 0 0 10px rgba(59,130,246,0.2), 0 0 20px rgba(123,47,247,0.1); filter: brightness(1); }
+         50% { text-shadow: 0 0 25px rgba(59,130,246,0.6), 0 0 50px rgba(123,47,247,0.4); filter: brightness(1.2); }
+         100% { text-shadow: 0 0 15px rgba(59,130,246,0.3), 0 0 30px rgba(123,47,247,0.2); filter: brightness(1.05); }
+      }
+      #back-to-top svg {
+        width: 20px;
+        height: 20px;
+        color: #7b2ff7;
+        transition: transform 0.3s ease;
+      }
+      #back-to-top:hover svg {
+        transform: translateY(-3px);
+      }
+
+      @keyframes godmodeRainbow {
+        from { background-position: 0% 50%; }
+        to { background-position: 100% 50%; }
+      }
+		</style>
+
+		<script is:inline>
+      // ── 1. TOASTS & GLOBAL UTILS ───────────────
+      window.showToast = function(msg, dur = 4000) {
+         const t = document.createElement('div');
+         t.style.cssText = `position:fixed;bottom:32px;left:32px;z-index:999999;background:#0d0d14;border:1px solid #3b82f6;color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;padding:15px 25px;border-radius:12px;box-shadow:0 0 30px rgba(59,130,246,0.2);text-transform:uppercase;letter-spacing:0.1em;opacity:0;transform:translateY(20px);transition:all 0.4s ease-out;`;
+         t.textContent = msg;
+         document.body.appendChild(t);
+         requestAnimationFrame(() => { t.style.opacity = '1'; t.style.transform = 'translateY(0)'; });
+         setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(10px)'; setTimeout(() => t.remove(), 400); }, dur);
+      };
+
+      const achData = {
+         home: { t: "Signal Acquired", s: "Hero connection established", i: "🏠" },
+         about: { t: "Profile Accessed", s: "Identity module loaded", i: "👤" },
+         experience: { t: "Logs Retrieved", s: "History data compiled", i: "💼" },
+         projects: { t: "Systems Inspected", s: "Lab deployment reviewed", i: "🚀" },
+         skills: { t: "Stack Analyzed", s: "Arsenal scan complete", i: "⚙️" },
+         contact: { t: "Transmission Open", s: "Secure line active", i: "📡" }
+      };
+      const unlocked = new Set();
+      window.unlockAch = (id) => {
+         if (unlocked.has(id)) return;
+         unlocked.add(id);
+         const data = achData[id];
+         if (!data) return;
+         const card = document.createElement('div');
+         card.className = 'achieve-card';
+         card.innerHTML = `<span class="text-3xl">${data.i}</span><div><div class="text-[9px] font-mono text-cyan-500 uppercase font-black">Achievement Unlocked</div><div class="text-sm font-black text-white uppercase">${data.t}</div><div class="text-[9px] text-gray-500 uppercase">${data.s}</div></div>`;
+         document.getElementById('toast-root').appendChild(card);
+         setTimeout(() => { card.style.opacity = '0'; card.style.transform = 'translateY(-20px)'; setTimeout(() => card.remove(), 600); }, 5000);
+         if (unlocked.size === 6) { fireConfetti(); setTimeout(() => showToast("🏆 FULL SCAN COMPLETE — HIRE THIS HUMAN."), 2000); }
+      };
+
+      function fireConfetti() {
+         const colors = ['#3b82f6', '#7b2ff7', '#ffffff', '#39ff14'];
+         for(let i=0; i<100; i++) {
+            const c = document.createElement('div');
+            c.style.cssText = `position:fixed;z-index:1000000;pointer-events:none;background:${colors[Math.floor(Math.random()*colors.length)]};width:${Math.random()*8+4}px;height:${Math.random()*8+4}px;left:${Math.random()*100}vw;top:-20px;animation:cFall ${2+Math.random()*2}s linear forwards;`;
+            document.body.appendChild(c);
+            setTimeout(() => c.remove(), 4000);
+         }
+      }
+      if (!document.getElementById('c-style')) { const s = document.createElement('style'); s.id='c-style'; s.textContent = `@keyframes cFall{0%{transform:translateY(0) rotate(0deg)}100%{transform:translateY(100vh) rotate(720deg);opacity:0}}`; document.head.appendChild(s); }
+
+      // ── 3. HUD & OBSERVER (Prompt 23, 24) ────────────────────
+      (function() {
+         const hud = document.getElementById('scroll-hud');
+         const content = document.getElementById('hud-content');
+         const stories = { home: "Compiling identity hook...", about: "Scanning neural profile...", experience: "Parsing system records...", projects: "Linking lab projects...", skills: "Indexing arsenal...", contact: "Routing signal gateway..." };
+         
+         const revealObs = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                  entry.target.classList.add('in-view');
+                  entry.target.classList.add('visible'); // Sync with different reveal systems
+                  const s = stories[entry.target.id];
+                  if (s) {
+                     hud.style.opacity = '1'; hud.style.transform = 'translateX(-50%) translateY(0) scale(1)';
+                     window.unlockAch(entry.target.id);
+                     content.textContent = ''; let ci = 0;
+                     const t = setInterval(() => { if(ci < s.length) content.textContent += s[ci++]; else clearInterval(t); }, 30);
+                  }
+               }
+            });
+         }, { threshold: 0.15 });
+         document.querySelectorAll('section, [class*="reveal"]').forEach(el => revealObs.observe(el));
+      })();
+
+      // ── 4. MAGNETIC BUTTONS & GLASS TILT ───────────────
+      (function() {
+         const magnets = document.querySelectorAll('.magnetic');
+         const glassCards = document.querySelectorAll('.glass-tilt');
+         
+         document.addEventListener('mousemove', e => {
+            const { clientX: mx, clientY: my } = e;
+            
+            // Magnetic Logic
+            magnets.forEach(m => {
+               const rect = m.getBoundingClientRect();
+               const cx = rect.left + rect.width/2;
+               const cy = rect.top + rect.height/2;
+               const dx = mx - cx;
+               const dy = my - cy;
+               const dist = Math.sqrt(dx*dx + dy*dy);
+               const limit = 60;
+               
+               if (dist < limit) {
+                  const tx = dx * 0.35;
+                  const ty = dy * 0.35;
+                  m.style.transform = `translate(${tx}px, ${ty}px)`;
+               } else {
+                  m.style.transform = `translate(0, 0)`;
+               }
+            });
+
+            // Glass Tilt Logic
+            glassCards.forEach(c => {
+               const rect = c.getBoundingClientRect();
+               const cx = rect.left + rect.width/2;
+               const cy = rect.top + rect.height/2;
+               const dx = mx - cx;
+               const dy = my - cy;
+               const dist = Math.sqrt(dx*dx + dy*dy);
+               
+               if (dist < 400) {
+                  const rx = dy * -0.05;
+                  const ry = dx * 0.05;
+                  c.style.transform = `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+               } else {
+                  c.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)`;
+               }
+            });
+         });
+      })();
+
+      // ── 5. PREMIUM CUSTOM CURSOR ─────────────────────────
+      (function() {
+         const core = document.getElementById('cursor-core');
+         const aura = document.getElementById('cursor-aura');
+         if (!core || !aura) return;
+
+         let mouseX = 0, mouseY = 0;
+         let auraX = 0, auraY = 0;
+         let isHovering = false;
+
+         document.addEventListener('mousemove', e => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            core.style.opacity = '1';
+            aura.style.opacity = '1';
+
+            core.style.transform = `translate(${mouseX - 3}px, ${mouseY - 3}px)`;
+            
+            const target = e.target.closest('a, button, [role=button], input, textarea, .cursor-pointer, .tech-chip');
+            if (target) {
+               if (!isHovering) {
+                  isHovering = true;
+                  aura.style.width = '60px';
+                  aura.style.height = '60px';
+                  aura.style.borderColor = 'rgba(255,255,255,0.8)';
+                  core.style.transform += ' scale(2.5)';
+               }
+            } else {
+               if (isHovering) {
+                  isHovering = false;
+                  aura.style.width = '40px';
+                  aura.style.height = '40px';
+                  aura.style.borderColor = 'rgba(255,255,255,0.4)';
+               }
+            }
+         });
+
+         function animate() {
+            // Smooth interpolation for the aura
+            const ease = 0.15;
+            auraX += (mouseX - auraX) * ease;
+            auraY += (mouseY - auraY) * ease;
+
+            const size = isHovering ? 60 : 40;
+            aura.style.transform = `translate(${auraX - size/2}px, ${auraY - size/2}px)`;
+
+            requestAnimationFrame(animate);
+         }
+         animate();
+
+         document.addEventListener('mousedown', () => {
+            core.style.transform += ' scale(0.7)';
+            aura.style.transform += ' scale(0.9)';
+         });
+         document.addEventListener('mouseup', () => {
+            core.style.transform = core.style.transform.replace(' scale(0.7)', '');
+         });
+      })();
+
+      // ── 5. CLI SYSTEM (Prompt 17) ────────────────────────────
+      (function() {
+         const cli = document.getElementById('secret-cli');
+         const input = document.getElementById('cli-input');
+         const out = document.getElementById('cli-output');
+         const close = document.getElementById('cli-close');
+         
+         document.addEventListener('keydown', e => { if (e.key === '`') { e.preventDefault(); cli.classList.toggle('translate-y-full'); if(!cli.classList.contains('translate-y-full')) setTimeout(() => input.focus(), 100); } });
+         close.onclick = () => cli.classList.add('translate-y-full');
+
+         const history = [];
+         input.onkeydown = e => { if (e.key === 'Enter') { const v = input.value.trim().toLowerCase(); history.push(v); runCmd(v); input.value = ''; } };
+
+         function print(msg, color="#888") { const d = document.createElement('div'); d.style.color = color; d.innerHTML = msg; out.appendChild(d); out.scrollTop = out.scrollHeight; }
+
+         function runCmd(cmd) {
+            print(`> arij@portfolio:~$ <span style="color:#fff">${cmd}</span>`);
+            if (cmd === 'help') print("Available: whoami, skills, experience, projects, hire, salary, joke, sudo hire-me, clear, exit");
+            else if (cmd === 'whoami') print("Arij Hajjaji — Full Stack Engineer (Spring / Angular / .NET / AI). Based in Tunis.");
+            else if (cmd === 'skills') print("Spring Boot, .NET 8, Angular, Docker, Microservices, AI/RAG.");
+            else if (cmd === 'experience') print("Hosinox, Biram, Innov-Alliance, Proxi Web.");
+            else if (cmd === 'hire') { print("Opening transmission..."); window.location.href = 'mailto:arijhajjaji2@gmail.com'; }
+            else if (cmd === 'salary') print("Nice try 😏. Hire me and find out.");
+            else if (cmd === 'joke') { const j = ["I have a joke about Docker... but it only works on my machine.","Why do Java devs wear glasses? Because they don't C#."]; print(j[Math.floor(Math.random()*j.length)]); }
+            else if (cmd === 'sudo hire-me') { print("⚡ ROOT ACCESS GRANTED. Launching confetti...", "#39ff14"); fireConfetti(); setTimeout(() => document.getElementById('contact').scrollIntoView({behavior:'smooth'}), 1500); }
+            else if (cmd === 'clear') out.innerHTML = '';
+            else if (cmd === 'exit') cli.classList.add('translate-y-full');
+            else print(`Command not found: ${cmd}`);
+         }
+      })();
+
+      // ── 6. CONTEXT MENU (Prompt 18) ──────────────────────────
+      (function() {
+         const menu = document.getElementById('context-menu');
+         document.oncontextmenu = e => {
+            e.preventDefault();
+            menu.style.left = `${e.clientX}px`; menu.style.top = `${e.clientY}px`;
+            menu.style.display = 'block';
+            setTimeout(() => { menu.style.opacity = '1'; menu.style.transform = 'scale(1)'; }, 10);
+         };
+         document.onclick = () => { menu.style.opacity = '0'; menu.style.transform = 'scale(0.95)'; setTimeout(() => menu.style.display = 'none', 200); };
+         document.getElementById('m-email').onclick = () => { navigator.clipboard.writeText('arijhajjaji2@gmail.com'); showToast('Email copied! 📋'); };
+         document.getElementById('m-cv').onclick = () => window.open('src/CV/Arij_Hajjaji_CV.pdf');
+    
+      })();
+      // ── 7. EASTER EGGS / DETECTOR (Prompt 20, 21) ───────────
+      (function() {
+         let keys = "";
+
+         const rpg = document.getElementById('rpg-sheet');
+         const rpgClose = document.getElementById('rpg-close');
+         const matrixOverlay = document.getElementById('matrix-overlay');
+         const matrixCanvas = document.getElementById('matrix-canvas');
+         const asciiOverlay = document.getElementById('ascii-overlay');
+         const asciiEl = document.getElementById('ascii-arij');
+         const coffeeRain = document.getElementById('coffee-rain');
+
+         const hud = document.getElementById('scroll-hud');
+         const hudContent = document.getElementById('hud-content');
+
+         const isRpgOpen = () => rpg && !rpg.classList.contains('hidden');
+
+         const openRpg = () => {
+           if (!rpg || isRpgOpen()) return;
+           rpg.classList.remove('hidden');
+           rpg.setAttribute('aria-hidden', 'false');
+           rpg.classList.add('rpg-open');
+
+           // Lock background scroll.
+           const prevOverflow = document.body.style.overflow;
+           document.body.dataset.prevOverflow = prevOverflow || '';
+           document.body.style.overflow = 'hidden';
+
+           // Animate stats bars on open.
+           const fills = rpg.querySelectorAll('.rpg-bar-fill');
+           fills.forEach((f) => {
+             f.style.transition = 'none';
+             f.style.width = '0%';
+             f.style.opacity = '0';
+           });
+           requestAnimationFrame(() => {
+             fills.forEach((f) => {
+               const v = Math.max(0, Math.min(100, parseInt(f.dataset.stat || '0', 10)));
+               // Re-enable transitions
+               f.style.transition = '';
+               f.style.width = `${v}%`;
+             });
+           });
+         };
+
+         const closeRpg = () => {
+           if (!rpg || !isRpgOpen()) return;
+           rpg.classList.remove('rpg-open');
+           rpg.setAttribute('aria-hidden', 'true');
+           rpg.classList.add('hidden');
+
+           const prevOverflow = document.body.dataset.prevOverflow || '';
+           document.body.style.overflow = prevOverflow;
+         };
+
+         if (rpgClose) rpgClose.addEventListener('click', closeRpg);
+
+         // Matrix rain (Canvas) - 5 seconds
+         let matrixRaf = 0;
+         let matrixTimeout = 0;
+         let matrixBusy = false;
+         function triggerMatrixRain() {
+           if (matrixBusy || !matrixOverlay || !matrixCanvas) return;
+           matrixBusy = true;
+           matrixOverlay.classList.remove('hidden');
+           matrixOverlay.classList.add('matrix-show');
+
+           const ctx = matrixCanvas.getContext('2d');
+           if (!ctx) return;
+
+           const dpr = Math.min(window.devicePixelRatio || 1, 2);
+           const fontSize = 16;
+           const chars = 'アイウエオ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+           let w = 0, h = 0, columns = 0;
+           function resize() {
+             w = window.innerWidth;
+             h = window.innerHeight;
+             matrixCanvas.width = Math.floor(w * dpr);
+             matrixCanvas.height = Math.floor(h * dpr);
+             matrixCanvas.style.width = w + 'px';
+             matrixCanvas.style.height = h + 'px';
+             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+             columns = Math.floor(w / fontSize);
+           }
+           resize();
+
+           const drops = Array.from({ length: columns }, () => Math.floor(Math.random() * (h / fontSize)));
+           function draw() {
+             ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+             ctx.fillRect(0, 0, w, h);
+             ctx.font = `${fontSize}px monospace`;
+             ctx.fillStyle = '#00ff66';
+
+             for (let i = 0; i < columns; i++) {
+               const text = chars[Math.floor(Math.random() * chars.length)];
+               const x = i * fontSize;
+               const y = drops[i] * fontSize;
+               ctx.fillText(text, x, y);
+               if (y > h && Math.random() > 0.975) drops[i] = 0;
+               drops[i]++;
+             }
+             matrixRaf = requestAnimationFrame(draw);
+           }
+           draw();
+
+           clearTimeout(matrixTimeout);
+           matrixTimeout = window.setTimeout(() => {
+             cancelAnimationFrame(matrixRaf);
+             matrixBusy = false;
+             matrixOverlay.classList.remove('matrix-show');
+             window.setTimeout(() => {
+               matrixOverlay.classList.add('hidden');
+             }, 550);
+           }, 5000);
+         }
+
+         // Godmode title rainbow cycle for 3 seconds
+         let godmodeBusy = false;
+         function triggerGodmode() {
+           if (godmodeBusy) return;
+           godmodeBusy = true;
+           const titles = document.querySelectorAll('section[id] h1, section[id] h2');
+           titles.forEach((t) => {
+             t.classList.add('godmode-title');
+             // Ensure nested gradient spans don't override the effect.
+             t.querySelectorAll('span').forEach((s) => s.classList.add('godmode-title'));
+           });
+           window.setTimeout(() => {
+             titles.forEach((t) => {
+               t.classList.remove('godmode-title');
+               t.querySelectorAll('span').forEach((s) => s.classList.remove('godmode-title'));
+             });
+             godmodeBusy = false;
+           }, 3000);
+         }
+
+         // Big ASCII ARIJ (cyan) - brief flash
+         let asciiBusy = false;
+         function triggerArijAscii() {
+           if (asciiBusy || !asciiOverlay || !asciiEl) return;
+           asciiBusy = true;
+           const art = [
+             ' ██████╗  ██████╗  ███╗   ███╗  ██████╗ ',
+             '██╔════╝ ██╔═══██╗ ████╗ ████║ ██╔════╝ ',
+             '██║  ███╗██║   ██║ ██╔████╔██║ ██║  ███╗',
+             '██║   ██║██║   ██║ ██║╚██╔╝██║ ██║   ██║',
+             '╚██╗  ██║██║   ██║ ██║ ╚═╝ ██║ ╚██╗  ██║',
+             ' ╚█████╔╝╚██████╔╝ ██║     ██║  ╚█████╔╝',
+             '  ╚════╝  ╚═════╝  ╚═╝     ╚═╝   ╚════╝ ',
+           ].join('\n');
+
+           asciiEl.textContent = art;
+
+           asciiOverlay.classList.remove('hidden');
+           asciiOverlay.classList.add('ascii-show');
+
+           window.setTimeout(() => {
+             asciiOverlay.classList.remove('ascii-show');
+             window.setTimeout(() => {
+               asciiOverlay.classList.add('hidden');
+               asciiBusy = false;
+             }, 320);
+           }, 900);
+         }
+
+         // SYSTEM OVERRIDE typing in HUD
+         let nexusBusy = false;
+         function triggerNexusOverride() {
+           if (nexusBusy || !hud || !hudContent) return;
+           nexusBusy = true;
+
+           const prevText = hudContent.textContent;
+           const seq = ['SYSTEM OVERRIDE', 'ACCESS: ADMIN', 'STATUS: OVERRIDDEN', 'OK'];
+
+           hudContent.textContent = '';
+           hud.style.opacity = '1';
+           hud.style.transform = 'translateX(-50%) translateY(0) scale(1)';
+
+           let p = 0;
+           const full = seq.join(' | ');
+
+           // Typewriter effect across the combined sequence
+           const start = () => {
+             if (p <= full.length) {
+               hudContent.textContent = full.substring(0, p);
+               p++;
+               window.setTimeout(start, 18);
+             } else {
+              // Sequence finished; keep it visible briefly before restoring HUD.
+              window.setTimeout(() => {
+                hudContent.textContent = prevText;
+                nexusBusy = false;
+              }, 650);
+             }
+           };
+           window.setTimeout(start, 50);
+         }
+
+         // Coffee rain (20 ☕) - ~2.6 seconds
+         let coffeeBusy = false;
+         function triggerCoffeeRain() {
+           if (coffeeBusy || !coffeeRain) return;
+           coffeeBusy = true;
+           coffeeRain.innerHTML = '';
+           coffeeRain.classList.remove('hidden');
+           const count = 20;
+           for (let i = 0; i < count; i++) {
+             const el = document.createElement('span');
+             el.className = 'coffee-drop';
+             el.textContent = '☕';
+             el.style.left = `${Math.random() * 100}vw`;
+             el.style.setProperty('--dur', `${2.0 + Math.random() * 1.2}s`);
+             el.style.animationDelay = `${Math.random() * 0.25}s`;
+             coffeeRain.appendChild(el);
+           }
+           window.setTimeout(() => {
+             coffeeRain.classList.add('hidden');
+             coffeeRain.innerHTML = '';
+             coffeeBusy = false;
+           }, 2700);
+         }
+
+         document.onkeydown = e => {
+           // Ignore typing inside inputs (CLI / forms).
+           const target = e.target;
+           const tag = (target && target.tagName) ? target.tagName.toUpperCase() : '';
+           if (tag === 'INPUT' || tag === 'TEXTAREA' || (target && target.isContentEditable)) return;
+
+           // ESC closes RPG sheet.
+           if (e.key === 'Escape') {
+             if (isRpgOpen()) {
+               e.preventDefault();
+               closeRpg();
+               return;
+             }
+           }
+
+           // Allow RPG sheet to fully own keyboard while open.
+           if (isRpgOpen()) {
+             if (e.key && e.key.toLowerCase() === 'p') {
+               e.preventDefault();
+               closeRpg();
+             }
+             return;
+           }
+
+           // Press 'P' to open.
+           if (e.key && e.key.toLowerCase() === 'p') {
+             e.preventDefault();
+             openRpg();
+             return;
+           }
+
+           const key = (e.key || '').toLowerCase();
+           if (key.length === 1 && /[a-z0-9]/.test(key)) {
+             keys += key;
+             if (keys.length > 20) keys = keys.substring(1);
+           }
+
+           if (keys.endsWith('java')) showToast("☕ JAVA? MY FIRST LOVE.");
+           if (keys.endsWith('docker')) showToast("🐳 IT WORKS ON MY MACHINE.");
+           if (keys.endsWith(' hire')) { fireConfetti(); document.getElementById('contact').scrollIntoView(); }
+
+           // New sequences
+           if (keys.endsWith('matrix')) triggerMatrixRain();
+           if (keys.endsWith('godmode')) triggerGodmode();
+           if (keys.endsWith('arij')) triggerArijAscii();
+           if (keys.endsWith('nexus')) triggerNexusOverride();
+           if (keys.endsWith('coffee')) triggerCoffeeRain();
+         };
+
+         let idle = 0;
+         setInterval(() => {
+            idle++;
+            if (idle === 30) showToast("👀 Recruiter detected? Want to skip?");
+            if (idle === 60) showToast("👀 Still there? Hire me!");
+         }, 1000);
+         window.onmousemove = () => idle = 0;
+      })();
+
+      // ── PROGRESS BAR (Optimized) ─────────────────────────────
+      let ticking = false;
+      const prog = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', () => {
+         if (!ticking) {
+            window.requestAnimationFrame(() => {
+               const h = document.documentElement.scrollHeight - innerHeight;
+               prog.style.transform = `scaleX(${pageYOffset / h})`;
+               ticking = false;
+            });
+            ticking = true;
+         }
+      }, { passive: true });
+
+      // ── 8. SPOTLIGHT & GLASS REFLECTION ──────────────────────
+      (function() {
+         const mem = navigator.deviceMemory || 4;
+         const cores = navigator.hardwareConcurrency || 4;
+         window.isLowEnd = mem < 4 || cores < 4;
+
+         if (window.matchMedia('(pointer: fine)').matches && !window.isLowEnd) {
+            const spot = document.getElementById('global-spotlight');
+            let cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+            let tx = cx, ty = cy;
+            spot.classList.remove('opacity-0');
+
+            document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; }, { passive: true });
+            
+            function renderSpotlight() {
+               cx += (tx - cx) * 0.1; cy += (ty - cy) * 0.1;
+               spot.style.background = `radial-gradient(circle 300px at ${cx}px ${cy}px, rgba(255,255,255,0.03) 0%, transparent 70%)`;
+               requestAnimationFrame(renderSpotlight);
+            }
+            requestAnimationFrame(renderSpotlight);
+
+            setTimeout(() => {
+               document.querySelectorAll('.glass-card').forEach(card => {
+                  const inner = card.querySelector('.glass-inner') || card;
+                  const light = document.createElement('div');
+                  light.className = 'glass-light absolute inset-0 rounded-[inherit] opacity-0 z-[100] pointer-events-none';
+                  inner.appendChild(light);
+
+                  card.addEventListener('mousemove', e => {
+                     const r = card.getBoundingClientRect();
+                     const x = e.clientX - r.left, y = e.clientY - r.top;
+                     const cX = r.width/2, cY = r.height/2;
+                     const rotX = ((y - cY) / cY) * -8;
+                     const rotY = ((x - cX) / cX) * 8;
+                     
+                     inner.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.02, 1.02, 1.02)`;
+                     inner.style.transition = 'none';
+                     light.style.opacity = '1';
+                     light.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.08) 0%, transparent 60%)`;
+                     inner.style.boxShadow = `${-rotY}px ${rotX}px 30px rgba(123,47,247,0.15)`;
+                  }, { passive: true });
+
+                  card.addEventListener('mouseleave', () => {
+                     inner.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.6s ease';
+                     inner.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                     inner.style.boxShadow = 'none';
+                     light.style.opacity = '0';
+                  });
+               });
+            }, 1000);
+         }
+      })();
+
+      // ── 9. BACK TO TOP LOGIC ────────────────────────────
+      (function() {
+         const b2t = document.getElementById('back-to-top');
+         if (!b2t) return;
+         
+         window.addEventListener('scroll', () => {
+            if (window.scrollY > 800) {
+               b2t.classList.add('show');
+            } else {
+               b2t.classList.remove('show');
+            }
+         });
+         
+         b2t.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+         });
+      })();
+
+      // ── 10. MAGNETIC HOVER ──────────────────────────────────
+      (function() {
+         if ('ontouchstart' in window) return;
+         const mAgents = document.querySelectorAll('.magnetic');
+         mAgents.forEach(btn => {
+            const inner = btn.querySelector('.m-inner') || btn;
+            btn.addEventListener('mousemove', e => {
+               const rect = btn.getBoundingClientRect();
+               const centerX = rect.left + rect.width / 2, centerY = rect.top + rect.height / 2;
+               const x = (e.clientX - centerX), y = (e.clientY - centerY);
+               btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.05)`;
+               if (inner !== btn) inner.style.transform = `translate(${x * 0.5}px, ${y * 0.5}px)`;
+               btn.style.transition = 'transform 0.15s ease-out';
+               if (inner !== btn) inner.style.transition = 'transform 0.15s ease-out';
+            });
+            btn.addEventListener('mouseleave', () => {
+               btn.style.transform = `translate(0px, 0px) scale(1)`;
+               if (inner !== btn) inner.style.transform = `translate(0px, 0px)`;
+               btn.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+               if (inner !== btn) inner.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+            });
+         });
+      })();
+
+      // ── 10. CINEMATIC OBSERVER ─────────────────────────────
+      (function() {
+         const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+               if (entry.isIntersecting) {
+                  entry.target.classList.add('visible');
+                  entry.target.querySelectorAll('.split-title').forEach(t => {
+                     if (!t.dataset.split) {
+                        const words = t.innerText.split(' ');
+                        t.innerHTML = words.map((w, i) => `<span class="reveal-title-word" style="--delay: ${i * 80}ms">${w}</span>`).join(' ');
+                        t.dataset.split = "true";
+                     }
+                  });
+               }
+            });
+         }, { threshold: 0.1 });
+         document.querySelectorAll('section, [class*="reveal"]').forEach(s => observer.observe(s));
+         
+         setInterval(() => {
+            const el = document.querySelector('.glitch-text');
+            if (el) {
+               el.classList.add('auto-glitch');
+               setTimeout(() => el.classList.remove('auto-glitch'), 400);
+            }
+         }, 10000);
+      })();
+
+      // ── 11. CYBER RIPPLE LENS ─────────────────────────────
+      document.addEventListener('mousedown', function(e) {
+         if (window.isLowEnd) return;
+         const r = document.createElement('div');
+         r.className = 'cyber-ripple';
+         r.style.left = e.pageX + 'px'; r.style.top = e.pageY + 'px';
+         document.body.appendChild(r);
+         const ri = document.createElement('div');
+         ri.className = 'cyber-ripple-inner';
+         ri.style.left = e.pageX + 'px'; ri.style.top = e.pageY + 'px';
+         document.body.appendChild(ri);
+         setTimeout(() => { r.remove(); ri.remove(); }, 600);
+      });
+
+      // ── 12. GLOBAL 3D BACKGROUND ENGINE ────────────────────
+      (function() {
+         const container = document.getElementById('global-3d-bg');
+         if (!container || typeof THREE === 'undefined') return;
+
+         const scene = new THREE.Scene();
+         const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+         renderer.setSize(window.innerWidth, window.innerHeight);
+         container.appendChild(renderer.domElement);
+
+          // ── CYBER-CITY HOLOGRAM (ULTRA-NEW) ──
+          const cityGroup = new THREE.Group();
+          scene.add(cityGroup);
+
+          const gridDim = 12;
+          const spacing = 4;
+          const towers = [];
+
+          for(let x = -gridDim/2; x < gridDim/2; x++) {
+             for(let z = -gridDim/2; z < gridDim/2; z++) {
+                const height = 2 + Math.random() * 10;
+                const towerGeo = new THREE.BoxGeometry(1.5, height, 1.5);
+                const towerMat = new THREE.MeshPhongMaterial({ 
+                   color: 0x3b82f6, 
+                   transparent: true, 
+                   opacity: 0.3, 
+                   wireframe: true,
+                   emissive: 0x7b2ff7,
+                   emissiveIntensity: 0.2
+                });
+                const tower = new THREE.Mesh(towerGeo, towerMat);
+                tower.position.set(x * spacing, height/2 - 10, z * spacing);
+                tower.userData = { 
+                   originalHeight: height, 
+                   noiseOffset: Math.random() * 100,
+                   speed: 0.2 + Math.random() * 0.8
+                };
+                towers.push(tower);
+                cityGroup.add(tower);
+             }
+          }
+
+          // Ambient & Lights
+          scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+          const pLight = new THREE.PointLight(0x7b2ff7, 3, 100);
+          pLight.position.set(20, 30, 20);
+          scene.add(pLight);
+
+          camera.position.set(0, 15, 35);
+          camera.lookAt(0, 0, 0);
+
+          let mouseX = 0, mouseY = 0;
+          window.addEventListener('mousemove', e => {
+             mouseX = (e.clientX/window.innerWidth - 0.5) * 15;
+             mouseY = (e.clientY/window.innerHeight - 0.5) * 15;
+          });
+
+          function animate() {
+             requestAnimationFrame(animate);
+             const p = geo.attributes.position.array;
+             const time = Date.now() * 0.0005;
+
+             for(let i=0; i<count; i++) {
+                const i3 = i * 3;
+                
+                // Rotation
+                const angle = 0.005 * speeds[i];
+                const x = p[i3];
+                const y = p[i3+1];
+                p[i3] = x * Math.cos(angle) - y * Math.sin(angle);
+                p[i3+1] = x * Math.sin(angle) + y * Math.cos(angle);
+
+                // Depth movement + Scroll influence
+                p[i3+2] += 0.1 * speeds[i];
+                if(p[i3+2] > 40) p[i3+2] = -40;
+
+                // Mouse influence (Gravitational Pinch)
+                const dx = p[i3] - mouse.x;
+                const dy = p[i3+1] - mouse.y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if(d < 10) {
+                   p[i3] -= dx * 0.02;
+                   p[i3+1] -= dy * 0.02;
+                }
+             }
+
+             geo.attributes.position.needsUpdate = true;
+             vortexGroup.position.z = scrollY * 0.05;
+             vortexGroup.rotation.z += 0.001;
+
+             renderer.render(scene, camera);
+          }
+          animate();
+
+          window.addEventListener('resize', () => {
+             camera.aspect = window.innerWidth / window.innerHeight;
+             camera.updateProjectionMatrix();
+             renderer.setSize(window.innerWidth, window.innerHeight);
+          });
+
+         // Scroll Progress Integration
+         const bar = document.getElementById('scroll-progress');
+         if (bar) {
+            window.addEventListener('scroll', () => {
+               const winScroll = document.documentElement.scrollTop;
+               const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+               const scrolled = (winScroll / height) * 100;
+               bar.style.width = scrolled + "%";
+            }, { passive: true });
+         }
+      })();
+    </script>
+	</body>
+</html>
