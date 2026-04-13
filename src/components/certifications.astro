@@ -30,83 +30,84 @@ const certifications = [
 ];
 ---
 
-<section id="certifications" class="reveal-section py-24 bg-[#050508] relative min-h-[600px] overflow-hidden">
-  <!-- 3D BACKGROUND ENGINE -->
-  <div id="certs-3d-bg" class="absolute inset-0 z-0 opacity-40"></div>
+<section id="certifications" class="reveal-section py-20 md:py-32 bg-[#050508] relative min-h-screen overflow-hidden flex flex-col items-center">
+  <!-- 3D BACKGROUND -->
+  <div id="certs-3d-bg" class="absolute inset-0 z-0 opacity-40 pointer-events-none"></div>
   
-  <!-- Dynamic Aura -->
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-500/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
-
   <div class="container mx-auto px-6 relative z-10">
-    <div class="flex flex-col items-center text-center mb-16 gap-6">
-      <div class="flex flex-col items-center">
-        <div class="flex items-center justify-center gap-3 mb-4">
-          <div class="w-8 h-[1px] bg-blue-400"></div>
-          <span class="text-[10px] font-mono text-blue-400 uppercase tracking-[0.4em] font-black">Verified Credentials</span>
-          <div class="w-8 h-[1px] bg-blue-400"></div>
-        </div>
-        <h2 class="text-4xl md:text-5xl font-black font-outfit uppercase tracking-tighter leading-none italic">
-          MY <span class="gradient-text-animated not-italic">CERTIFICATIONS</span>
-        </h2>
+    <!-- Header -->
+    <div class="flex flex-col items-center text-center mb-16 md:mb-24">
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-[1px] bg-blue-500/50"></div>
+        <span class="text-[10px] font-mono text-blue-400 uppercase tracking-[0.4em] font-bold">Verified Expertise</span>
+        <div class="w-10 h-[1px] bg-blue-500/50"></div>
       </div>
-      <p class="text-gray-500 font-mono text-[10px] max-w-md uppercase tracking-widest leading-relaxed">
-        Independent nodes verifying expertise in AI architecture & distributed systems
-      </p>
+      <h2 class="text-4xl md:text-6xl font-black font-outfit uppercase tracking-tighter italic text-white leading-none">
+        MY <span class="gradient-text-animated not-italic">Certifications</span>
+      </h2>
     </div>
 
-    <!-- CERTIFICATION DECK -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- RESPONSIVE GRID -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
       {certifications.map((cert, i) => (
-        <div class="cert-card-new reveal-zoom group relative bg-[#0d0d14]/80 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden hover:border-blue-500/40 transition-all duration-500 cursor-pointer" 
+        <div class="cert-card-new group relative bg-[#0d0d14]/80 backdrop-blur-xl border border-white/5 rounded-2xl overflow-hidden hover:border-blue-500/40 transition-all duration-500 cursor-pointer" 
              data-cert-img={cert.image}
              style={`transition-delay: ${i * 0.1}s`}>
           
-          <div class="relative h-48 overflow-hidden pointer-events-none">
-            <img src={cert.image} alt={cert.title} class="w-full h-full object-cover grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d14] via-[#0d0d14]/40 to-transparent"></div>
-            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-               <div class="w-12 h-12 rounded-full bg-blue-500/20 backdrop-blur-md border border-white/10 flex items-center justify-center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
-               </div>
-            </div>
+          <!-- Image Container (fixed aspect ratio for grid) -->
+          <div class="relative aspect-[4/3] w-full bg-black/40 overflow-hidden flex items-center justify-center p-3">
+            <img src={cert.image} alt={cert.title} class="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700" />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d0d14] via-transparent to-transparent"></div>
           </div>
 
           <div class="p-6">
-            <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center justify-between mb-3">
                <span class="text-[9px] font-mono text-blue-400 font-black uppercase tracking-widest">{cert.issuer}</span>
                <span class="text-[10px] font-mono text-gray-500 italic">{cert.date}</span>
             </div>
-            <h3 class="text-lg font-black font-outfit text-white mb-4 group-hover:text-blue-400 transition-colors uppercase tracking-tight leading-tight">{cert.title}</h3>
+            <h3 class="text-lg font-black font-outfit text-white mb-4 group-hover:text-blue-400 transition-colors uppercase leading-tight">{cert.title}</h3>
+            
             <div class="flex items-center justify-between pt-4 border-t border-white/5">
-              <span class="text-[9px] font-mono text-gray-600 uppercase tracking-tighter">{cert.duration}</span>
+              <span class="text-[9px] font-mono text-gray-500 uppercase">{cert.duration}</span>
               <div class="flex items-center gap-2">
-                 <span class="text-[9px] font-bold font-mono text-blue-400 uppercase tracking-widest group-hover:underline">OPEN.ASSET</span>
-                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-blue-400"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                 <span class="text-[9px] font-bold font-mono text-blue-400 uppercase tracking-widest">EXPAND</span>
+                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="text-blue-400"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
               </div>
             </div>
           </div>
-          <div class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
         </div>
       ))}
     </div>
   </div>
 
-  <!-- ── VIEWER OVERLAY ── -->
-  <div id="cert-viewer" class="fixed inset-0 z-[100001] opacity-0 pointer-events-none transition-all duration-300">
-    <div id="cert-viewer-bg" class="absolute inset-0 bg-black/98 backdrop-blur-3xl cursor-pointer"></div>
-    <div id="cert-viewer-scroll" class="absolute inset-0 overflow-y-auto flex flex-col items-center">
-      <button id="cert-viewer-close" class="fixed top-8 right-8 z-[110000] w-12 h-12 rounded-full bg-white/10 border border-white/20 text-white text-2xl flex items-center justify-center hover:bg-white/20 transition-all">✕</button>
-      <div id="cert-viewer-box" class="relative m-auto min-h-screen flex flex-col items-center pt-32 pb-20 px-4 md:px-8 transition-transform duration-500 transform scale-95">
-        <div class="rounded-xl overflow-hidden border border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.8)]">
-          <img id="cert-viewer-img" src="" class="max-w-[95vw] md:max-w-[80vw] h-auto object-contain block" alt="Certificate"/>
+  <!-- ── VIEWER OVERLAY (FIXED WITH TOP GAP) ── -->
+  <div id="cert-viewer" class="fixed inset-0 z-[9999999] opacity-0 pointer-events-none transition-all duration-300">
+    <!-- Clickable Background Overlay -->
+    <div id="cert-viewer-bg" class="absolute inset-0 bg-black/98 backdrop-blur-2xl cursor-zoom-out"></div>
+    
+    <!-- Content Scrollable Area -->
+    <div id="cert-viewer-scroll" class="absolute inset-0 overflow-y-auto flex flex-col items-center pt-32 pb-20 px-4">
+      
+      <!-- Close Button (Fixed positioning relative to screen) -->
+      <button id="cert-viewer-close" class="fixed top-8 right-8 text-white/50 hover:text-white text-4xl p-2 z-[10000000] transition-colors">✕</button>
+      
+      <!-- The Certificate Box -->
+      <div id="cert-viewer-box" class="relative z-10 w-full max-w-4xl flex flex-col items-center transition-all duration-500 transform scale-95 opacity-0">
+        
+        <!-- Image display - object-contain ensures no cropping -->
+        <div class="bg-black/50 p-2 rounded-xl border border-white/10 shadow-[0_0_80px_rgba(0,0,0,1)] overflow-hidden">
+          <img id="cert-viewer-img" src="" class="w-full h-auto max-h-[60vh] object-contain rounded-lg block" alt="Certificate"/>
         </div>
-        <div class="mt-12 flex justify-center w-full">
-          <a id="cert-viewer-link" href="#" target="_blank" download="Certification" class="px-12 py-5 bg-blue-600 hover:bg-blue-500 text-white font-mono text-[12px] font-black uppercase tracking-[0.3em] rounded-full flex items-center gap-4 transition-all shadow-2xl border border-blue-400/20 active:scale-95">
-             <span>DOWNLOAD CREDENTIAL</span>
-             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        
+        <!-- Download Link -->
+        <div class="mt-12">
+          <a id="cert-viewer-link" href="#" target="_blank" download class="px-12 py-5 bg-blue-600 hover:bg-blue-500 text-white font-mono text-[12px] font-black uppercase tracking-[0.3em] rounded-full flex items-center gap-4 transition-all shadow-2xl active:scale-95">
+             <span>DOWNLOAD CERTIFICATE</span>
+             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           </a>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -120,105 +121,103 @@ const certifications = [
     animation: shine 3s linear infinite;
   }
   @keyframes shine { to { background-position: 200% center; } }
+
+  /* Modal States */
   #cert-viewer.visible { opacity: 1; pointer-events: auto; }
-  #cert-viewer.visible #cert-viewer-box { transform: scale(1); }
+  #cert-viewer.visible #cert-viewer-box { transform: scale(1); opacity: 1; }
+  
+  /* Lock body scroll */
+  body.viewer-open { overflow: hidden !important; }
 </style>
 
 <script is:inline>
   function runCertKit() {
-    const v = document.getElementById('cert-viewer');
-    const vBg = document.getElementById('cert-viewer-bg');
-    const vScroll = document.getElementById('cert-viewer-scroll');
-    const vClose = document.getElementById('cert-viewer-close');
+    const viewer = document.getElementById('cert-viewer');
     const vImg = document.getElementById('cert-viewer-img');
     const vLink = document.getElementById('cert-viewer-link');
+    const vClose = document.getElementById('cert-viewer-close');
+    const vBg = document.getElementById('cert-viewer-bg');
+    const vScroll = document.getElementById('cert-viewer-scroll');
     const cards = document.querySelectorAll('[data-cert-img]');
 
-    // Safety Check: Avoid running if elements aren't present
-    if (!v || !vImg || !vLink) return;
+    if (!viewer) return;
 
-    function open(src) {
+    function openViewer(src) {
       vImg.src = src;
       vLink.href = src;
-      v.classList.add('visible');
+      viewer.classList.add('visible');
+      document.body.classList.add('viewer-open');
       if (vScroll) vScroll.scrollTop = 0;
     }
 
-    function close() {
-      v.classList.remove('visible');
+    function closeViewer() {
+      viewer.classList.remove('visible');
+      document.body.classList.remove('viewer-open');
     }
 
-    cards.forEach(c => {
-      c.onclick = (e) => {
+    cards.forEach(card => {
+      card.addEventListener('click', (e) => {
         e.preventDefault();
-        open(c.getAttribute('data-cert-img'));
-      };
+        openViewer(card.getAttribute('data-cert-img'));
+      });
     });
 
-    if(vClose) vClose.onclick = close;
-    if(vScroll) vScroll.onclick = (e) => { 
-      if (e.target.closest('#cert-viewer-img') || e.target.closest('#cert-viewer-link')) return;
-      close(); 
-    };
+    // EXIT LOGIC
+    if (vBg) vBg.onclick = closeViewer;
+    if (vClose) vClose.onclick = closeViewer;
+    
+    // Close if user clicks the scroll background (not the image box)
+    if (vScroll) {
+      vScroll.onclick = (e) => {
+        if (e.target === vScroll) closeViewer();
+      };
+    }
 
     document.onkeydown = (e) => {
-      if (e.key === 'Escape' && v.classList.contains('visible')) close();
+      if (e.key === 'Escape') closeViewer();
     };
   }
-
-  // Robust Execution
-  document.addEventListener('DOMContentLoaded', () => { runCertKit(); initCert3D(); });
-  document.addEventListener('astro:page-load', () => { runCertKit(); initCert3D(); });
-  runCertKit(); initCert3D();
 
   function initCert3D() {
     const container = document.getElementById('certs-3d-bg');
     if (!container || container.dataset.init === 'true') return;
     container.dataset.init = 'true';
 
-    // Check for THREE global
     if (typeof THREE === 'undefined') {
        const script = document.createElement('script');
        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
-       script.onload = createScene;
+       script.onload = () => buildParticles(container);
        document.head.appendChild(script);
     } else {
-       createScene();
-    }
-
-    function createScene() {
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-      renderer.setSize(container.offsetWidth, container.offsetHeight);
-      container.appendChild(renderer.domElement);
-
-      // Neuronal Particles
-      const geometry = new THREE.BufferGeometry();
-      const count = 1500;
-      const positions = new Float32Array(count * 3);
-      for(let i=0; i<count*3; i++) positions[i] = (Math.random() - 0.5) * 50;
-      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      
-      const material = new THREE.PointsMaterial({ size: 0.1, color: 0x3b82f6, transparent: true, opacity: 0.5 });
-      const particles = new THREE.Points(geometry, material);
-      scene.add(particles);
-
-      camera.position.z = 25;
-
-      function animate() {
-        requestAnimationFrame(animate);
-        particles.rotation.y += 0.0005;
-        particles.rotation.x += 0.0002;
-        renderer.render(scene, camera);
-      }
-      animate();
-
-      window.addEventListener('resize', () => {
-        camera.aspect = container.offsetWidth / container.offsetHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(container.offsetWidth, container.offsetHeight);
-      });
+       buildParticles(container);
     }
   }
+
+  function buildParticles(container) {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(container.offsetWidth, container.offsetHeight);
+    container.appendChild(renderer.domElement);
+
+    const geo = new THREE.BufferGeometry();
+    const pos = new Float32Array(800 * 3);
+    for(let i=0; i<800*3; i++) pos[i] = (Math.random() - 0.5) * 50;
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    const mat = new THREE.PointsMaterial({ size: 0.1, color: 0x3b82f6, transparent: true, opacity: 0.3 });
+    const pts = new THREE.Points(geo, mat);
+    scene.add(pts);
+    camera.position.z = 25;
+
+    function anim() {
+      requestAnimationFrame(anim);
+      pts.rotation.y += 0.0005;
+      renderer.render(scene, camera);
+    }
+    anim();
+  }
+
+  document.addEventListener('DOMContentLoaded', runCertKit);
+  document.addEventListener('astro:page-load', runCertKit);
+  initCert3D();
 </script>
